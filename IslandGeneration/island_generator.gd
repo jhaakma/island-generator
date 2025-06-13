@@ -8,6 +8,7 @@ class_name IslandGenerator
 @export var noise_weight_detail: float = 0.25
 @export var starting_seed: int = 42
 @export var biomes: Array[Biome] = []
+@export var modifiers: Array[MapModifier] = []
 @export var center_bias: float = 3.0
 @export var height_adjustment: float = 0.0
 
@@ -53,6 +54,9 @@ func generate_map() -> Dictionary:
                     color = biome.color
                     break
             img.set_pixel(x, y, color)
+
+    for modifier in modifiers:
+        modifier.apply(self, img)
 
     img.generate_mipmaps()
     var texture := ImageTexture.create_from_image(img)
