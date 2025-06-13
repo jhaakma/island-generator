@@ -15,23 +15,25 @@ metadata/_custom_type_script = "uid://he307x1qs1nr"
 
 [sub_resource type="Resource" id="Resource_island_gen"]
 script = ExtResource("4_map")
-island_size = Vector2i(512, 512)
+island_size = Vector2i(256, 128)
 noise_scale = 128.0
 noise_scale_detail = 32.0
 noise_weight_detail = 0.15
 starting_seed = -1
 land_heights = SubResource("Resource_i3fi7")
-center_bias = 0.0
+center_bias = 1.0
 height_adjustment = 5.0
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_qtv3y")
+island_size = Vector2i(800, 512)
 
 [node name="Water" parent="." instance=ExtResource("2_i3fi7")]
+water_size = Vector2(256, 128)
 
 [node name="IslandRenderer" parent="." instance=ExtResource("2_cmk6n")]
 data_generator = SubResource("Resource_island_gen")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 anchor_mode = 0
-zoom = Vector2(4, 4)
+zoom = Vector2(1.25, 1.25)

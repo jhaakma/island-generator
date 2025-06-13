@@ -12,8 +12,6 @@ var sprite: Sprite2D
 var collision_polygons: Array[CollisionPolygon2D]
 
 func _ready():
-    if data_generator == null:
-        data_generator = IslandGenerator.new()
     generate_island()
 
 func generate_island():

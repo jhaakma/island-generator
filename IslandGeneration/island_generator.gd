@@ -28,21 +28,23 @@ func generate_map() -> Dictionary:
 
     var img := Image.create(island_size.x, island_size.y, false, Image.FORMAT_RGBA8)
     var center := island_size / 2
-    var max_dist: int = min(center.x, center.y)
+    var max_x = center.x
+    var max_y = center.y
 
     for y in island_size.y:
         for x in island_size.x:
             var pos = Vector2i(x, y)
-            var dist = (pos - center).length()
-            var normalized_dist = dist / max_dist if max_dist > 0 else 0
+            var dx = abs(pos.x - center.x) / float(max_x) if max_x > 0 else 0
+            var dy = abs(pos.y - center.y) / float(max_y) if max_y > 0 else 0
+            var normalized_dist = max(dx, dy) # Rectangle falloff
 
             var base_height = noise.get_noise_2d(x, y)
             var detail_height = noise_detail.get_noise_2d(x, y)
             var height = base_height + (detail_height * noise_weight_detail)
-            if max_dist > 0:
+            if max_x > 0 and max_y > 0:
                 height *= pow(1 - normalized_dist, 1 + center_bias)
             height += height_adjustment * 0.01
-            if dist > max_dist:
+            if normalized_dist > 1.0:
                 height = 0
 
             var color: Color
