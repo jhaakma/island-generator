@@ -53,7 +53,7 @@ noise_weight_detail = 0.15
 starting_seed = -1
 biomes = Array[ExtResource("3_biome")]([SubResource("Resource_biome_sand"), SubResource("Resource_biome_grass"), SubResource("Resource_biome_forest"), SubResource("Resource_biome_dense"), SubResource("Resource_o8wgc"), SubResource("Resource_w20t6")])
 center_bias = 1.0
-height_adjustment = 10.0
+height_adjustment = 7.0
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_qtv3y")
