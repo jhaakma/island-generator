@@ -12,6 +12,7 @@ class_name IslandGenerator
 @export var center_bias: float = 3.0
 @export var height_adjustment: float = 0.0
 
+
 func generate_map() -> Dictionary:
     var seed = starting_seed
     if starting_seed == -1:
@@ -49,8 +50,11 @@ func generate_map() -> Dictionary:
                 height = 0
 
             var color: Color = Color(0.0, 0.0, 0.0, 0.0)
-            for biome in biomes:
-                if height < biome.max_height:
+            for i in biomes.size():
+                var biome = biomes[i]
+                var next_biome = biomes[i + 1] if i + 1 < biomes.size() else null
+                var max_height = next_biome.min_height if next_biome else 1.00
+                if height >= biome.min_height and height < max_height:
                     color = biome.color
                     break
             img.set_pixel(x, y, color)
