@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://oh0smqr43x1u"]
+
+[ext_resource type="Script" uid="uid://bgqpf2fjphdgn" path="res://Water/water.gd" id="1_todos"]
+[ext_resource type="Shader" uid="uid://bae02gldim2vc" path="res://Water/Water.gdshader" id="2_vro71"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jg1tu"]
+shader = ExtResource("2_vro71")
+shader_parameter/time = 0.0
+shader_parameter/foam_width = 0.03
+shader_parameter/water_color = Vector3(0.15, 0.35, 0.85)
+shader_parameter/foam_color = Vector3(1, 1, 1)
+
+[node name="Water" type="Node2D"]
+script = ExtResource("1_todos")
+
+[node name="Rect" type="ColorRect" parent="."]
+texture_filter = 1
+material = SubResource("ShaderMaterial_jg1tu")
+offset_right = 64.0
+offset_bottom = 16.0
+color = Color(0.228439, 0.588693, 0.856602, 1)

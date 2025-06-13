@@ -1,0 +1,32 @@
+[gd_scene load_steps=6 format=3 uid="uid://csjlsvgm6cf7k"]
+
+[ext_resource type="Script" uid="uid://cunwi2033q3mc" path="res://Scenes/Main/main.gd" id="1_qtv3y"]
+[ext_resource type="PackedScene" uid="uid://ohoiqeiuqx0l" path="res://IslandGeneration/IslandGenerator.tscn" id="2_cmk6n"]
+[ext_resource type="PackedScene" uid="uid://oh0smqr43x1u" path="res://Water/Water.tscn" id="2_i3fi7"]
+[ext_resource type="Script" uid="uid://he307x1qs1nr" path="res://IslandGeneration/LandHeights.gd" id="3_cmk6n"]
+
+[sub_resource type="Resource" id="Resource_i3fi7"]
+script = ExtResource("3_cmk6n")
+sand = 0.1
+grass = 0.15
+forest = 0.2
+metadata/_custom_type_script = "uid://he307x1qs1nr"
+
+[node name="Main" type="Node2D"]
+script = ExtResource("1_qtv3y")
+
+[node name="Water" parent="." instance=ExtResource("2_i3fi7")]
+
+[node name="IslandGenerator" parent="." instance=ExtResource("2_cmk6n")]
+island_size = Vector2i(512, 512)
+noise_scale = 128.0
+noise_scale_detail = 32.0
+noise_weight_detail = 0.15
+starting_seed = -1
+land_heights = SubResource("Resource_i3fi7")
+center_bias = 0.0
+height_adjustment = 5.0
+
+[node name="Camera2D" type="Camera2D" parent="."]
+anchor_mode = 0
+zoom = Vector2(4, 4)
