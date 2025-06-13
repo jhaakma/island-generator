@@ -7,27 +7,19 @@ class_name RiverModifier
 @export var river_count: int = 10
 @export var min_starting_height: float = 0.2
 
-func _calculate_height(generator: IslandGenerator, noise: FastNoiseLite, noise_detail: FastNoiseLite, pos: Vector2i, center: Vector2i, max_x: int, max_y: int) -> float:
-    var h = noise.get_noise_2d(pos.x, pos.y)
-    h += noise_detail.get_noise_2d(pos.x, pos.y) * generator.noise_weight_detail
-    var dx = abs(pos.x - center.x) / float(max_x) if max_x > 0 else 0
-    var dy = abs(pos.y - center.y) / float(max_y) if max_y > 0 else 0
-    var nd = max(dx, dy)
-    if max_x > 0 and max_y > 0:
-        h *= pow(1 - nd, 1 + generator.center_bias)
-    h += generator.height_adjustment * 0.01
-    if nd > 1.0:
-        h = 0
-    return h
+func _height_at(heightmap: Image, pos: Vector2i) -> float:
+    return heightmap.get_pixelv(pos).r
 
-func _generate_river(generator: IslandGenerator, image: Image, noise: FastNoiseLite, noise_detail: FastNoiseLite, center: Vector2i, max_x: int, max_y: int) -> void:
+func _generate_river(generator: IslandGenerator, image: Image, heightmap: Image) -> void:
     var start_pos := Vector2i.ZERO
     var found := false
 
+    var size := generator.get_island_size()
+
     for _i in start_search_attempts:
-        var x = randi() % generator.island_size.x
-        var y = randi() % generator.island_size.y
-        var h = _calculate_height(generator, noise, noise_detail, Vector2i(x, y), center, max_x, max_y)
+        var x = randi() % size.x
+        var y = randi() % size.y
+        var h = _height_at(heightmap, Vector2i(x, y))
 
         if h >= min_starting_height:
             start_pos = Vector2i(x, y)
@@ -43,7 +35,7 @@ func _generate_river(generator: IslandGenerator, image: Image, noise: FastNoiseL
     var bend_strength := 0.7 + randf() * 0.5 # How strong the bends are
 
     for i in max_length:
-        if pos.x < 0 or pos.x >= generator.island_size.x or pos.y < 0 or pos.y >= generator.island_size.y:
+        if pos.x < 0 or pos.x >= size.x or pos.y < 0 or pos.y >= size.y:
             break
         var c := image.get_pixelv(pos)
         if c.a == 0.0:
@@ -64,9 +56,9 @@ func _generate_river(generator: IslandGenerator, image: Image, noise: FastNoiseL
                 if dx == 0 and dy == 0:
                     continue
                 var n = pos + Vector2i(dx, dy)
-                if n.x < 0 or n.x >= generator.island_size.x or n.y < 0 or n.y >= generator.island_size.y:
+                if n.x < 0 or n.x >= size.x or n.y < 0 or n.y >= size.y:
                     continue
-                var h = _calculate_height(generator, noise, noise_detail, n, center, max_x, max_y)
+                var h = _height_at(heightmap, n)
                 var dir_vec = Vector2(n - pos).normalized()
                 var dot = bend_dir.dot(dir_vec)
                 # Prefer lower height and direction close to bend_dir
@@ -82,20 +74,6 @@ func _generate_river(generator: IslandGenerator, image: Image, noise: FastNoiseL
         direction = (direction * 0.7 + Vector2(best_neighbor - pos).normalized() * 0.3).normalized()
         pos = best_neighbor
 
-func apply(generator: IslandGenerator, image: Image) -> void:
-    var noise := FastNoiseLite.new()
-    noise.noise_type = FastNoiseLite.TYPE_PERLIN
-    noise.frequency = 1.0 / generator.noise_scale
-    noise.seed = generator.starting_seed
-
-    var noise_detail := FastNoiseLite.new()
-    noise_detail.noise_type = FastNoiseLite.TYPE_PERLIN
-    noise_detail.frequency = 1.0 / generator.noise_scale_detail
-    noise_detail.seed = generator.starting_seed + 1
-
-    var center := generator.island_size / 2
-    var max_x = center.x
-    var max_y = center.y
-
+func apply(generator: IslandGenerator, image: Image, heightmap: Image) -> void:
     for _i in river_count:
-        _generate_river(generator, image, noise, noise_detail, center, max_x, max_y)
+        _generate_river(generator, image, heightmap)

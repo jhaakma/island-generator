@@ -10,7 +10,7 @@ func _ready():
     island_renderer.connect("island_generated", _on_island_generated)
 
     water.set_size(island_size)
-    island_renderer.data_generator.island_size = island_size
+    island_renderer.data_generator.heightmap_generator.island_size = island_size
 
     # Start the island generation process
     island_renderer.generate_island()
