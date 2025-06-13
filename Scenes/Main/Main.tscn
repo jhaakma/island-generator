@@ -1,17 +1,35 @@
-[gd_scene load_steps=8 format=3 uid="uid://csjlsvgm6cf7k"]
+[gd_scene load_steps=11 format=3 uid="uid://csjlsvgm6cf7k"]
 
 [ext_resource type="Script" uid="uid://cunwi2033q3mc" path="res://Scenes/Main/main.gd" id="1_qtv3y"]
 [ext_resource type="PackedScene" uid="uid://ohoiqeiuqx0l" path="res://IslandGeneration/IslandRenderer.tscn" id="2_cmk6n"]
 [ext_resource type="PackedScene" uid="uid://oh0smqr43x1u" path="res://Water/Water.tscn" id="2_i3fi7"]
-[ext_resource type="Script" uid="uid://he307x1qs1nr" path="res://IslandGeneration/LandHeights.gd" id="3_cmk6n"]
-[ext_resource type="Script" uid="uid://xk42ray1r42m" path="res://IslandGeneration/island_generator.gd" id="4_map"]
+[ext_resource type="Script" uid="uid://d2ubhr7dafolu" path="res://IslandGeneration/Biome.gd" id="3_biome"]
+[ext_resource type="Script" uid="uid://xk42q9y1r42m" path="res://IslandGeneration/island_generator.gd" id="4_map"]
 
-[sub_resource type="Resource" id="Resource_i3fi7"]
-script = ExtResource("3_cmk6n")
-sand = 0.1
-grass = 0.15
-forest = 0.2
-metadata/_custom_type_script = "uid://he307x1qs1nr"
+
+[sub_resource type="Resource" id="Resource_biome_sand"]
+script = ExtResource("3_biome")
+name = "Sand"
+max_height = 0.1
+color = Color(0, 0, 0, 0)
+
+[sub_resource type="Resource" id="Resource_biome_grass"]
+script = ExtResource("3_biome")
+name = "Grass"
+max_height = 0.15
+color = Color(0.95, 0.89, 0.55, 1.0)
+
+[sub_resource type="Resource" id="Resource_biome_forest"]
+script = ExtResource("3_biome")
+name = "Forest"
+max_height = 0.2
+color = Color(0.35, 0.65, 0.25, 1.0)
+
+[sub_resource type="Resource" id="Resource_biome_dense"]
+script = ExtResource("3_biome")
+name = "DenseForest"
+max_height = 1.0
+color = Color(0.15, 0.35, 0.13, 1.0)
 
 [sub_resource type="Resource" id="Resource_island_gen"]
 script = ExtResource("4_map")
@@ -20,7 +38,7 @@ noise_scale = 128.0
 noise_scale_detail = 32.0
 noise_weight_detail = 0.15
 starting_seed = -1
-land_heights = SubResource("Resource_i3fi7")
+biomes = [SubResource("Resource_biome_sand"), SubResource("Resource_biome_grass"), SubResource("Resource_biome_forest"), SubResource("Resource_biome_dense")]
 center_bias = 1.0
 height_adjustment = 5.0
 

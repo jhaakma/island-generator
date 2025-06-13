@@ -7,7 +7,7 @@ class_name IslandGenerator
 @export var noise_scale_detail: float = 8.0
 @export var noise_weight_detail: float = 0.25
 @export var starting_seed: int = 42
-@export var land_heights: LandHeights
+@export var biomes: Array[Biome] = []
 @export var center_bias: float = 3.0
 @export var height_adjustment: float = 0.0
 
@@ -47,15 +47,11 @@ func generate_map() -> Dictionary:
             if normalized_dist > 1.0:
                 height = 0
 
-            var color: Color
-            if height < land_heights.sand:
-                color = Color(0.0, 0.0, 0.0, 0.0)
-            elif height < land_heights.grass:
-                color = Color(0.95, 0.89, 0.55, 1.0)
-            elif height < land_heights.forest:
-                color = Color(0.35, 0.65, 0.25, 1.0)
-            else:
-                color = Color(0.15, 0.35, 0.13, 1.0)
+            var color: Color = Color(0.0, 0.0, 0.0, 0.0)
+            for biome in biomes:
+                if height < biome.max_height:
+                    color = biome.color
+                    break
             img.set_pixel(x, y, color)
 
     img.generate_mipmaps()
