@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://ohoiqeiuqx0l"]
-
-[ext_resource type="Script" uid="uid://d3nypllvuam14" path="res://IslandGeneration/island_generator.gd" id="1_l3ro0"]
-
-[node name="IslandGenerator" type="Node2D"]
-script = ExtResource("1_l3ro0")

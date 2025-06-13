@@ -1,53 +1,71 @@
-extends Node2D
+extends Resource
 class_name IslandGenerator
 
-## SIGNALS ##
-signal island_generated(texture: ImageTexture, collision_polygons: Array[CollisionPolygon2D])
-
 ## EXPORTS ##
-@export var data_generator: IslandMapGenerator
+@export var island_size: Vector2i = Vector2i(256, 256)
+@export var noise_scale: float = 32.0
+@export var noise_scale_detail: float = 8.0
+@export var noise_weight_detail: float = 0.25
+@export var starting_seed: int = 42
+@export var land_heights: LandHeights
+@export var center_bias: float = 3.0
+@export var height_adjustment: float = 0.0
 
-## GENERATED NODES ##
-var sprite: Sprite2D
-var collision_polygons: Array[CollisionPolygon2D]
+func generate_map() -> Dictionary:
+    var seed = starting_seed
+    if starting_seed == -1:
+        seed = randi() % 1000000
 
-func _ready():
-    if data_generator == null:
-        data_generator = IslandMapGenerator.new()
-    generate_island()
+    var noise := FastNoiseLite.new()
+    noise.noise_type = FastNoiseLite.TYPE_PERLIN
+    noise.frequency = 1.0 / noise_scale
+    noise.seed = seed
 
-func generate_island():
-    var result := data_generator.generate_map()
-    var texture: ImageTexture = result["texture"]
-    var polygons: Array[PackedVector2Array] = result["polygons"]
+    var noise_detail := FastNoiseLite.new()
+    noise_detail.noise_type = FastNoiseLite.TYPE_PERLIN
+    noise_detail.frequency = 1.0 / noise_scale_detail
+    noise_detail.seed = seed + 1
 
-    if sprite:
-        remove_child(sprite)
-        sprite.queue_free()
-    sprite = Sprite2D.new()
-    sprite.texture = texture
-    sprite.centered = false
-    add_child(sprite)
+    var img := Image.create(island_size.x, island_size.y, false, Image.FORMAT_RGBA8)
+    var center := island_size / 2
+    var max_dist: int = min(center.x, center.y)
 
-    if collision_polygons:
-        for polygon in collision_polygons:
-            remove_child(polygon)
-            polygon.queue_free()
-    collision_polygons.clear()
+    for y in island_size.y:
+        for x in island_size.x:
+            var pos = Vector2i(x, y)
+            var dist = (pos - center).length()
+            var normalized_dist = dist / max_dist if max_dist > 0 else 0
 
-    if polygons.size() > 0:
-        for polygon in polygons:
-            var collision_polygon := CollisionPolygon2D.new()
-            collision_polygon.polygon = polygon
-            collision_polygon.position = Vector2.ZERO
-            add_child(collision_polygon)
-            collision_polygons.append(collision_polygon)
-    else:
-        print("No collision polygon generated, using null.")
+            var base_height = noise.get_noise_2d(x, y)
+            var detail_height = noise_detail.get_noise_2d(x, y)
+            var height = base_height + (detail_height * noise_weight_detail)
+            if max_dist > 0:
+                height *= pow(1 - normalized_dist, 1 + center_bias)
+            height += height_adjustment * 0.01
+            if dist > max_dist:
+                height = 0
 
-    island_generated.emit(texture, collision_polygons)
+            var color: Color
+            if height < land_heights.sand:
+                color = Color(0.0, 0.0, 0.0, 0.0)
+            elif height < land_heights.grass:
+                color = Color(0.95, 0.89, 0.55, 1.0)
+            elif height < land_heights.forest:
+                color = Color(0.35, 0.65, 0.25, 1.0)
+            else:
+                color = Color(0.15, 0.35, 0.13, 1.0)
+            img.set_pixel(x, y, color)
 
-func _input(event):
-    if event.is_action_pressed("ui_accept"):
-        generate_island()
+    img.generate_mipmaps()
+    var texture := ImageTexture.create_from_image(img)
 
+    var bitmap := BitMap.new()
+    bitmap.create_from_image_alpha(img, 0.5)
+    var rect := Rect2i(Vector2i.ZERO, island_size)
+    var polygons := bitmap.opaque_to_polygons(rect)
+
+    return {
+        "texture": texture,
+        "image": img,
+        "polygons": polygons
+    }
