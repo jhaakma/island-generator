@@ -14,3 +14,7 @@ export_credentials.cfg
 .mono/
 data_*/
 mono_crash.*.json
+
+# Godot executables
+Godot_v4.4.1-stable_linux.x86_64.*
+*.exe
