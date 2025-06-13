@@ -1,11 +1,10 @@
-[gd_scene load_steps=11 format=3 uid="uid://csjlsvgm6cf7k"]
+[gd_scene load_steps=13 format=3 uid="uid://csjlsvgm6cf7k"]
 
 [ext_resource type="Script" uid="uid://cunwi2033q3mc" path="res://Scenes/Main/main.gd" id="1_qtv3y"]
 [ext_resource type="PackedScene" uid="uid://ohoiqeiuqx0l" path="res://IslandGeneration/IslandRenderer.tscn" id="2_cmk6n"]
 [ext_resource type="PackedScene" uid="uid://oh0smqr43x1u" path="res://Water/Water.tscn" id="2_i3fi7"]
 [ext_resource type="Script" uid="uid://d2ubhr7dafolu" path="res://IslandGeneration/Biome.gd" id="3_biome"]
-[ext_resource type="Script" uid="uid://xk42q9y1r42m" path="res://IslandGeneration/island_generator.gd" id="4_map"]
-
+[ext_resource type="Script" uid="uid://xk42ray1r42m" path="res://IslandGeneration/island_generator.gd" id="4_map"]
 
 [sub_resource type="Resource" id="Resource_biome_sand"]
 script = ExtResource("3_biome")
@@ -17,19 +16,33 @@ color = Color(0, 0, 0, 0)
 script = ExtResource("3_biome")
 name = "Grass"
 max_height = 0.15
-color = Color(0.95, 0.89, 0.55, 1.0)
+color = Color(0.95, 0.89, 0.55, 1)
 
 [sub_resource type="Resource" id="Resource_biome_forest"]
 script = ExtResource("3_biome")
 name = "Forest"
 max_height = 0.2
-color = Color(0.35, 0.65, 0.25, 1.0)
+color = Color(0.35, 0.65, 0.25, 1)
 
 [sub_resource type="Resource" id="Resource_biome_dense"]
 script = ExtResource("3_biome")
 name = "DenseForest"
+max_height = 0.3
+color = Color(0.15, 0.35, 0.13, 1)
+
+[sub_resource type="Resource" id="Resource_o8wgc"]
+script = ExtResource("3_biome")
+name = "Mountain Base"
+max_height = 0.35
+color = Color(0.61339, 0.61339, 0.61339, 1)
+metadata/_custom_type_script = "uid://d2ubhr7dafolu"
+
+[sub_resource type="Resource" id="Resource_w20t6"]
+script = ExtResource("3_biome")
+name = "Mountain Peaks"
 max_height = 1.0
-color = Color(0.15, 0.35, 0.13, 1.0)
+color = Color(1, 1, 1, 1)
+metadata/_custom_type_script = "uid://d2ubhr7dafolu"
 
 [sub_resource type="Resource" id="Resource_island_gen"]
 script = ExtResource("4_map")
@@ -38,9 +51,9 @@ noise_scale = 128.0
 noise_scale_detail = 32.0
 noise_weight_detail = 0.15
 starting_seed = -1
-biomes = [SubResource("Resource_biome_sand"), SubResource("Resource_biome_grass"), SubResource("Resource_biome_forest"), SubResource("Resource_biome_dense")]
+biomes = Array[ExtResource("3_biome")]([SubResource("Resource_biome_sand"), SubResource("Resource_biome_grass"), SubResource("Resource_biome_forest"), SubResource("Resource_biome_dense"), SubResource("Resource_o8wgc"), SubResource("Resource_w20t6")])
 center_bias = 1.0
-height_adjustment = 5.0
+height_adjustment = 10.0
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_qtv3y")
