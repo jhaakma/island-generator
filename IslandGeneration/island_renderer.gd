@@ -10,17 +10,16 @@ var sprite: Sprite2D
 var collision_polygons: Array[CollisionPolygon2D]
 
 
-func generate_island(map_data: Dictionary, generator: IslandGenerator):
-    var heightmap: HeightMap = map_data["heightmap"]
-    var image := heightmap.get_image()
+func generate_island(height_map: HeightMap, generator: IslandGenerator):
+    var image := height_map.get_image()
     var size := image.get_size()
     var render_image := Image.create(size.x, size.y, false, Image.FORMAT_RGBA8)
     for y in size.y:
         for x in size.x:
-            var biome_index: int = heightmap.get_biome(x, y)
+            var biome_index: int = height_map.get_biome(x, y)
             biome_index = clamp(biome_index, 0, generator.biomes.size() - 1)
             var color: Color = generator.biomes[biome_index].color
-            if heightmap.has_freshwater(x, y):
+            if height_map.has_freshwater(x, y):
                 for m in generator.modifiers:
                     if m is RiverModifier:
                         color = m.river_color

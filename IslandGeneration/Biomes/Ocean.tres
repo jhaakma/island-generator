@@ -5,7 +5,7 @@
 [resource]
 script = ExtResource("1_pj7sn")
 name = "Ocean"
-min_height = -0.1
-color = Color(0.294674, 0.52591, 1, 0.972549)
-is_land = true
+min_height = -0.3
+color = Color(0.168, 0.3576, 0.8, 1)
+is_land = false
 metadata/_custom_type_script = "uid://d2ubhr7dafolu"

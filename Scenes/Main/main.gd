@@ -16,12 +16,22 @@ func _ready():
     island_generator.heightmap_generator.island_size = island_size
 
     # Generate the island map data
-    var map_data: Dictionary = island_generator.generate_map()
+    var height_map: = island_generator.generate_map()
 
     # Start the island generation process
-    island_renderer.generate_island(map_data, island_generator)
+    island_renderer.generate_island(height_map, island_generator)
+
+    # Set the debug sprite texture if available
+    set_debug_sprite_texture(height_map)
 
 
+
+func set_debug_sprite_texture(height_map) -> void:
+    var debug_sprite: Sprite2D = $DebugSprite
+    if debug_sprite:
+        var image: Image = height_map.get_image()
+        var h: Texture2D = ImageTexture.create_from_image(image)
+        debug_sprite.texture = h
 
 func _on_island_generated(texture: Texture2D, _collision_polygons: Array[CollisionPolygon2D]) -> void:
     water.update_island_texture(texture)
@@ -32,5 +42,6 @@ func _process(delta: float) -> void:
 func _input(event):
     if event.is_action_pressed("ui_accept"):
         print("Regenerating island...")
-        var map_data: Dictionary = island_generator.generate_map()
-        island_renderer.generate_island(map_data, island_generator)
+        var height_map: HeightMap = island_generator.generate_map()
+        island_renderer.generate_island(height_map, island_generator)
+        set_debug_sprite_texture(height_map)

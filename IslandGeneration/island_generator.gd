@@ -10,10 +10,10 @@ class_name IslandGenerator
 func get_island_size() -> Vector2i:
     return heightmap_generator.island_size
 
-func generate_map() -> Dictionary:
+func generate_map() -> HeightMap:
     if heightmap_generator == null:
         push_error("IslandGenerator requires a HeightmapGenerator")
-        return {}
+        return null
 
     var heightmap := heightmap_generator.generate_heightmap()
     var size := heightmap_generator.island_size
@@ -35,6 +35,4 @@ func generate_map() -> Dictionary:
     for modifier in modifiers:
         modifier.apply(self, heightmap)
 
-    return {
-        "heightmap": heightmap
-    }
+    return heightmap

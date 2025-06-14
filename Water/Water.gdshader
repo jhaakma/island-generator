@@ -29,8 +29,8 @@ vec4 blurred(sampler2D mask, vec2 uv, float radius) {
 
 void fragment() {
     vec2 uv = UV;
-    float land = texture(island_mask, uv).a;
-    float foam_mask = blurred(island_mask, uv, 1).a;
+    bool land = texture(island_mask, uv).r >= 0.0;
+    bool foam_mask = blurred(island_mask, uv, 1).r >= 0.0;
 
     // Simple multi-sine "noise" waves
     float wave = (
@@ -48,7 +48,7 @@ void fragment() {
     anim_water = mix(anim_water, deep_water, pow(depth, 1.5));
 
     // Blend with foam
-    vec3 final_color = mix(anim_water, foam_color, foam_mask);
+    vec3 final_color = mix(anim_water, foam_color, float(foam_mask));
 
     //if (land > 0.5) {
         //discard;

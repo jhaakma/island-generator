@@ -6,6 +6,6 @@
 script = ExtResource("1_55p28")
 name = "Deep Ocean"
 min_height = -1.0
-color = Color(0.000314583, 0.224797, 0.734376, 0.929412)
-is_land = false
+color = Color(0, 0.219, 0.73, 1)
+is_land = true
 metadata/_custom_type_script = "uid://d2ubhr7dafolu"

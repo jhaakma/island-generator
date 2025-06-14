@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://csjlsvgm6cf7k"]
+[gd_scene load_steps=22 format=3 uid="uid://csjlsvgm6cf7k"]
 
 [ext_resource type="Script" uid="uid://cunwi2033q3mc" path="res://Scenes/Main/main.gd" id="1_qtv3y"]
 [ext_resource type="PackedScene" uid="uid://ohoiqeiuqx0l" path="res://IslandGeneration/IslandRenderer.tscn" id="2_cmk6n"]
@@ -19,12 +19,6 @@
 [ext_resource type="Resource" uid="uid://cvdk3fgf23ieb" path="res://IslandGeneration/NoisePasses/BaseNoise64.tres" id="11_udh0u"]
 [ext_resource type="Resource" uid="uid://dtgcsr107jivp" path="res://IslandGeneration/NoisePasses/OverlayNoise16.tres" id="12_xggvw"]
 
-[sub_resource type="Resource" id="Resource_1jr1y"]
-script = ExtResource("10_qdkat")
-scale = 128.0
-weight = 0.3
-metadata/_custom_type_script = "uid://dqq55tsdtdqnk"
-
 [sub_resource type="Resource" id="Resource_xd21n"]
 script = ExtResource("6_hmap")
 island_size = Vector2i(256, 256)
@@ -32,7 +26,7 @@ starting_seed = -1
 center_bias = 0.0
 height_adjustment = 3.0
 height_multiplier = 2.0
-noise_passes = Array[ExtResource("10_qdkat")]([ExtResource("11_udh0u"), ExtResource("12_xggvw"), SubResource("Resource_1jr1y")])
+noise_passes = Array[ExtResource("10_qdkat")]([ExtResource("11_udh0u"), ExtResource("12_xggvw")])
 metadata/_custom_type_script = "uid://77iwvi5bg5o6"
 
 [sub_resource type="Resource" id="Resource_5ci8a"]
@@ -57,10 +51,15 @@ script = ExtResource("1_qtv3y")
 island_generator = SubResource("Resource_iwp64")
 island_size = Vector2i(512, 256)
 
+[node name="IslandRenderer" parent="." instance=ExtResource("2_cmk6n")]
+
 [node name="Water" parent="." instance=ExtResource("2_i3fi7")]
 visible = false
 water_size = Vector2(256, 128)
 
-[node name="IslandRenderer" parent="." instance=ExtResource("2_cmk6n")]
-
 [node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="DebugSprite" type="Sprite2D" parent="."]
+visible = false
+centered = false
+offset = Vector2(-800, -400)
