@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="NoisePass" load_steps=2 format=3 uid="uid://cvdk3fgf23ieb"]
+
+[ext_resource type="Script" uid="uid://dqq55tsdtdqnk" path="res://IslandGeneration/NoisePasses/NoisePass.gd" id="1_pfkau"]
+
+[resource]
+script = ExtResource("1_pfkau")
+scale = 64.0
+weight = 1.0
+starting_seed = -1
+metadata/_custom_type_script = "uid://dqq55tsdtdqnk"

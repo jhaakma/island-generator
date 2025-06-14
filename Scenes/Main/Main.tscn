@@ -1,80 +1,38 @@
-[gd_scene load_steps=19 format=3 uid="uid://csjlsvgm6cf7k"]
+[gd_scene load_steps=23 format=3 uid="uid://csjlsvgm6cf7k"]
 
 [ext_resource type="Script" uid="uid://cunwi2033q3mc" path="res://Scenes/Main/main.gd" id="1_qtv3y"]
 [ext_resource type="PackedScene" uid="uid://ohoiqeiuqx0l" path="res://IslandGeneration/IslandRenderer.tscn" id="2_cmk6n"]
 [ext_resource type="PackedScene" uid="uid://oh0smqr43x1u" path="res://Water/Water.tscn" id="2_i3fi7"]
 [ext_resource type="Script" uid="uid://d2ubhr7dafolu" path="res://IslandGeneration/Biome.gd" id="3_biome"]
+[ext_resource type="Resource" uid="uid://nku6nbo0ciyq" path="res://IslandGeneration/Biomes/DeepOcean.tres" id="3_dvlhv"]
 [ext_resource type="Script" uid="uid://xk42ray1r42m" path="res://IslandGeneration/island_generator.gd" id="4_map"]
+[ext_resource type="Resource" uid="uid://dcy0deb03fpni" path="res://IslandGeneration/Biomes/Ocean.tres" id="4_wgovn"]
 [ext_resource type="Script" uid="uid://232ig0rvy8pb" path="res://IslandGeneration/Modifiers/MapModifier.gd" id="5_aw1lf"]
+[ext_resource type="Resource" uid="uid://8dwytago3qxw" path="res://IslandGeneration/Biomes/Beach.tres" id="5_cv8e0"]
 [ext_resource type="Script" uid="uid://bav73ikqeuefi" path="res://IslandGeneration/Modifiers/RiverModifier.gd" id="5_river"]
+[ext_resource type="Resource" uid="uid://ckud58t81tgw6" path="res://IslandGeneration/Biomes/Mountains.tres" id="6_hkvnm"]
 [ext_resource type="Script" uid="uid://77iwvi5bg5o6" path="res://IslandGeneration/heightmap_generator.gd" id="6_hmap"]
+[ext_resource type="Resource" uid="uid://da6hen83kaoyg" path="res://IslandGeneration/Biomes/Grass.tres" id="6_wgovn"]
+[ext_resource type="Resource" uid="uid://ba7rwny00d5wn" path="res://IslandGeneration/Biomes/Forest.tres" id="7_hcu3t"]
+[ext_resource type="Resource" uid="uid://bhxt3clrg3ljb" path="res://IslandGeneration/Biomes/Snow.tres" id="7_wgovn"]
+[ext_resource type="Script" uid="uid://dqq55tsdtdqnk" path="res://IslandGeneration/NoisePasses/NoisePass.gd" id="10_qdkat"]
+[ext_resource type="Resource" uid="uid://cvdk3fgf23ieb" path="res://IslandGeneration/NoisePasses/BaseNoise64.tres" id="11_udh0u"]
+[ext_resource type="Resource" uid="uid://dtgcsr107jivp" path="res://IslandGeneration/NoisePasses/OverlayNoise16.tres" id="12_xggvw"]
 
-[sub_resource type="Resource" id="Resource_5s61s"]
-script = ExtResource("3_biome")
-name = "Deep Ocean"
-min_height = -1.0
-color = Color(0.000314583, 0.224797, 0.734376, 0.929412)
-is_land = false
-metadata/_custom_type_script = "uid://d2ubhr7dafolu"
+[sub_resource type="Resource" id="Resource_1jr1y"]
+script = ExtResource("10_qdkat")
+scale = 128.0
+weight = 0.3
+metadata/_custom_type_script = "uid://dqq55tsdtdqnk"
 
-[sub_resource type="Resource" id="Resource_7npjy"]
-script = ExtResource("3_biome")
-name = "Ocean"
-min_height = -0.1
-color = Color(0.294674, 0.52591, 1, 0.972549)
-is_land = true
-metadata/_custom_type_script = "uid://d2ubhr7dafolu"
-
-[sub_resource type="Resource" id="Resource_4vhfm"]
-script = ExtResource("3_biome")
-name = "Beach"
-min_height = 0.0
-color = Color(1, 0.955667, 0.62, 1)
-is_land = true
-metadata/_custom_type_script = "uid://d2ubhr7dafolu"
-
-[sub_resource type="Resource" id="Resource_dvlhv"]
-script = ExtResource("3_biome")
-name = "Grass"
-min_height = 0.1
-color = Color(0.40299, 0.63, 0.3402, 1)
-is_land = true
-metadata/_custom_type_script = "uid://d2ubhr7dafolu"
-
-[sub_resource type="Resource" id="Resource_wgovn"]
-script = ExtResource("3_biome")
-name = "Forest"
-min_height = 0.3
-color = Color(0.215133, 0.4, 0.164, 1)
-is_land = true
-metadata/_custom_type_script = "uid://d2ubhr7dafolu"
-
-[sub_resource type="Resource" id="Resource_cv8e0"]
-script = ExtResource("3_biome")
-name = "Mountains"
-min_height = 0.7
-color = Color(0.564962, 0.564962, 0.564962, 1)
-is_land = true
-metadata/_custom_type_script = "uid://d2ubhr7dafolu"
-
-[sub_resource type="Resource" id="Resource_hkvnm"]
-script = ExtResource("3_biome")
-name = "Snow"
-min_height = 0.9
-color = Color(1, 1, 1, 1)
-is_land = true
-metadata/_custom_type_script = "uid://d2ubhr7dafolu"
-
-[sub_resource type="Resource" id="Resource_aw1lf"]
+[sub_resource type="Resource" id="Resource_xd21n"]
 script = ExtResource("6_hmap")
 island_size = Vector2i(256, 256)
-noise_scale = 128.0
-noise_scale_detail = 32.0
-noise_weight_detail = 0.4
 starting_seed = -1
 center_bias = 0.0
 height_adjustment = 3.0
-height_multiplier = 1.5
+height_multiplier = 2.0
+noise_passes = Array[ExtResource("10_qdkat")]([ExtResource("11_udh0u"), ExtResource("12_xggvw"), SubResource("Resource_1jr1y")])
 metadata/_custom_type_script = "uid://77iwvi5bg5o6"
 
 [sub_resource type="Resource" id="Resource_5ci8a"]
@@ -87,16 +45,16 @@ min_starting_height = 0.5
 meander_chance = 0.7
 metadata/_custom_type_script = "uid://bav73ikqeuefi"
 
-[sub_resource type="Resource" id="Resource_w20t6"]
+[sub_resource type="Resource" id="Resource_iwp64"]
 script = ExtResource("4_map")
-heightmap_generator = SubResource("Resource_aw1lf")
-biomes = Array[ExtResource("3_biome")]([SubResource("Resource_5s61s"), SubResource("Resource_7npjy"), SubResource("Resource_4vhfm"), SubResource("Resource_dvlhv"), SubResource("Resource_wgovn"), SubResource("Resource_cv8e0"), SubResource("Resource_hkvnm")])
+heightmap_generator = SubResource("Resource_xd21n")
+biomes = Array[ExtResource("3_biome")]([ExtResource("3_dvlhv"), ExtResource("4_wgovn"), ExtResource("5_cv8e0"), ExtResource("6_wgovn"), ExtResource("7_hcu3t"), ExtResource("6_hkvnm"), ExtResource("7_wgovn")])
 modifiers = Array[ExtResource("5_aw1lf")]([SubResource("Resource_5ci8a")])
 metadata/_custom_type_script = "uid://xk42ray1r42m"
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_qtv3y")
-island_generator = SubResource("Resource_w20t6")
+island_generator = SubResource("Resource_iwp64")
 island_size = Vector2i(512, 256)
 
 [node name="Water" parent="." instance=ExtResource("2_i3fi7")]
@@ -106,5 +64,3 @@ water_size = Vector2(256, 128)
 [node name="IslandRenderer" parent="." instance=ExtResource("2_cmk6n")]
 
 [node name="Camera2D" type="Camera2D" parent="."]
-anchor_mode = 0
-zoom = Vector2(3.6, 3.6)

@@ -1,0 +1,31 @@
+[gd_resource type="Resource" script_class="IslandGenerator" load_steps=14 format=3 uid="uid://dtgx0rqlgp2iu"]
+
+[ext_resource type="Script" uid="uid://d2ubhr7dafolu" path="res://IslandGeneration/Biome.gd" id="1_0eovp"]
+[ext_resource type="Resource" uid="uid://nku6nbo0ciyq" path="res://IslandGeneration/Biomes/DeepOcean.tres" id="2_3gifj"]
+[ext_resource type="Script" uid="uid://232ig0rvy8pb" path="res://IslandGeneration/Modifiers/MapModifier.gd" id="3_u1c4c"]
+[ext_resource type="Resource" uid="uid://dcy0deb03fpni" path="res://IslandGeneration/Biomes/Ocean.tres" id="3_vnri2"]
+[ext_resource type="Script" uid="uid://bav73ikqeuefi" path="res://IslandGeneration/Modifiers/RiverModifier.gd" id="4_gwcm1"]
+[ext_resource type="Resource" uid="uid://8dwytago3qxw" path="res://IslandGeneration/Biomes/Beach.tres" id="4_vepqt"]
+[ext_resource type="Resource" uid="uid://da6hen83kaoyg" path="res://IslandGeneration/Biomes/Grass.tres" id="5_c2j2f"]
+[ext_resource type="Script" uid="uid://xk42ray1r42m" path="res://IslandGeneration/island_generator.gd" id="5_y5f7j"]
+[ext_resource type="Resource" uid="uid://ba7rwny00d5wn" path="res://IslandGeneration/Biomes/Forest.tres" id="6_3ptso"]
+[ext_resource type="Resource" uid="uid://ckud58t81tgw6" path="res://IslandGeneration/Biomes/Mountains.tres" id="7_uw2in"]
+[ext_resource type="Resource" uid="uid://bhxt3clrg3ljb" path="res://IslandGeneration/Biomes/Snow.tres" id="8_axvre"]
+[ext_resource type="Resource" uid="uid://cr6da1esb0ypt" path="res://IslandGeneration/Generators/HeightMapGen256x256.tres" id="9_ldwkh"]
+
+[sub_resource type="Resource" id="Resource_5ci8a"]
+script = ExtResource("4_gwcm1")
+river_color = Color(0.0830601, 0.414628, 1, 1)
+max_length = 1000
+start_search_attempts = 100
+river_count = 10
+min_starting_height = 0.5
+meander_chance = 0.7
+metadata/_custom_type_script = "uid://bav73ikqeuefi"
+
+[resource]
+script = ExtResource("5_y5f7j")
+heightmap_generator = ExtResource("9_ldwkh")
+biomes = Array[ExtResource("1_0eovp")]([ExtResource("2_3gifj"), ExtResource("3_vnri2"), ExtResource("4_vepqt"), ExtResource("5_c2j2f"), ExtResource("6_3ptso"), ExtResource("7_uw2in"), ExtResource("8_axvre")])
+modifiers = Array[ExtResource("3_u1c4c")]([SubResource("Resource_5ci8a")])
+metadata/_custom_type_script = "uid://xk42ray1r42m"

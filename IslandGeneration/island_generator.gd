@@ -1,9 +1,10 @@
 extends Resource
 class_name IslandGenerator
 
+
 ## EXPORTS ##
 @export var heightmap_generator: HeightmapGenerator
-@export var biomes: Array[Biome] = []
+@export var biomes: Array[Biome] =  []
 @export var modifiers: Array[MapModifier] = []
 
 func get_island_size() -> Vector2i:

@@ -39,7 +39,11 @@ func generate_island(map_data: Dictionary, generator: IslandGenerator):
         sprite.queue_free()
     sprite = Sprite2D.new()
     sprite.texture = texture
-    sprite.centered = false
+    sprite.centered = true
+    #Fill viewport
+    sprite.scale = Vector2(4.0, 4.0)  # Adjust scale as needed
+
+
     add_child(sprite)
 
     if collision_polygons:
@@ -59,6 +63,3 @@ func generate_island(map_data: Dictionary, generator: IslandGenerator):
         print("No collision polygon generated, using null.")
 
     island_generated.emit(texture, collision_polygons)
-
-
-

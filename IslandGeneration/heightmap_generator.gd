@@ -2,29 +2,20 @@ extends Resource
 class_name HeightmapGenerator
 
 @export var island_size: Vector2i = Vector2i(256, 256)
-@export var noise_scale: float = 32.0
-@export var noise_scale_detail: float = 8.0
-@export var noise_weight_detail: float = 0.25
 @export var starting_seed: int = -1
 @export var center_bias: float = 3.0
 @export var height_adjustment: float = 0.0
 @export var height_multiplier: float = 1.0
+@export var noise_passes: Array[NoisePass] = []
 
 func generate_heightmap() -> HeightMap:
-    var seed = starting_seed
+
+    var _seed = starting_seed
     if starting_seed == -1:
-        seed = randi() % 1000000
+        _seed = randi() % 1000000
 
-    var noise := FastNoiseLite.new()
-    noise.noise_type = FastNoiseLite.TYPE_PERLIN
-    noise.frequency = 1.0 / noise_scale
-    noise.seed = seed
-
-    var noise_detail := FastNoiseLite.new()
-    noise_detail.noise_type = FastNoiseLite.TYPE_PERLIN
-    noise_detail.frequency = 1.0 / noise_scale_detail
-    noise_detail.seed = seed + 1
-
+    for noise_pass in noise_passes:
+        noise_pass.init(_seed)
     var img := Image.create(island_size.x, island_size.y, false, Image.FORMAT_RGBAF)
     var center := island_size / 2
     var max_x = center.x
@@ -45,8 +36,9 @@ func generate_heightmap() -> HeightMap:
             var dy = abs(pos.y - center.y) / float(max_y) if max_y > 0 else 0
             var nd = max(dx, dy)
 
-            var h = noise.get_noise_2d(x, y)
-            h += noise_detail.get_noise_2d(x, y) * noise_weight_detail
+            var h = 0.0
+            for noise_pass in noise_passes:
+                h += noise_pass.get_noise(x, y)
 
             heights[y].append({
                 "h": h,
@@ -69,7 +61,7 @@ func generate_heightmap() -> HeightMap:
             h = lerp(-1.0, h, mask)
             h += height_adjustment * 0.1
             h *= height_multiplier
-            h = clamp(h, -0.999, 0.909)
+            h = clamp(h, -0.999, 0.999)
 
             height_map.set_height(x, y, h)
             height_map.set_biome(x, y, 0)

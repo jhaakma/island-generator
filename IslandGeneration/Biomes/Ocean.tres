@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="Biome" load_steps=2 format=3 uid="uid://dcy0deb03fpni"]
+
+[ext_resource type="Script" uid="uid://d2ubhr7dafolu" path="res://IslandGeneration/Biome.gd" id="1_pj7sn"]
+
+[resource]
+script = ExtResource("1_pj7sn")
+name = "Ocean"
+min_height = -0.1
+color = Color(0.294674, 0.52591, 1, 0.972549)
+is_land = true
+metadata/_custom_type_script = "uid://d2ubhr7dafolu"

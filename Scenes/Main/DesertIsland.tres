@@ -1,0 +1,68 @@
+[gd_resource type="Resource" script_class="IslandGenerator" load_steps=13 format=3 uid="uid://bdr3d5isuhr2y"]
+
+[ext_resource type="Script" uid="uid://d2ubhr7dafolu" path="res://IslandGeneration/Biome.gd" id="1_rqagn"]
+[ext_resource type="Script" uid="uid://77iwvi5bg5o6" path="res://IslandGeneration/heightmap_generator.gd" id="6_mymlj"]
+[ext_resource type="Script" uid="uid://dqq55tsdtdqnk" path="res://IslandGeneration/NoisePasses/NoisePass.gd" id="6_wahol"]
+[ext_resource type="Script" uid="uid://232ig0rvy8pb" path="res://IslandGeneration/Modifiers/MapModifier.gd" id="7_lfmxv"]
+[ext_resource type="Script" uid="uid://xk42ray1r42m" path="res://IslandGeneration/island_generator.gd" id="8_3iai5"]
+
+[sub_resource type="Resource" id="Resource_rqagn"]
+script = ExtResource("1_rqagn")
+name = "Ocean"
+min_height = -1.0
+color = Color(0.294674, 0.52591, 1, 0.972549)
+is_land = true
+metadata/_custom_type_script = "uid://d2ubhr7dafolu"
+
+[sub_resource type="Resource" id="Resource_mgvkk"]
+script = ExtResource("1_rqagn")
+name = "Clay"
+min_height = 0.0
+color = Color(0.63, 0.57687, 0.3402, 1)
+is_land = true
+metadata/_custom_type_script = "uid://d2ubhr7dafolu"
+
+[sub_resource type="Resource" id="Resource_yixw8"]
+script = ExtResource("1_rqagn")
+name = "Grass"
+min_height = 0.3
+color = Color(0.40299, 0.63, 0.3402, 1)
+is_land = true
+metadata/_custom_type_script = "uid://d2ubhr7dafolu"
+
+[sub_resource type="Resource" id="Resource_fk687"]
+script = ExtResource("1_rqagn")
+name = "Forest"
+min_height = 0.99
+color = Color(0.1312, 0.32, 0.153227, 1)
+is_land = true
+metadata/_custom_type_script = "uid://d2ubhr7dafolu"
+
+[sub_resource type="Resource" id="Resource_iyggg"]
+script = ExtResource("6_wahol")
+scale = 128.0
+weight = 1.0
+metadata/_custom_type_script = "uid://dqq55tsdtdqnk"
+
+[sub_resource type="Resource" id="Resource_wahol"]
+script = ExtResource("6_wahol")
+scale = 64.0
+weight = 0.4
+metadata/_custom_type_script = "uid://dqq55tsdtdqnk"
+
+[sub_resource type="Resource" id="Resource_dvlhv"]
+script = ExtResource("6_mymlj")
+island_size = Vector2i(256, 256)
+starting_seed = -1
+center_bias = -6.0
+height_adjustment = -5.0
+height_multiplier = 0.1
+noise_passes = Array[ExtResource("6_wahol")]([SubResource("Resource_iyggg"), SubResource("Resource_wahol")])
+metadata/_custom_type_script = "uid://77iwvi5bg5o6"
+
+[resource]
+script = ExtResource("8_3iai5")
+heightmap_generator = SubResource("Resource_dvlhv")
+biomes = Array[ExtResource("1_rqagn")]([SubResource("Resource_rqagn"), SubResource("Resource_mgvkk"), SubResource("Resource_yixw8"), SubResource("Resource_fk687")])
+modifiers = Array[ExtResource("7_lfmxv")]([])
+metadata/_custom_type_script = "uid://xk42ray1r42m"
