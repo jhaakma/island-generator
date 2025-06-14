@@ -25,7 +25,7 @@ func generate_heightmap() -> HeightMap:
     noise_detail.frequency = 1.0 / noise_scale_detail
     noise_detail.seed = seed + 1
 
-    var img := Image.create(island_size.x, island_size.y, false, Image.FORMAT_RF)
+    var img := Image.create(island_size.x, island_size.y, false, Image.FORMAT_RGBAF)
     var center := island_size / 2
     var max_x = center.x
     var max_y = center.y
@@ -72,4 +72,7 @@ func generate_heightmap() -> HeightMap:
             h = clamp(h, -0.999, 0.909)
 
             height_map.set_height(x, y, h)
+            height_map.set_biome(x, y, 0)
+            height_map.set_freshwater(x, y, false)
+            height_map.set_ocean(x, y, h < 0.0)
     return height_map

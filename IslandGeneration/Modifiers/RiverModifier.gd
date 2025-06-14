@@ -41,7 +41,7 @@ func _compute_flow_field(heights: Array, size: Vector2i) -> Array:
             flow_field[x].append(lowest)
     return flow_field
 
-func _generate_river(generator: IslandGenerator, image: Image, heights: Array, flow_field: Array, visited: Array) -> void:
+func _generate_river(generator: IslandGenerator, heightmap: HeightMap, heights: Array, flow_field: Array, visited: Array) -> void:
     var size := generator.get_island_size()
     var start_pos := Vector2i.ZERO
     var found := false
@@ -69,7 +69,7 @@ func _generate_river(generator: IslandGenerator, image: Image, heights: Array, f
         if heights[pos.x][pos.y] < 0.0:
             print("RiverModifier: Reached negative height at position", pos, "after", i, "steps.")
             break
-        image.set_pixelv(pos, river_color)
+        heightmap.set_freshwater(pos.x, pos.y, true)
         visited[pos.x][pos.y] = true
 
         var next = flow_field[pos.x][pos.y]
@@ -101,7 +101,7 @@ func _generate_river(generator: IslandGenerator, image: Image, heights: Array, f
             print("RiverModifier: Reached maximum length of river at position", pos, "after", i + 1, "steps.")
             break
 
-func apply(generator: IslandGenerator, image: Image, heightmap: HeightMap) -> void:
+func apply(generator: IslandGenerator, heightmap: HeightMap) -> void:
     var size := generator.get_island_size()
     var heights = _cache_heightmap(heightmap, size)
     var flow_field = _compute_flow_field(heights, size)
@@ -112,4 +112,5 @@ func apply(generator: IslandGenerator, image: Image, heightmap: HeightMap) -> vo
         for y in size.y:
             visited[x].append(false)
     for _i in river_count:
-        _generate_river(generator, image, heights, flow_field, visited)
+        _generate_river(generator, heightmap, heights, flow_field, visited)
+
