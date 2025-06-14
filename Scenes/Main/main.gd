@@ -19,7 +19,7 @@ func _ready():
     var map_data: Dictionary = island_generator.generate_map()
 
     # Start the island generation process
-    island_renderer.generate_island(map_data)
+    island_renderer.generate_island(map_data, island_generator)
 
 
 
@@ -33,4 +33,4 @@ func _input(event):
     if event.is_action_pressed("ui_accept"):
         print("Regenerating island...")
         var map_data: Dictionary = island_generator.generate_map()
-        island_renderer.generate_island(map_data)
+        island_renderer.generate_island(map_data, island_generator)

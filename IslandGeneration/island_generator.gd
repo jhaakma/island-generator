@@ -17,36 +17,23 @@ func generate_map() -> Dictionary:
     var heightmap := heightmap_generator.generate_heightmap()
     var size := heightmap_generator.island_size
 
-    var img := Image.create(size.x, size.y, false, Image.FORMAT_RGBA8)
-
     for y in size.y:
         for x in size.x:
             var height = heightmap.get_height(x, y)
-
-            var color: Color = Color(0.0, 0.0, 0.0, 0.0)
+            var biome_index := 0
             for i in biomes.size():
                 var biome = biomes[i]
                 var next_biome = biomes[i + 1] if i + 1 < biomes.size() else null
                 var max_height = next_biome.min_height if next_biome else 1.00
                 if height >= biome.min_height and height < max_height:
-                    color = biome.color
+                    biome_index = i
                     break
-            img.set_pixel(x, y, color)
+            heightmap.set_biome(x, y, biome_index)
+            heightmap.set_ocean(x, y, height < 0.0)
 
     for modifier in modifiers:
-        modifier.apply(self, img, heightmap)
-
-    img.generate_mipmaps()
-    var texture := ImageTexture.create_from_image(img)
-
-    var bitmap := BitMap.new()
-    bitmap.create_from_image_alpha(img, 0.5)
-    var rect := Rect2i(Vector2i.ZERO, size)
-    var polygons := bitmap.opaque_to_polygons(rect)
+        modifier.apply(self, heightmap)
 
     return {
-        "texture": texture,
-        "image": img,
-        "heightmap": heightmap,
-        "polygons": polygons
+        "heightmap": heightmap
     }
