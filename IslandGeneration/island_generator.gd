@@ -21,7 +21,7 @@ func generate_map() -> Dictionary:
 
     for y in size.y:
         for x in size.x:
-            var height = heightmap.get_pixel(x, y).r
+            var height = heightmap.get_height(x, y)
 
             var color: Color = Color(0.0, 0.0, 0.0, 0.0)
             for i in biomes.size():

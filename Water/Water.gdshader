@@ -30,7 +30,7 @@ vec4 blurred(sampler2D mask, vec2 uv, float radius) {
 void fragment() {
     vec2 uv = UV;
     float land = texture(island_mask, uv).a;
-    float foam_mask = blurred(island_mask, uv, 2).a;
+    float foam_mask = blurred(island_mask, uv, 1).a;
 
     // Simple multi-sine "noise" waves
     float wave = (

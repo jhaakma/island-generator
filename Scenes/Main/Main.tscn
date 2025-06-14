@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://csjlsvgm6cf7k"]
+[gd_scene load_steps=19 format=3 uid="uid://csjlsvgm6cf7k"]
 
 [ext_resource type="Script" uid="uid://cunwi2033q3mc" path="res://Scenes/Main/main.gd" id="1_qtv3y"]
 [ext_resource type="PackedScene" uid="uid://ohoiqeiuqx0l" path="res://IslandGeneration/IslandRenderer.tscn" id="2_cmk6n"]
@@ -9,84 +9,102 @@
 [ext_resource type="Script" uid="uid://bav73ikqeuefi" path="res://IslandGeneration/Modifiers/RiverModifier.gd" id="5_river"]
 [ext_resource type="Script" uid="uid://77iwvi5bg5o6" path="res://IslandGeneration/heightmap_generator.gd" id="6_hmap"]
 
-[sub_resource type="Resource" id="Resource_biome_ocean"]
+[sub_resource type="Resource" id="Resource_5s61s"]
+script = ExtResource("3_biome")
+name = "Deep Ocean"
+min_height = -1.0
+color = Color(0.000314583, 0.224797, 0.734376, 0.929412)
+is_land = false
+metadata/_custom_type_script = "uid://d2ubhr7dafolu"
+
+[sub_resource type="Resource" id="Resource_7npjy"]
 script = ExtResource("3_biome")
 name = "Ocean"
-min_height = 0.0
-color = Color(0, 0, 0, 0)
+min_height = -0.1
+color = Color(0.294674, 0.52591, 1, 0.972549)
+is_land = true
+metadata/_custom_type_script = "uid://d2ubhr7dafolu"
 
-[sub_resource type="Resource" id="Resource_biome_sand"]
+[sub_resource type="Resource" id="Resource_4vhfm"]
 script = ExtResource("3_biome")
-name = "Sand"
-min_height = 0.05
-color = Color(1, 0.992667, 0.56, 1)
+name = "Beach"
+min_height = 0.0
+color = Color(1, 0.955667, 0.62, 1)
+is_land = true
+metadata/_custom_type_script = "uid://d2ubhr7dafolu"
 
-[sub_resource type="Resource" id="Resource_biome_grass"]
+[sub_resource type="Resource" id="Resource_dvlhv"]
 script = ExtResource("3_biome")
 name = "Grass"
 min_height = 0.1
-color = Color(0.47586, 0.84, 0.4116, 1)
+color = Color(0.40299, 0.63, 0.3402, 1)
+is_land = true
+metadata/_custom_type_script = "uid://d2ubhr7dafolu"
 
-[sub_resource type="Resource" id="Resource_biome_forest"]
+[sub_resource type="Resource" id="Resource_wgovn"]
 script = ExtResource("3_biome")
 name = "Forest"
-min_height = 0.15
-color = Color(0.216209, 0.411782, 0.151545, 1)
-
-[sub_resource type="Resource" id="Resource_biome_dense"]
-script = ExtResource("3_biome")
-name = "DenseForest"
-min_height = 0.2
-color = Color(0.105197, 0.260583, 0.0896422, 1)
-
-[sub_resource type="Resource" id="Resource_o8wgc"]
-script = ExtResource("3_biome")
-name = "Mountain Base"
-min_height = 0.25
-color = Color(0.61339, 0.61339, 0.61339, 1)
-metadata/_custom_type_script = "uid://d2ubhr7dafolu"
-
-[sub_resource type="Resource" id="Resource_w20t6"]
-script = ExtResource("3_biome")
-name = "Mountain Peaks"
 min_height = 0.3
-color = Color(1, 1, 1, 1)
+color = Color(0.215133, 0.4, 0.164, 1)
+is_land = true
 metadata/_custom_type_script = "uid://d2ubhr7dafolu"
 
-[sub_resource type="Resource" id="Resource_river_mod"]
-script = ExtResource("5_river")
-river_color = Color(0.4, 0.95, 1, 1)
-max_length = 20000
-start_search_attempts = 1000
-river_count = 10
-min_starting_height = 0.2
+[sub_resource type="Resource" id="Resource_cv8e0"]
+script = ExtResource("3_biome")
+name = "Mountains"
+min_height = 0.7
+color = Color(0.564962, 0.564962, 0.564962, 1)
+is_land = true
+metadata/_custom_type_script = "uid://d2ubhr7dafolu"
 
-[sub_resource type="Resource" id="Resource_heightmap_gen"]
+[sub_resource type="Resource" id="Resource_hkvnm"]
+script = ExtResource("3_biome")
+name = "Snow"
+min_height = 0.9
+color = Color(1, 1, 1, 1)
+is_land = true
+metadata/_custom_type_script = "uid://d2ubhr7dafolu"
+
+[sub_resource type="Resource" id="Resource_aw1lf"]
 script = ExtResource("6_hmap")
-island_size = Vector2i(256, 128)
+island_size = Vector2i(256, 256)
 noise_scale = 128.0
 noise_scale_detail = 32.0
-noise_weight_detail = 0.15
+noise_weight_detail = 0.4
 starting_seed = -1
-center_bias = 1.0
-height_adjustment = 4.0
+center_bias = 0.0
+height_adjustment = 3.0
+height_multiplier = 1.5
+metadata/_custom_type_script = "uid://77iwvi5bg5o6"
 
-[sub_resource type="Resource" id="Resource_island_gen"]
+[sub_resource type="Resource" id="Resource_5ci8a"]
+script = ExtResource("5_river")
+river_color = Color(0.0830601, 0.414628, 1, 1)
+max_length = 1000
+start_search_attempts = 100
+river_count = 10
+min_starting_height = 0.5
+meander_chance = 0.7
+metadata/_custom_type_script = "uid://bav73ikqeuefi"
+
+[sub_resource type="Resource" id="Resource_w20t6"]
 script = ExtResource("4_map")
-heightmap_generator = SubResource("Resource_heightmap_gen")
-biomes = Array[ExtResource("3_biome")]([SubResource("Resource_biome_ocean"), SubResource("Resource_biome_sand"), SubResource("Resource_biome_grass"), SubResource("Resource_biome_forest"), SubResource("Resource_biome_dense"), SubResource("Resource_o8wgc"), SubResource("Resource_w20t6")])
-modifiers = Array[ExtResource("5_aw1lf")]([SubResource("Resource_river_mod")])
+heightmap_generator = SubResource("Resource_aw1lf")
+biomes = Array[ExtResource("3_biome")]([SubResource("Resource_5s61s"), SubResource("Resource_7npjy"), SubResource("Resource_4vhfm"), SubResource("Resource_dvlhv"), SubResource("Resource_wgovn"), SubResource("Resource_cv8e0"), SubResource("Resource_hkvnm")])
+modifiers = Array[ExtResource("5_aw1lf")]([SubResource("Resource_5ci8a")])
+metadata/_custom_type_script = "uid://xk42ray1r42m"
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_qtv3y")
-island_size = Vector2i(800, 512)
+island_generator = SubResource("Resource_w20t6")
+island_size = Vector2i(512, 256)
 
 [node name="Water" parent="." instance=ExtResource("2_i3fi7")]
+visible = false
 water_size = Vector2(256, 128)
 
 [node name="IslandRenderer" parent="." instance=ExtResource("2_cmk6n")]
-data_generator = SubResource("Resource_island_gen")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 anchor_mode = 0
-zoom = Vector2(1.25, 1.25)
+zoom = Vector2(3.6, 3.6)

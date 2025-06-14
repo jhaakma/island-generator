@@ -4,20 +4,15 @@ class_name IslandRenderer
 ## SIGNALS ##
 signal island_generated(texture: ImageTexture, collision_polygons: Array[CollisionPolygon2D])
 
-## EXPORTS ##
-@export var data_generator: IslandGenerator
 
 ## GENERATED NODES ##
 var sprite: Sprite2D
 var collision_polygons: Array[CollisionPolygon2D]
 
-func _ready():
-    generate_island()
 
-func generate_island():
-    var result := data_generator.generate_map()
-    var texture: ImageTexture = result["texture"]
-    var polygons: Array[PackedVector2Array] = result["polygons"]
+func generate_island(map_data):
+    var texture: ImageTexture = map_data["texture"]
+    var polygons: Array[PackedVector2Array] = map_data["polygons"]
 
     if sprite:
         remove_child(sprite)
@@ -45,7 +40,5 @@ func generate_island():
 
     island_generated.emit(texture, collision_polygons)
 
-func _input(event):
-    if event.is_action_pressed("ui_accept"):
-        generate_island()
+
 
