@@ -1,0 +1,71 @@
+[gd_resource type="TileSet" load_steps=5 format=3 uid="uid://by06tpvcswh3g"]
+
+[ext_resource type="Texture2D" uid="uid://bdkfgq0oy032i" path="res://Assets/Sprites/Water.png" id="1_rpwd5"]
+[ext_resource type="Texture2D" uid="uid://bkf11alwv55f0" path="res://Assets/Sprites/Grass.png" id="2_2y6by"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_2y3ha"]
+texture = ExtResource("1_rpwd5")
+texture_region_size = Vector2i(32, 32)
+0:0/next_alternative_id = 2
+0:0/0 = 0
+0:0/0/terrain_set = 0
+0:0/0/terrain = 0
+0:0/0/terrains_peering_bit/right_side = 0
+0:0/0/terrains_peering_bit/bottom_right_corner = 0
+0:0/0/terrains_peering_bit/bottom_side = 0
+0:0/0/terrains_peering_bit/bottom_left_corner = 0
+0:0/0/terrains_peering_bit/left_side = 0
+0:0/0/terrains_peering_bit/top_left_corner = 0
+0:0/0/terrains_peering_bit/top_side = 0
+0:0/0/terrains_peering_bit/top_right_corner = 0
+0:0/1 = 1
+0:0/1/terrain_set = 0
+0:0/1/terrain = 0
+0:0/1/terrains_peering_bit/right_side = 1
+0:0/1/terrains_peering_bit/bottom_right_corner = 1
+0:0/1/terrains_peering_bit/bottom_side = 1
+0:0/1/terrains_peering_bit/bottom_left_corner = 1
+0:0/1/terrains_peering_bit/left_side = 1
+0:0/1/terrains_peering_bit/top_left_corner = 1
+0:0/1/terrains_peering_bit/top_side = 1
+0:0/1/terrains_peering_bit/top_right_corner = 1
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_kvmde"]
+texture = ExtResource("2_2y6by")
+texture_region_size = Vector2i(32, 32)
+0:0/next_alternative_id = 3
+0:0/0 = 0
+0:0/0/terrain_set = 0
+0:0/0/terrain = 1
+0:0/0/terrains_peering_bit/right_side = 1
+0:0/0/terrains_peering_bit/bottom_right_corner = 1
+0:0/0/terrains_peering_bit/bottom_side = 1
+0:0/0/terrains_peering_bit/bottom_left_corner = 1
+0:0/0/terrains_peering_bit/left_side = 1
+0:0/0/terrains_peering_bit/top_left_corner = 1
+0:0/0/terrains_peering_bit/top_side = 1
+0:0/0/terrains_peering_bit/top_right_corner = 1
+0:0/2 = 2
+0:0/2/terrain_set = 0
+0:0/2/terrain = 1
+0:0/2/terrains_peering_bit/right_side = 0
+0:0/2/terrains_peering_bit/bottom_right_corner = 0
+0:0/2/terrains_peering_bit/bottom_side = 0
+0:0/2/terrains_peering_bit/bottom_left_corner = 0
+0:0/2/terrains_peering_bit/left_side = 0
+0:0/2/terrains_peering_bit/top_left_corner = 0
+0:0/2/terrains_peering_bit/top_side = 0
+0:0/2/terrains_peering_bit/top_right_corner = 0
+
+[resource]
+tile_size = Vector2i(32, 32)
+physics_layer_0/collision_layer = 1
+terrain_set_0/mode = 0
+terrain_set_0/terrain_0/name = "Ocean"
+terrain_set_0/terrain_0/color = Color(0.163538, 0.356942, 0.837504, 1)
+terrain_set_0/terrain_1/name = "Grass"
+terrain_set_0/terrain_1/color = Color(0.123626, 0.521468, 0.32318, 1)
+custom_data_layer_0/name = ""
+custom_data_layer_0/type = 0
+sources/0 = SubResource("TileSetAtlasSource_2y3ha")
+sources/1 = SubResource("TileSetAtlasSource_kvmde")
