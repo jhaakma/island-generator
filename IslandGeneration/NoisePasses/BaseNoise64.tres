@@ -6,5 +6,4 @@
 script = ExtResource("1_pfkau")
 scale = 64.0
 weight = 1.0
-starting_seed = -1
 metadata/_custom_type_script = "uid://dqq55tsdtdqnk"
