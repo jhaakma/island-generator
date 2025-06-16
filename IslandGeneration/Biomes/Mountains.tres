@@ -1,6 +1,7 @@
-[gd_resource type="Resource" script_class="Biome" load_steps=2 format=3 uid="uid://ckud58t81tgw6"]
+[gd_resource type="Resource" script_class="Biome" load_steps=3 format=3 uid="uid://ckud58t81tgw6"]
 
 [ext_resource type="Script" uid="uid://d2ubhr7dafolu" path="res://IslandGeneration/Biome.gd" id="1_w8r1x"]
+[ext_resource type="TileSet" uid="uid://by06tpvcswh3g" path="res://TileMap/TileSet01.tres" id="2_tileset"]
 
 [resource]
 script = ExtResource("1_w8r1x")
@@ -8,4 +9,8 @@ name = "Mountains"
 min_height = 0.7
 color = Color(0.564962, 0.564962, 0.564962, 1)
 is_land = true
+biome_id = "mountains"
+layer_index = 1
+tile_set = ExtResource("2_tileset")
+terrain_id = 1
 metadata/_custom_type_script = "uid://d2ubhr7dafolu"
