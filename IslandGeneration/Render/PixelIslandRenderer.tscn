@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://ohoiqeiuqx0l"]
 
-[ext_resource type="Script" uid="uid://d3nypllvuam14" path="res://IslandGeneration/island_renderer.gd" id="1_l3ro0"]
+[ext_resource type="Script" uid="uid://d3nypllvuam14" path="res://IslandGeneration/Render/pixel_island_renderer.gd" id="1_l3ro0"]
 
 [node name="IslandRenderer" type="Node2D"]
 script = ExtResource("1_l3ro0")

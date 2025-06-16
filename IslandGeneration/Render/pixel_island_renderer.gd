@@ -1,5 +1,5 @@
-extends Node2D
-class_name IslandRenderer
+extends IslandRenderer
+class_name PixelIslandRenderer
 
 ## SIGNALS ##
 signal island_generated(texture: ImageTexture, collision_polygons: Array[CollisionPolygon2D])

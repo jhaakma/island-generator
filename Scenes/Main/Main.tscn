@@ -1,8 +1,7 @@
-[gd_scene load_steps=22 format=3 uid="uid://csjlsvgm6cf7k"]
+[gd_scene load_steps=23 format=3 uid="uid://csjlsvgm6cf7k"]
 
 [ext_resource type="Script" uid="uid://cunwi2033q3mc" path="res://Scenes/Main/main.gd" id="1_qtv3y"]
-[ext_resource type="PackedScene" uid="uid://ohoiqeiuqx0l" path="res://IslandGeneration/IslandRenderer.tscn" id="2_cmk6n"]
-[ext_resource type="PackedScene" uid="uid://oh0smqr43x1u" path="res://Water/Water.tscn" id="2_i3fi7"]
+[ext_resource type="PackedScene" uid="uid://ohoiqeiuqx0l" path="res://IslandGeneration/Render/PixelIslandRenderer.tscn" id="2_cmk6n"]
 [ext_resource type="Script" uid="uid://d2ubhr7dafolu" path="res://IslandGeneration/Biome.gd" id="3_biome"]
 [ext_resource type="Resource" uid="uid://nku6nbo0ciyq" path="res://IslandGeneration/Biomes/DeepOcean.tres" id="3_dvlhv"]
 [ext_resource type="Script" uid="uid://xk42ray1r42m" path="res://IslandGeneration/island_generator.gd" id="4_map"]
@@ -18,10 +17,12 @@
 [ext_resource type="Script" uid="uid://dqq55tsdtdqnk" path="res://IslandGeneration/NoisePasses/NoisePass.gd" id="10_qdkat"]
 [ext_resource type="Resource" uid="uid://cvdk3fgf23ieb" path="res://IslandGeneration/NoisePasses/BaseNoise64.tres" id="11_udh0u"]
 [ext_resource type="Resource" uid="uid://dtgcsr107jivp" path="res://IslandGeneration/NoisePasses/OverlayNoise16.tres" id="12_xggvw"]
+[ext_resource type="PackedScene" uid="uid://cmb20sttpyjm1" path="res://IslandGeneration/Render/TileMapIslandRenderer.tscn" id="19_qdkat"]
+[ext_resource type="TileSet" uid="uid://by06tpvcswh3g" path="res://TileMap/TileSet01.tres" id="20_udh0u"]
 
 [sub_resource type="Resource" id="Resource_xd21n"]
 script = ExtResource("6_hmap")
-island_size = Vector2i(256, 256)
+island_size = Vector2i(64, 64)
 starting_seed = -1
 center_bias = 0.0
 height_adjustment = 3.0
@@ -46,20 +47,34 @@ biomes = Array[ExtResource("3_biome")]([ExtResource("3_dvlhv"), ExtResource("4_w
 modifiers = Array[ExtResource("5_aw1lf")]([SubResource("Resource_5ci8a")])
 metadata/_custom_type_script = "uid://xk42ray1r42m"
 
-[node name="Main" type="Node2D"]
+[node name="Main" type="Node2D" node_paths=PackedStringArray("island_renderer")]
 script = ExtResource("1_qtv3y")
+island_renderer = NodePath("TileMapIslandRenderer")
 island_generator = SubResource("Resource_iwp64")
-island_size = Vector2i(512, 256)
+island_size = Vector2i(128, 128)
 
-[node name="IslandRenderer" parent="." instance=ExtResource("2_cmk6n")]
+[node name="PixelIslandRenderer" parent="." instance=ExtResource("2_cmk6n")]
 
-[node name="Water" parent="." instance=ExtResource("2_i3fi7")]
-visible = false
-water_size = Vector2(256, 128)
+[node name="TileMapIslandRenderer" parent="." node_paths=PackedStringArray("ocean_layer", "land_layer") instance=ExtResource("19_qdkat")]
+scale = Vector2(0.2, 0.2)
+ocean_layer = NodePath("OceanLayer")
+land_layer = NodePath("LandLayer")
 
-[node name="Camera2D" type="Camera2D" parent="."]
+[node name="OceanLayer" type="TileMapLayer" parent="TileMapIslandRenderer"]
+position = Vector2(-4030, -2500)
+scale = Vector2(2.5, 2.5)
+tile_set = ExtResource("20_udh0u")
+
+[node name="LandLayer" type="TileMapLayer" parent="TileMapIslandRenderer"]
+position = Vector2(-4030, -2500)
+scale = Vector2(2.5, 2.5)
+tile_set = ExtResource("20_udh0u")
 
 [node name="DebugSprite" type="Sprite2D" parent="."]
 visible = false
 centered = false
 offset = Vector2(-800, -400)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(-2, 0)
+zoom = Vector2(1.245, 1.245)
