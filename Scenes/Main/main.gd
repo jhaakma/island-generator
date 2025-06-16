@@ -8,10 +8,8 @@ extends Node2D
 @export var island_size: Vector2i = Vector2i(256, 256)
 
 func _ready():
-    island_generator.heightmap_generator.island_size = island_size
-
     # Generate the island map data
-    var height_map: = island_generator.generate_map()
+    var height_map: = island_generator.generate_map(island_size)
 
     # Start the island generation process
     island_renderer.generate_island(height_map, island_generator)
@@ -31,6 +29,6 @@ func set_debug_sprite_texture(height_map) -> void:
 func _input(event):
     if event.is_action_pressed("ui_accept"):
         print("Regenerating island...")
-        var height_map: HeightMap = island_generator.generate_map()
+        var height_map: HeightMap = island_generator.generate_map(island_size)
         island_renderer.generate_island(height_map, island_generator)
         set_debug_sprite_texture(height_map)

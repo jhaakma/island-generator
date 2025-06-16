@@ -41,8 +41,8 @@ func _compute_flow_field(heights: Array, size: Vector2i) -> Array:
             flow_field[x].append(lowest)
     return flow_field
 
-func _generate_river(generator: IslandGenerator, heightmap: HeightMap, heights: Array, flow_field: Array, visited: Array) -> void:
-    var size := generator.get_island_size()
+func _generate_river(_generator: IslandGenerator, heightmap: HeightMap, heights: Array, flow_field: Array, visited: Array) -> void:
+    var size := heightmap.get_size()
     var start_pos := Vector2i.ZERO
     var found := false
 
@@ -102,7 +102,7 @@ func _generate_river(generator: IslandGenerator, heightmap: HeightMap, heights: 
             break
 
 func apply(generator: IslandGenerator, heightmap: HeightMap) -> void:
-    var size := generator.get_island_size()
+    var size := heightmap.get_size()
     var heights = _cache_heightmap(heightmap, size)
     var flow_field = _compute_flow_field(heights, size)
     # Track visited cells to avoid overlapping rivers

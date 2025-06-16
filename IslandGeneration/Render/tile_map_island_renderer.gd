@@ -12,15 +12,14 @@ signal island_generated
 @export var land_layer: TileMapLayer
 
 
-func generate_island(height_map: HeightMap, generator: IslandGenerator) -> void:
-    if height_map == null or generator == null:
+func generate_island(height_map: HeightMap, _generator: IslandGenerator) -> void:
+    if height_map == null:
         push_error("TileMapIslandRenderer requires valid HeightMap and IslandGenerator")
         return
     ocean_layer.clear()
     land_layer.clear()
 
-
-    var size: Vector2i = generator.get_island_size()
+    var size: Vector2i = height_map.get_size()
     var ocean_cells: Array[Vector2i] = []
     var land_cells: Array[Vector2i] = []
     var forest_cells: Array[Vector2i] = []

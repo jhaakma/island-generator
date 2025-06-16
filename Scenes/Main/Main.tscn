@@ -22,7 +22,6 @@
 
 [sub_resource type="Resource" id="Resource_xd21n"]
 script = ExtResource("6_hmap")
-island_size = Vector2i(64, 64)
 starting_seed = -1
 center_bias = 0.0
 height_adjustment = 3.0
@@ -51,7 +50,7 @@ metadata/_custom_type_script = "uid://xk42ray1r42m"
 script = ExtResource("1_qtv3y")
 island_renderer = NodePath("TileMapIslandRenderer")
 island_generator = SubResource("Resource_iwp64")
-island_size = Vector2i(128, 128)
+island_size = Vector2i(128, 96)
 
 [node name="PixelIslandRenderer" parent="." instance=ExtResource("2_cmk6n")]
 
@@ -61,12 +60,12 @@ ocean_layer = NodePath("OceanLayer")
 land_layer = NodePath("LandLayer")
 
 [node name="OceanLayer" type="TileMapLayer" parent="TileMapIslandRenderer"]
-position = Vector2(-4030, -2500)
+position = Vector2(-5, -5)
 scale = Vector2(2.5, 2.5)
 tile_set = ExtResource("20_udh0u")
 
 [node name="LandLayer" type="TileMapLayer" parent="TileMapIslandRenderer"]
-position = Vector2(-4030, -2500)
+position = Vector2(-5, -5)
 scale = Vector2(2.5, 2.5)
 tile_set = ExtResource("20_udh0u")
 
@@ -77,4 +76,6 @@ offset = Vector2(-800, -400)
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(-2, 0)
+scale = Vector2(1, 1)
+anchor_mode = 0
 zoom = Vector2(1.245, 1.245)

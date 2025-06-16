@@ -17,7 +17,6 @@ func _value_to_height(value: float) -> float:
     # Assuming value is normalized between 0.0 and 1.0
     return remap(value, 0.0, 1.0, -1.0, 1.0)
 
-
 func get_height(x: int, y: int) -> float:
     var color = _image.get_pixel(x, y)
     # Assume height is stored in the red channel
@@ -55,3 +54,7 @@ func set_ocean(x: int, y: int, value: bool) -> void:
 
 func get_image() -> Image:
     return _image
+
+func get_size() -> Vector2i:
+    return _image.get_size()
+

@@ -7,19 +7,15 @@ class_name IslandGenerator
 @export var biomes: Array[Biome] =  []
 @export var modifiers: Array[MapModifier] = []
 
-func get_island_size() -> Vector2i:
-    return heightmap_generator.island_size
-
-func generate_map() -> HeightMap:
+func generate_map(island_size) -> HeightMap:
     if heightmap_generator == null:
         push_error("IslandGenerator requires a HeightmapGenerator")
         return null
 
-    var heightmap := heightmap_generator.generate_heightmap()
-    var size := heightmap_generator.island_size
+    var heightmap := heightmap_generator.generate_heightmap(island_size)
 
-    for y in size.y:
-        for x in size.x:
+    for y in island_size.y:
+        for x in island_size.x:
             var height = heightmap.get_height(x, y)
             var biome_index := 0
             for i in biomes.size():
