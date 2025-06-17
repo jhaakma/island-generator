@@ -1,5 +1,5 @@
 extends Resource
 class_name MapModifier
 
-func apply(generator: IslandGenerator, heightmap: HeightMap) -> void:
+func apply(_generator: IslandGenerator, _heightmap: HeightMap) -> void:
     pass

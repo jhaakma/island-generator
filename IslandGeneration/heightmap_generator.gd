@@ -63,7 +63,6 @@ func generate_heightmap(size: Vector2i) -> HeightMap:
             h = clamp(h, -0.999, 0.999)
 
             height_map.set_height(x, y, h)
-            height_map.set_biome(x, y, 0)
             height_map.set_freshwater(x, y, false)
             height_map.set_ocean(x, y, h < 0.0)
     return height_map

@@ -29,8 +29,6 @@ func generate_island(height_map: HeightMap, _generator: IslandGenerator) -> void
             ocean_cells.append(pos)
             if not height_map.is_ocean(x, y):
                 land_cells.append(pos)
-            if height_map.get_biome(x, y) == 4:
-                forest_cells.append(pos)
 
     if ocean_cells.size() > 0:
         print("Setting ocean terrain for ", ocean_cells.size(), " cells")

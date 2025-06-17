@@ -1,15 +1,15 @@
 [gd_resource type="Resource" script_class="Biome" load_steps=3 format=3 uid="uid://nku6nbo0ciyq"]
 
-[ext_resource type="Script" uid="uid://d2ubhr7dafolu" path="res://IslandGeneration/Biome.gd" id="1_55p28"]
+[ext_resource type="Script" uid="uid://d2ubhr7dafolu" path="res://IslandGeneration/Biomes/Biome.gd" id="1_55p28"]
 [ext_resource type="TileSet" uid="uid://by06tpvcswh3g" path="res://TileMap/TileSet01.tres" id="2_tileset"]
 
 [resource]
 script = ExtResource("1_55p28")
+biome_id = "deep_ocean"
 name = "Deep Ocean"
 min_height = -1.0
 color = Color(0, 0.219, 0.73, 1)
 is_land = true
-biome_id = "deep_ocean"
 layer_index = 0
 tile_set = ExtResource("2_tileset")
 terrain_id = 0

@@ -1,15 +1,15 @@
 [gd_resource type="Resource" script_class="Biome" load_steps=3 format=3 uid="uid://da6hen83kaoyg"]
 
-[ext_resource type="Script" uid="uid://d2ubhr7dafolu" path="res://IslandGeneration/Biome.gd" id="1_x2w1e"]
+[ext_resource type="Script" uid="uid://d2ubhr7dafolu" path="res://IslandGeneration/Biomes/Biome.gd" id="1_x2w1e"]
 [ext_resource type="TileSet" uid="uid://by06tpvcswh3g" path="res://TileMap/TileSet01.tres" id="2_tileset"]
 
 [resource]
 script = ExtResource("1_x2w1e")
+biome_id = "grass"
 name = "Grass"
 min_height = 0.2
 color = Color(0.40299, 0.63, 0.3402, 1)
 is_land = true
-biome_id = "grass"
 layer_index = 1
 tile_set = ExtResource("2_tileset")
 terrain_id = 1

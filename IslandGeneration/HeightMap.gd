@@ -27,13 +27,14 @@ func set_height(x: int, y: int, height: float) -> void:
     color.r = _height_to_value(height)
     _image.set_pixel(x, y, color)
 
-func get_biome(x: int, y: int) -> int:
+func get_biome(x: int, y: int) -> Biome:
     var color = _image.get_pixel(x, y)
-    return int(round(color.g * 255.0))
+    var biome_uid = int(round(color.g * 255.0))
+    return BiomeRegistry.get_biome_by_uid(biome_uid)
 
-func set_biome(x: int, y: int, index: int) -> void:
+func set_biome(x: int, y: int, biome) -> void:
     var color = _image.get_pixel(x, y)
-    color.g = clamp(float(index) / 255.0, 0.0, 1.0)
+    color.g = clamp(float(biome.biome_uid) / 255.0, 0.0, 1.0)
     _image.set_pixel(x, y, color)
 
 func has_freshwater(x: int, y: int) -> bool:
@@ -57,4 +58,3 @@ func get_image() -> Image:
 
 func get_size() -> Vector2i:
     return _image.get_size()
-

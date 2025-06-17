@@ -16,9 +16,8 @@ func generate_island(height_map: HeightMap, generator: IslandGenerator):
     var render_image := Image.create(size.x, size.y, false, Image.FORMAT_RGBA8)
     for y in size.y:
         for x in size.x:
-            var biome_index: int = height_map.get_biome(x, y)
-            biome_index = clamp(biome_index, 0, generator.biomes.size() - 1)
-            var color: Color = generator.biomes[biome_index].color
+            var biome: Biome = height_map.get_biome(x, y)
+            var color = biome.color
             if height_map.has_freshwater(x, y):
                 for m in generator.modifiers:
                     if m is RiverModifier:

@@ -1,15 +1,15 @@
 [gd_resource type="Resource" script_class="Biome" load_steps=3 format=3 uid="uid://ba7rwny00d5wn"]
 
-[ext_resource type="Script" uid="uid://d2ubhr7dafolu" path="res://IslandGeneration/Biome.gd" id="1_o1uus"]
+[ext_resource type="Script" uid="uid://d2ubhr7dafolu" path="res://IslandGeneration/Biomes/Biome.gd" id="1_o1uus"]
 [ext_resource type="TileSet" uid="uid://by06tpvcswh3g" path="res://TileMap/TileSet01.tres" id="2_tileset"]
 
 [resource]
 script = ExtResource("1_o1uus")
+biome_id = "forest"
 name = "Forest"
 min_height = 0.4
 color = Color(0.215133, 0.4, 0.164, 1)
 is_land = true
-biome_id = "forest"
 layer_index = 1
 tile_set = ExtResource("2_tileset")
 terrain_id = 2
