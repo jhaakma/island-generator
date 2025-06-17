@@ -1,11 +1,16 @@
-[gd_resource type="Resource" script_class="Biome" load_steps=2 format=3 uid="uid://dcy0deb03fpni"]
+[gd_resource type="Resource" script_class="Biome" load_steps=3 format=3 uid="uid://dcy0deb03fpni"]
 
-[ext_resource type="Script" uid="uid://d2ubhr7dafolu" path="res://IslandGeneration/Biome.gd" id="1_pj7sn"]
+[ext_resource type="Script" uid="uid://d2ubhr7dafolu" path="res://IslandGeneration/Biomes/Biome.gd" id="1_pj7sn"]
+[ext_resource type="TileSet" uid="uid://by06tpvcswh3g" path="res://TileMap/TileSet01.tres" id="2_tileset"]
 
 [resource]
 script = ExtResource("1_pj7sn")
+biome_id = "ocean"
 name = "Ocean"
 min_height = -0.3
 color = Color(0.168, 0.3576, 0.8, 1)
 is_land = false
+layer_index = 0
+tile_set = ExtResource("2_tileset")
+terrain_id = 0
 metadata/_custom_type_script = "uid://d2ubhr7dafolu"

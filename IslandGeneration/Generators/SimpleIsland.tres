@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="IslandGenerator" load_steps=14 format=3 uid="uid://dtgx0rqlgp2iu"]
 
-[ext_resource type="Script" uid="uid://d2ubhr7dafolu" path="res://IslandGeneration/Biome.gd" id="1_0eovp"]
+[ext_resource type="Script" uid="uid://d2ubhr7dafolu" path="res://IslandGeneration/Biomes/Biome.gd" id="1_0eovp"]
 [ext_resource type="Resource" uid="uid://nku6nbo0ciyq" path="res://IslandGeneration/Biomes/DeepOcean.tres" id="2_3gifj"]
 [ext_resource type="Script" uid="uid://232ig0rvy8pb" path="res://IslandGeneration/Modifiers/MapModifier.gd" id="3_u1c4c"]
 [ext_resource type="Resource" uid="uid://dcy0deb03fpni" path="res://IslandGeneration/Biomes/Ocean.tres" id="3_vnri2"]

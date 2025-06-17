@@ -13,7 +13,6 @@ metadata/_custom_type_script = "uid://dqq55tsdtdqnk"
 
 [resource]
 script = ExtResource("1_13mlu")
-island_size = Vector2i(256, 256)
 starting_seed = -1
 center_bias = 0.0
 height_adjustment = 3.0
