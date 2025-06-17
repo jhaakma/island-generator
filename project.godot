@@ -30,7 +30,7 @@ window/stretch/aspect="expand"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/tile_bit_tools/plugin.cfg")
+enabled=PackedStringArray("res://addons/tile_bit_tools/plugin.cfg", "res://addons/tileset_collision_generator_free_version/plugin.cfg")
 
 [input]
 

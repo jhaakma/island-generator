@@ -36,6 +36,11 @@ offset = Vector2(-800, -400)
 
 [node name="Player" parent="." instance=ExtResource("6_w20t6")]
 position = Vector2(172, 203)
+thrust_force = 100.0
+reverse_force = 20.0
+rotation_speed = 1.0
+drag = 0.99
+redirect_speed = 2.0
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 position = Vector2(1, 1)
