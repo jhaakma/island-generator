@@ -9,7 +9,7 @@ class_name RiverModifier
 @export var meander_chance: float = 0.30 # Chance to meander at each step
 
 # Cache heightmap as a 2D array for fast lookup
-func _cache_heightmap(heightmap: HeightMap, size: Vector2i) -> Array:
+func _cache_heightmap(heightmap: WorldMap, size: Vector2i) -> Array:
     var heights := []
     for x in size.x:
         heights.append([])
@@ -41,7 +41,7 @@ func _compute_flow_field(heights: Array, size: Vector2i) -> Array:
             flow_field[x].append(lowest)
     return flow_field
 
-func _generate_river(_generator: IslandGenerator, heightmap: HeightMap, heights: Array, flow_field: Array, visited: Array) -> void:
+func _generate_river(_generator: IslandGenerator, heightmap: WorldMap, heights: Array, flow_field: Array, visited: Array) -> void:
     var size := heightmap.get_size()
     var start_pos := Vector2i.ZERO
     var found := false
@@ -101,7 +101,7 @@ func _generate_river(_generator: IslandGenerator, heightmap: HeightMap, heights:
             print("RiverModifier: Reached maximum length of river at position", pos, "after", i + 1, "steps.")
             break
 
-func apply(generator: IslandGenerator, heightmap: HeightMap) -> void:
+func apply(generator: IslandGenerator, heightmap: WorldMap) -> void:
     var size := heightmap.get_size()
     var heights = _cache_heightmap(heightmap, size)
     var flow_field = _compute_flow_field(heights, size)

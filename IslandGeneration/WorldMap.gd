@@ -1,13 +1,17 @@
 extends Resource
 
-class_name HeightMap
+class_name WorldMap
 
 var texture: ImageTexture
 var _image: Image
+var temperature_image: Image
+var humidity_image: Image
 
-func _init(image: Image):
+func _init(image: Image, temperature: Image = null, humidity: Image = null):
     _image = image
     texture = ImageTexture.create_from_image(image)
+    temperature_image = temperature if temperature else Image.create(image.get_width(), image.get_height(), false, Image.FORMAT_RF)
+    humidity_image = humidity if humidity else Image.create(image.get_width(), image.get_height(), false, Image.FORMAT_RF)
 
 func _height_to_value(height: float) -> float:
     # Assuming height is normalized between 0.0 and 1.0
@@ -52,6 +56,22 @@ func set_ocean(x: int, y: int, value: bool) -> void:
     var color = _image.get_pixel(x, y)
     color.a = 1.0 if value else 0.0
     _image.set_pixel(x, y, color)
+
+func get_temperature(x: int, y: int) -> float:
+    return temperature_image.get_pixel(x, y).r
+
+func set_temperature(x: int, y: int, value: float) -> void:
+    var c = temperature_image.get_pixel(x, y)
+    c.r = clamp(value, 0.0, 1.0)
+    temperature_image.set_pixel(x, y, c)
+
+func get_humidity(x: int, y: int) -> float:
+    return humidity_image.get_pixel(x, y).r
+
+func set_humidity(x: int, y: int, value: float) -> void:
+    var c = humidity_image.get_pixel(x, y)
+    c.r = clamp(value, 0.0, 1.0)
+    humidity_image.set_pixel(x, y, c)
 
 func get_image() -> Image:
     return _image

@@ -5,7 +5,7 @@
 [ext_resource type="Resource" uid="uid://8dwytago3qxw" path="res://IslandGeneration/Biomes/Beach.tres" id="3_chkb5"]
 [ext_resource type="Resource" uid="uid://ba7rwny00d5wn" path="res://IslandGeneration/Biomes/Forest.tres" id="4_tmbfc"]
 [ext_resource type="Resource" uid="uid://nku6nbo0ciyq" path="res://IslandGeneration/Biomes/DeepOcean.tres" id="5_tmbfc"]
-[ext_resource type="Script" uid="uid://77iwvi5bg5o6" path="res://IslandGeneration/heightmap_generator.gd" id="6_mymlj"]
+[ext_resource type="Script" uid="uid://77iwvi5bg5o6" path="res://IslandGeneration/world_map_generator.gd" id="6_mymlj"]
 [ext_resource type="Script" uid="uid://dqq55tsdtdqnk" path="res://IslandGeneration/NoisePasses/NoisePass.gd" id="6_wahol"]
 [ext_resource type="Script" uid="uid://232ig0rvy8pb" path="res://IslandGeneration/Modifiers/MapModifier.gd" id="7_lfmxv"]
 [ext_resource type="Script" uid="uid://xk42ray1r42m" path="res://IslandGeneration/island_generator.gd" id="8_3iai5"]
@@ -28,12 +28,12 @@ starting_seed = -1
 center_bias = 0.0
 height_adjustment = 2.0
 height_multiplier = 1.0
-noise_passes = Array[ExtResource("6_wahol")]([SubResource("Resource_iyggg"), SubResource("Resource_wahol")])
+height_noise_passes = Array[ExtResource("6_wahol")]([SubResource("Resource_iyggg"), SubResource("Resource_wahol")])
 metadata/_custom_type_script = "uid://77iwvi5bg5o6"
 
 [resource]
 script = ExtResource("8_3iai5")
-heightmap_generator = SubResource("Resource_dvlhv")
+map_generator = SubResource("Resource_dvlhv")
 biomes = Array[ExtResource("1_rqagn")]([ExtResource("2_uqs64"), ExtResource("3_chkb5"), ExtResource("4_tmbfc"), ExtResource("5_tmbfc")])
 modifiers = Array[ExtResource("7_lfmxv")]([])
 metadata/_custom_type_script = "uid://xk42ray1r42m"
