@@ -13,4 +13,6 @@ is_land = true
 layer_index = 1
 tile_set = ExtResource("2_tileset")
 terrain_id = 1
+min_temperature = 0.0
+max_temperature = 1.0
 metadata/_custom_type_script = "uid://d2ubhr7dafolu"

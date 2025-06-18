@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="IslandGenerator" load_steps=14 format=3 uid="uid://dtgx0rqlgp2iu"]
+[gd_resource type="Resource" script_class="IslandGenerator" load_steps=17 format=3 uid="uid://dtgx0rqlgp2iu"]
 
 [ext_resource type="Script" uid="uid://d2ubhr7dafolu" path="res://IslandGeneration/Biomes/Biome.gd" id="1_0eovp"]
 [ext_resource type="Resource" uid="uid://nku6nbo0ciyq" path="res://IslandGeneration/Biomes/DeepOcean.tres" id="2_3gifj"]
@@ -11,21 +11,26 @@
 [ext_resource type="Resource" uid="uid://ba7rwny00d5wn" path="res://IslandGeneration/Biomes/Forest.tres" id="6_3ptso"]
 [ext_resource type="Resource" uid="uid://ckud58t81tgw6" path="res://IslandGeneration/Biomes/Mountains.tres" id="7_uw2in"]
 [ext_resource type="Resource" uid="uid://bhxt3clrg3ljb" path="res://IslandGeneration/Biomes/Snow.tres" id="8_axvre"]
-[ext_resource type="Resource" uid="uid://cr6da1esb0ypt" path="res://IslandGeneration/Generators/HeightMapGen256x256.tres" id="9_ldwkh"]
+[ext_resource type="Resource" uid="uid://c1rt40fnrebe8" path="res://IslandGeneration/Biomes/Desert.tres" id="10_desert"]
+[ext_resource type="Resource" uid="uid://b3e32vbtdful2" path="res://IslandGeneration/Biomes/Jungle.tres" id="11_jungle"]
+[ext_resource type="Resource" uid="uid://dq0mh4ki2c263" path="res://IslandGeneration/Generators/WorldMapGen256x256.tres" id="12_c2j2f"]
+[ext_resource type="Resource" uid="uid://dbsn260a0rdce" path="res://IslandGeneration/Biomes/Tundra.tres" id="12_tundra"]
 
 [sub_resource type="Resource" id="Resource_5ci8a"]
 script = ExtResource("4_gwcm1")
 river_color = Color(0.0830601, 0.414628, 1, 1)
+min_length = 10
 max_length = 1000
 start_search_attempts = 100
 river_count = 10
 min_starting_height = 0.5
 meander_chance = 0.7
+max_temperature = 0.5
 metadata/_custom_type_script = "uid://bav73ikqeuefi"
 
 [resource]
 script = ExtResource("5_y5f7j")
-heightmap_generator = ExtResource("9_ldwkh")
-biomes = Array[ExtResource("1_0eovp")]([ExtResource("2_3gifj"), ExtResource("3_vnri2"), ExtResource("4_vepqt"), ExtResource("5_c2j2f"), ExtResource("6_3ptso"), ExtResource("7_uw2in"), ExtResource("8_axvre")])
+map_generator = ExtResource("12_c2j2f")
+biomes = Array[ExtResource("1_0eovp")]([ExtResource("2_3gifj"), ExtResource("3_vnri2"), ExtResource("4_vepqt"), ExtResource("5_c2j2f"), ExtResource("6_3ptso"), ExtResource("7_uw2in"), ExtResource("8_axvre"), ExtResource("10_desert"), ExtResource("11_jungle"), ExtResource("12_tundra")])
 modifiers = Array[ExtResource("3_u1c4c")]([SubResource("Resource_5ci8a")])
 metadata/_custom_type_script = "uid://xk42ray1r42m"

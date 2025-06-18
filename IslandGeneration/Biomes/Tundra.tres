@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="Biome" load_steps=3 format=3 uid="uid://dbsn260a0rdce"]
+
+[ext_resource type="Script" uid="uid://d2ubhr7dafolu" path="res://IslandGeneration/Biomes/Biome.gd" id="1_script"]
+[ext_resource type="TileSet" uid="uid://by06tpvcswh3g" path="res://TileMap/TileSet01.tres" id="2_tileset"]
+
+[resource]
+script = ExtResource("1_script")
+biome_id = "tundra"
+name = "Tundra"
+min_height = 0.2
+color = Color(0.761111, 0.794484, 0.720367, 1)
+is_land = true
+layer_index = 1
+tile_set = ExtResource("2_tileset")
+terrain_id = 1
+min_temperature = 0.0
+max_temperature = 0.3
+metadata/_custom_type_script = "uid://d2ubhr7dafolu"

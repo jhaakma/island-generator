@@ -10,7 +10,7 @@
 [ext_resource type="Resource" uid="uid://8dwytago3qxw" path="res://IslandGeneration/Biomes/Beach.tres" id="5_cv8e0"]
 [ext_resource type="Script" uid="uid://bav73ikqeuefi" path="res://IslandGeneration/Modifiers/RiverModifier.gd" id="5_river"]
 [ext_resource type="Resource" uid="uid://ckud58t81tgw6" path="res://IslandGeneration/Biomes/Mountains.tres" id="6_hkvnm"]
-[ext_resource type="Script" uid="uid://77iwvi5bg5o6" path="res://IslandGeneration/heightmap_generator.gd" id="6_hmap"]
+[ext_resource type="Script" uid="uid://77iwvi5bg5o6" path="res://IslandGeneration/world_map_generator.gd" id="6_hmap"]
 [ext_resource type="Resource" uid="uid://da6hen83kaoyg" path="res://IslandGeneration/Biomes/Grass.tres" id="6_wgovn"]
 [ext_resource type="Resource" uid="uid://ba7rwny00d5wn" path="res://IslandGeneration/Biomes/Forest.tres" id="7_hcu3t"]
 [ext_resource type="Resource" uid="uid://bhxt3clrg3ljb" path="res://IslandGeneration/Biomes/Snow.tres" id="7_wgovn"]
@@ -41,7 +41,7 @@ metadata/_custom_type_script = "uid://bav73ikqeuefi"
 
 [sub_resource type="Resource" id="Resource_iwp64"]
 script = ExtResource("4_map")
-heightmap_generator = SubResource("Resource_xd21n")
+map_generator = SubResource("Resource_xd21n")
 biomes = Array[ExtResource("3_biome")]([ExtResource("3_dvlhv"), ExtResource("4_wgovn"), ExtResource("5_cv8e0"), ExtResource("6_wgovn"), ExtResource("7_hcu3t"), ExtResource("6_hkvnm"), ExtResource("7_wgovn")])
 modifiers = Array[ExtResource("5_aw1lf")]([SubResource("Resource_5ci8a")])
 metadata/_custom_type_script = "uid://xk42ray1r42m"

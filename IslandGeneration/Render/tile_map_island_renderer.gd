@@ -12,9 +12,9 @@ signal island_generated
 @export var land_layer: TileMapLayer
 
 
-func generate_island(height_map: HeightMap, _generator: IslandGenerator) -> void:
+func generate_island(height_map: WorldMap, _generator: IslandGenerator) -> void:
     if height_map == null:
-        push_error("TileMapIslandRenderer requires valid HeightMap and IslandGenerator")
+        push_error("TileMapIslandRenderer requires valid WorldMap and IslandGenerator")
         return
     ocean_layer.clear()
     land_layer.clear()
