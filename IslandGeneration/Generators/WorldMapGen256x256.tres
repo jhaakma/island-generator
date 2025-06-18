@@ -1,21 +1,36 @@
-[gd_resource type="Resource" script_class="WorldMapGenerator" load_steps=6 format=3 uid="uid://cr6da1esb0ypt"]
+[gd_resource type="Resource" script_class="WorldMapGenerator" load_steps=6 format=3 uid="uid://dq0mh4ki2c263"]
 
 [ext_resource type="Script" uid="uid://dqq55tsdtdqnk" path="res://IslandGeneration/NoisePasses/NoisePass.gd" id="1_1jr1y"]
-[ext_resource type="Script" uid="uid://77iwvi5bg5o6" path="res://IslandGeneration/world_map_generator.gd" id="1_13mlu"]
-[ext_resource type="Resource" uid="uid://cvdk3fgf23ieb" path="res://IslandGeneration/NoisePasses/BaseNoise64.tres" id="2_o5alm"]
-[ext_resource type="Resource" uid="uid://dtgcsr107jivp" path="res://IslandGeneration/NoisePasses/OverlayNoise16.tres" id="3_ppjue"]
+[ext_resource type="Script" uid="uid://77iwvi5bg5o6" path="res://IslandGeneration/world_map_generator.gd" id="2_5qqnj"]
 
-[sub_resource type="Resource" id="Resource_1jr1y"]
+[sub_resource type="Resource" id="Resource_5qqnj"]
 script = ExtResource("1_1jr1y")
-scale = 128.0
-weight = 0.3
+scale = 64
+weight = 1.0
+noise_type = 2
+metadata/_custom_type_script = "uid://dqq55tsdtdqnk"
+
+[sub_resource type="Resource" id="Resource_dhbnd"]
+script = ExtResource("1_1jr1y")
+scale = 32
+weight = 0.0
+noise_type = 3
+metadata/_custom_type_script = "uid://dqq55tsdtdqnk"
+
+[sub_resource type="Resource" id="Resource_1ljbg"]
+script = ExtResource("1_1jr1y")
+scale = 64
+weight = 1.0
+noise_type = 3
 metadata/_custom_type_script = "uid://dqq55tsdtdqnk"
 
 [resource]
-script = ExtResource("1_13mlu")
+script = ExtResource("2_5qqnj")
 starting_seed = -1
-center_bias = 0.0
-height_adjustment = 3.0
-height_multiplier = 2.0
-height_noise_passes = Array[ExtResource("1_1jr1y")]([ExtResource("2_o5alm"), ExtResource("3_ppjue"), SubResource("Resource_1jr1y")])
+center_bias = 0.4
+height_adjustment = 0.0
+height_multiplier = 1.0
+temperature_adjustment = -3.565
+height_noise_passes = Array[ExtResource("1_1jr1y")]([SubResource("Resource_5qqnj"), SubResource("Resource_dhbnd")])
+temperature_noise_passes = Array[ExtResource("1_1jr1y")]([SubResource("Resource_1ljbg")])
 metadata/_custom_type_script = "uid://77iwvi5bg5o6"

@@ -14,8 +14,6 @@ var biome_uid: int
 @export var terrain_id: int = 0
 @export var min_temperature: float = 0.0
 @export var max_temperature: float = 1.0
-@export var min_humidity: float = 0.0
-@export var max_humidity: float = 1.0
 
 func register():
     BiomeRegistry.register_biome(self)

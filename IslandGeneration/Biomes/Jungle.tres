@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="Biome" load_steps=3 format=3 uid="uid://0aucl7tcqm35n"]
+[gd_resource type="Resource" script_class="Biome" load_steps=3 format=3 uid="uid://b3e32vbtdful2"]
 
 [ext_resource type="Script" uid="uid://d2ubhr7dafolu" path="res://IslandGeneration/Biomes/Biome.gd" id="1_script"]
 [ext_resource type="TileSet" uid="uid://by06tpvcswh3g" path="res://TileMap/TileSet01.tres" id="2_tileset"]
@@ -8,13 +8,11 @@ script = ExtResource("1_script")
 biome_id = "jungle"
 name = "Jungle"
 min_height = 0.3
-color = Color(0.0, 0.5, 0.0, 1)
+color = Color(0, 0.5, 0, 1)
 is_land = true
 layer_index = 1
 tile_set = ExtResource("2_tileset")
 terrain_id = 1
-min_temperature = 0.6
-max_temperature = 1.0
-min_humidity = 0.7
-max_humidity = 1.0
+min_temperature = 0.0
+max_temperature = 0.3
 metadata/_custom_type_script = "uid://d2ubhr7dafolu"
