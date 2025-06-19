@@ -16,14 +16,19 @@ void vertex() {
 }
 
 vec3 get_biome_color(float height, float temp) {
+    vec3 color = vec3(0.0);
+    float best_height = -1000.0;
     for(int i = 0; i < MAX_BIOMES; i++) {
         if(i >= biome_count) break;
         vec4 t = texelFetch(biome_thresholds, ivec2(i, 0), 0);
-        if(height >= t.r && height <= t.g && temp >= t.b && temp <= t.a) {
-            return texelFetch(biome_colors, ivec2(i, 0), 0).rgb;
+        bool temp_ok = temp >= t.b && temp <= t.a;
+        bool height_ok = height >= t.r;
+        if(temp_ok && height_ok && t.r > best_height) {
+            best_height = t.r;
+            color = texelFetch(biome_colors, ivec2(i, 0), 0).rgb;
         }
     }
-    return vec3(0.0);
+    return color;
 }
 
 void fragment() {

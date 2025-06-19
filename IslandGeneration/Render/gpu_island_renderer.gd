@@ -28,8 +28,7 @@ func generate_island(world_map: WorldMap, generator: IslandGenerator) -> void:
         shader_material.shader = load("res://IslandGeneration/Render/Shaders/gpu_island.gdshader")
         island_sprite.material = shader_material
 
-    shader_material.set_shader_parameter("height_map", hm_tex)
-    shader_material.set_shader_parameter("temperature_map", temp_tex)
+        thresholds.append(Color(biome.min_height, 0.0, biome.min_temperature, biome.max_temperature))
     shader_material.set_shader_parameter("height_scale", height_scale)
 
     var colors := PackedColorArray()
