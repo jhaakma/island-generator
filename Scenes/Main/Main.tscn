@@ -1,8 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://csjlsvgm6cf7k"]
+[gd_scene load_steps=9 format=3 uid="uid://csjlsvgm6cf7k"]
 
 [ext_resource type="Script" uid="uid://cunwi2033q3mc" path="res://Scenes/Main/main.gd" id="1_qtv3y"]
 [ext_resource type="PackedScene" uid="uid://ohoiqeiuqx0l" path="res://IslandGeneration/Render/PixelIslandRenderer.tscn" id="2_cmk6n"]
 [ext_resource type="Resource" uid="uid://dtgx0rqlgp2iu" path="res://IslandGeneration/Generators/SimpleIsland.tres" id="2_o8wgc"]
+[ext_resource type="PackedScene" uid="uid://b0d506g17u768" path="res://IslandGeneration/Render/GPUIslandRenderer.tscn" id="4_5s61s"]
 [ext_resource type="TileSet" uid="uid://c6viwathcphwh" path="res://TileMap/OutlineTiles.tres" id="6_aw1lf"]
 [ext_resource type="PackedScene" uid="uid://627jml6ruhca" path="res://Player/Player.tscn" id="6_w20t6"]
 [ext_resource type="PackedScene" uid="uid://cmb20sttpyjm1" path="res://IslandGeneration/Render/TileMapIslandRenderer.tscn" id="19_qdkat"]
@@ -11,11 +12,13 @@
 [node name="Main" type="Node2D" node_paths=PackedStringArray("island_renderer")]
 script = ExtResource("1_qtv3y")
 island_size = Vector2i(256, 156)
-island_renderer = NodePath("PixelIslandRenderer")
+island_renderer = NodePath("GpuIslandRenderer")
 island_generator = ExtResource("2_o8wgc")
 
 [node name="PixelIslandRenderer" parent="." instance=ExtResource("2_cmk6n")]
 position = Vector2(516, 342)
+
+[node name="GpuIslandRenderer" parent="." instance=ExtResource("4_5s61s")]
 
 [node name="TileMapIslandRenderer" parent="." node_paths=PackedStringArray("ocean_layer", "land_layer") instance=ExtResource("19_qdkat")]
 position = Vector2(1, -1)

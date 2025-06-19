@@ -1,19 +1,14 @@
 extends IslandRenderer
 class_name GPUIslandRenderer
 
-@export var viewport: SubViewport
 @export var island_sprite: Sprite2D
 @export var height_scale: float = 20.0
 
 func _ready() -> void:
-    if not viewport:
-        viewport = SubViewport.new()
-        viewport.render_target_update_mode = SubViewport.UPDATE_ALWAYS
-        add_child(viewport)
     if not island_sprite:
         island_sprite = Sprite2D.new()
         island_sprite.centered = false
-        viewport.add_child(island_sprite)
+        add_child(island_sprite)
 
 func generate_island(world_map: WorldMap, generator: IslandGenerator) -> void:
     if world_map == null or generator == null:
@@ -21,7 +16,6 @@ func generate_island(world_map: WorldMap, generator: IslandGenerator) -> void:
         return
 
     var size: Vector2i = world_map.get_size()
-    viewport.size = size
 
     var hm_tex := ImageTexture.create_from_image(world_map.get_height_map())
     var temp_tex := ImageTexture.create_from_image(world_map.get_temperature_map())
@@ -34,9 +28,9 @@ func generate_island(world_map: WorldMap, generator: IslandGenerator) -> void:
         shader_material.shader = load("res://IslandGeneration/Render/Shaders/gpu_island.gdshader")
         island_sprite.material = shader_material
 
-    shader_material.set_shader_param("height_map", hm_tex)
-    shader_material.set_shader_param("temperature_map", temp_tex)
-    shader_material.set_shader_param("height_scale", height_scale)
+    shader_material.set_shader_parameter("height_map", hm_tex)
+    shader_material.set_shader_parameter("temperature_map", temp_tex)
+    shader_material.set_shader_parameter("height_scale", height_scale)
 
     var colors := PackedColorArray()
     var thresholds := PackedColorArray()
@@ -56,10 +50,9 @@ func generate_island(world_map: WorldMap, generator: IslandGenerator) -> void:
     var threshold_tex := ImageTexture.create_from_image(threshold_img)
     var color_tex := ImageTexture.create_from_image(color_img)
 
-    shader_material.set_shader_param("biome_thresholds", threshold_tex)
-    shader_material.set_shader_param("biome_colors", color_tex)
-    shader_material.set_shader_param("biome_count", count)
+    shader_material.set_shader_parameter("biome_thresholds", threshold_tex)
+    shader_material.set_shader_parameter("biome_colors", color_tex)
+    shader_material.set_shader_parameter("biome_count", count)
 
 func get_texture() -> Texture2D:
-    return viewport.get_texture() if viewport else null
-
+    return island_sprite.texture if island_sprite else null

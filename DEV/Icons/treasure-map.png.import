@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b7e3wp7i33ye5"
-path="res://.godot/imported/all_icons.png-28909f8bd099d79f5d095eb93a9167e6.ctex"
+uid="uid://dh87k1xam3d27"
+path="res://.godot/imported/treasure-map.png-a400234753ef0df509e5ad4a8309901b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://example/Random Upgrades/icons/all_icons.png"
-dest_files=["res://.godot/imported/all_icons.png-28909f8bd099d79f5d095eb93a9167e6.ctex"]
+source_file="res://DEV/Icons/treasure-map.png"
+dest_files=["res://.godot/imported/treasure-map.png-a400234753ef0df509e5ad4a8309901b.ctex"]
 
 [params]
 
