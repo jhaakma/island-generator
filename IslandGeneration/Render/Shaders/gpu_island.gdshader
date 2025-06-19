@@ -1,4 +1,4 @@
-shader_type spatial;
+shader_type canvas_item;
 
 uniform sampler2D height_map : hint_default_white;
 uniform sampler2D temperature_map : hint_default_white;
@@ -12,7 +12,7 @@ const int MAX_BIOMES = 16;
 
 void vertex() {
     float h = texture(height_map, UV).r * 2.0 - 1.0;
-    VERTEX.y += h * height_scale;
+    VERTEX.y -= h * height_scale;
 }
 
 vec3 get_biome_color(float height, float temp) {
@@ -29,5 +29,6 @@ vec3 get_biome_color(float height, float temp) {
 void fragment() {
     float h = texture(height_map, UV).r * 2.0 - 1.0;
     float temp = texture(temperature_map, UV).r;
-    ALBEDO = get_biome_color(h, temp);
+    COLOR.rgb = get_biome_color(h, temp);
+    COLOR.a = 1.0;
 }

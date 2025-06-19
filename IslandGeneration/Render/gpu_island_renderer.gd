@@ -2,7 +2,7 @@ extends IslandRenderer
 class_name GPUIslandRenderer
 
 @export var viewport: SubViewport
-@export var island_mesh: MeshInstance3D
+@export var island_sprite: Sprite2D
 @export var height_scale: float = 20.0
 
 func _ready() -> void:
@@ -10,9 +10,10 @@ func _ready() -> void:
         viewport = SubViewport.new()
         viewport.render_target_update_mode = SubViewport.UPDATE_ALWAYS
         add_child(viewport)
-    if not island_mesh:
-        island_mesh = MeshInstance3D.new()
-        viewport.add_child(island_mesh)
+    if not island_sprite:
+        island_sprite = Sprite2D.new()
+        island_sprite.centered = false
+        viewport.add_child(island_sprite)
 
 func generate_island(world_map: WorldMap, generator: IslandGenerator) -> void:
     if world_map == null or generator == null:
@@ -25,17 +26,13 @@ func generate_island(world_map: WorldMap, generator: IslandGenerator) -> void:
     var hm_tex := ImageTexture.create_from_image(world_map.get_height_map())
     var temp_tex := ImageTexture.create_from_image(world_map.get_temperature_map())
 
-    var plane := PlaneMesh.new()
-    plane.size = Vector2(size.x, size.y)
-    plane.subdivide_width = size.x - 1
-    plane.subdivide_depth = size.y - 1
-    island_mesh.mesh = plane
+    island_sprite.texture = hm_tex
 
-    var shader_material := island_mesh.material_override as ShaderMaterial
+    var shader_material := island_sprite.material as ShaderMaterial
     if shader_material == null:
         shader_material = ShaderMaterial.new()
-        shader_material.shader = load("res://IslandGeneration/Render/Shaders/gpu_island.shader")
-        island_mesh.material_override = shader_material
+        shader_material.shader = load("res://IslandGeneration/Render/Shaders/gpu_island.gdshader")
+        island_sprite.material = shader_material
 
     shader_material.set_shader_param("height_map", hm_tex)
     shader_material.set_shader_param("temperature_map", temp_tex)

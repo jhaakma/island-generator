@@ -1,7 +1,7 @@
-[gd_scene load_steps=5 format=3]
+[gd_scene load_steps=4 format=3]
 
 [ext_resource type="Script" path="res://IslandGeneration/Render/gpu_island_renderer.gd" id="1_hj4zt"]
-[ext_resource type="Shader" path="res://IslandGeneration/Render/Shaders/gpu_island.shader" id="2_j65sm"]
+[ext_resource type="Shader" path="res://IslandGeneration/Render/Shaders/gpu_island.gdshader" id="2_j65sm"]
 
 [node name="GPUIslandRenderer" type="Node2D"]
 script = ExtResource("1_hj4zt")
@@ -9,16 +9,10 @@ script = ExtResource("1_hj4zt")
 [node name="Viewport" type="SubViewport" parent="."]
 render_target_update_mode = 3
 size = Vector2i(512, 512)
-msaa_3d = 1
 
-[node name="IslandMesh" type="MeshInstance3D" parent="Viewport"]
-material_override = SubResource("0")
-
-[node name="Camera3D" type="Camera3D" parent="Viewport"]
-transform = Transform3D( 1, 0, 0, 0, 0.707, -0.707, 0, 0.707, 0.707, 0, 5, 5 )
-
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Viewport"]
-transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10, 0 )
+[node name="IslandSprite" type="Sprite2D" parent="Viewport"]
+material = SubResource("0")
+centered = false
 
 [sub_resource type="ShaderMaterial" id="0"]
 shader = ExtResource("2_j65sm")
