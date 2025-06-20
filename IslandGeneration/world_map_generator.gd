@@ -8,8 +8,9 @@ class_name WorldMapGenerator
 @export var temperature_adjustment: float = 0.0
 @export var height_noise_passes: Array[NoisePass] = []
 @export var temperature_noise_passes: Array[NoisePass] = []
+@export var use_island_mask: bool = true
 
-func generate_map(size: Vector2i) -> WorldMap:
+func generate_map(size: Vector2i, offset: Vector2i = Vector2i.ZERO) -> WorldMap:
 
     var _seed = starting_seed
     if starting_seed == -1:
@@ -36,6 +37,8 @@ func generate_map(size: Vector2i) -> WorldMap:
     for y in size.y:
         heights.append([])
         for x in size.x:
+            var world_pos_x = x + offset.x
+            var world_pos_y = y + offset.y
             var pos = Vector2i(x, y)
             var dx = abs(pos.x - center.x) / float(max_x) if max_x > 0 else 0
             var dy = abs(pos.y - center.y) / float(max_y) if max_y > 0 else 0
@@ -43,7 +46,7 @@ func generate_map(size: Vector2i) -> WorldMap:
 
             var h = 0.0
             for noise_pass in height_noise_passes:
-                h += noise_pass.get_noise(x, y)
+                h += noise_pass.get_noise(world_pos_x, world_pos_y)
 
             heights[y].append({
                 "h": h,
@@ -52,25 +55,27 @@ func generate_map(size: Vector2i) -> WorldMap:
             min_h = min(min_h, h)
             max_h = max(max_h, h)
 
-    # Second pass: remap and apply island mask for smooth transition to -1.0 at edges
+    # Second pass: remap and apply optional island mask
     for y in size.y:
         for x in size.x:
+            var world_pos_x = x + offset.x
+            var world_pos_y = y + offset.y
             var h = heights[y][x]["h"]
             var nd = heights[y][x]["nd"]
             if max_h != min_h:
                 h = remap(h, min_h, max_h, -1.0, 1.0)
             else:
                 h = 0.0
-            # Apply island mask: smoothly blend to -1.0 at edges using center_bias
-            var mask = pow(1.0 - clamp(nd, 0.0, 1.0), center_bias)
-            h = lerp(-1.0, h, mask)
+            if use_island_mask:
+                var mask = pow(1.0 - clamp(nd, 0.0, 1.0), center_bias)
+                h = lerp(-1.0, h, mask)
             h += height_adjustment * 0.1
             h *= height_multiplier
             h = clamp(h, -0.999, 0.999)
 
             var temp = 0.0
             for noise_pass in temperature_noise_passes:
-                temp += noise_pass.get_noise(x, y)
+                temp += noise_pass.get_noise(world_pos_x, world_pos_y)
             temp += temperature_adjustment * 0.1
             temp = clamp(0.5 + temp * 0.5 - h * 0.05, 0.0, 1.0)
 

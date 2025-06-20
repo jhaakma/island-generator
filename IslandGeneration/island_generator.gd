@@ -18,7 +18,7 @@ func init():
     _initialised = true
 
 
-func generate_map(island_size) -> WorldMap:
+func generate_map(island_size, offset: Vector2i = Vector2i.ZERO) -> WorldMap:
     if not _initialised:
         init()
 
@@ -26,7 +26,7 @@ func generate_map(island_size) -> WorldMap:
         push_error("IslandGenerator requires a WorldMapGenerator")
         return null
 
-    var world_map := map_generator.generate_map(island_size)
+    var world_map := map_generator.generate_map(island_size, offset)
 
     # for y in island_size.y:
     #     for x in island_size.x:
