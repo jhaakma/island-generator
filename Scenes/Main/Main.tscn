@@ -14,22 +14,23 @@
 shader = ExtResource("5_7npjy")
 shader_parameter/height_scale = 20.0
 shader_parameter/biome_count = 0
-shader_parameter/pixel_size = Vector2(0.4, 0.4)
+shader_parameter/pixel_size = Vector2(1, 1)
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_7npjy"]
 viewport_path = NodePath("GpuIslandRenderer/SubViewport")
 
 [node name="Main" type="Node2D" node_paths=PackedStringArray("island_renderer")]
 script = ExtResource("1_qtv3y")
-island_renderer = NodePath("TileMapIslandRenderer")
+island_size = Vector2i(512, 512)
+island_renderer = NodePath("GpuIslandRenderer")
 island_generator = ExtResource("2_o8wgc")
 
 [node name="PixelIslandRenderer" parent="." instance=ExtResource("2_cmk6n")]
 
 [node name="GpuIslandRenderer" parent="." node_paths=PackedStringArray("island_sprite") instance=ExtResource("4_5s61s")]
-visible = false
 position = Vector2(-1, -4)
 island_sprite = NodePath("Sprite2D")
+map_scale = 1.0
 
 [node name="Sprite2D" type="Sprite2D" parent="GpuIslandRenderer"]
 material = SubResource("ShaderMaterial_4vhfm")
@@ -60,6 +61,7 @@ drag = 0.99
 redirect_speed = 2.0
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
+zoom = Vector2(6, 6)
 position_smoothing_enabled = true
 position_smoothing_speed = 4.86
 

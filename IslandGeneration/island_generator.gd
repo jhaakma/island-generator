@@ -28,13 +28,13 @@ func generate_map(island_size) -> WorldMap:
 
     var world_map := map_generator.generate_map(island_size)
 
-    for y in island_size.y:
-        for x in island_size.x:
-            var height = world_map.get_height(x, y)
-            var temp = world_map.get_temperature(x, y)
-            var this_biome = BiomeRegistry.select_biome(temp, height)
-            world_map.set_biome(x, y, this_biome)
-            world_map.set_ocean(x, y, height < 0.0)
+    # for y in island_size.y:
+    #     for x in island_size.x:
+    #         var height = world_map.get_height(x, y)
+    #         var temp = world_map.get_temperature(x, y)
+    #         var this_biome = BiomeRegistry.select_biome(temp, height)
+    #         world_map.set_biome(x, y, this_biome)
+    #         world_map.set_ocean(x, y, height < 0.0)
 
     for modifier in modifiers:
         modifier.apply(self, world_map)

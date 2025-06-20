@@ -17,6 +17,8 @@ var noise: FastNoiseLite
 func init(_seed: int):
     noise = FastNoiseLite.new()
     noise.seed = _seed
+    noise.noise_type = noise_type
+    noise.frequency = 1.0 / float(scale)
 
 
 func get_noise(x: int, y: int) -> float:

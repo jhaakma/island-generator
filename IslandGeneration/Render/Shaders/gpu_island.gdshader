@@ -7,7 +7,7 @@ uniform sampler2D biome_colors : hint_default_white;
 
 uniform float height_scale = 20.0;
 uniform int biome_count = 0;
-uniform vec2 pixel_size = vec2(0.5, 0.5);
+uniform vec2 pixel_size = vec2(1.0, 1.0);
 const int MAX_BIOMES = 16;
 
 void vertex() {
@@ -33,12 +33,13 @@ vec3 get_biome_color(float height, float temp) {
 
 vec2 pixelate(vec2 screen_res, vec2 screen_uv) {
     // Snap UV to pixel grid
-    return floor(screen_uv * screen_res / pixel_size) * pixel_size / screen_res;
+    vec2 pix_size = max(pixel_size, vec2(0.0001, 0.0001));
+    return floor(screen_uv * screen_res / pix_size) * pix_size / screen_res;
 }
 
 void fragment() {
 
-    vec2 uv = UV;//pixelate(1.0/SCREEN_PIXEL_SIZE, UV);
+    vec2 uv = pixelate(1.0/SCREEN_PIXEL_SIZE, UV);
     vec4 world_map =  texture(height_map, uv);
     float h = world_map.r * 2.0 - 1.0;
     //float is_river = step(0.9, world_map.b);
