@@ -5,7 +5,7 @@
 
 [sub_resource type="Resource" id="Resource_5qqnj"]
 script = ExtResource("1_1jr1y")
-scale = 128
+scale = 64
 weight = 1.0
 noise_type = 3
 metadata/_custom_type_script = "uid://dqq55tsdtdqnk"
@@ -20,9 +20,9 @@ metadata/_custom_type_script = "uid://dqq55tsdtdqnk"
 [resource]
 script = ExtResource("2_5qqnj")
 starting_seed = -1
-center_bias = 3.0
-height_adjustment = 0.0
-height_multiplier = 1.0
+center_bias = 0.74
+height_adjustment = 2.925
+height_multiplier = 2.0
 temperature_adjustment = 0.0
 height_noise_passes = Array[ExtResource("1_1jr1y")]([SubResource("Resource_5qqnj")])
 temperature_noise_passes = Array[ExtResource("1_1jr1y")]([SubResource("Resource_1ljbg")])

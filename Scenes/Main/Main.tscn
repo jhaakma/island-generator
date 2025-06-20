@@ -21,7 +21,7 @@ viewport_path = NodePath("GpuIslandRenderer/SubViewport")
 
 [node name="Main" type="Node2D" node_paths=PackedStringArray("island_renderer")]
 script = ExtResource("1_qtv3y")
-island_size = Vector2i(512, 512)
+island_size = Vector2i(128, 128)
 island_renderer = NodePath("GpuIslandRenderer")
 island_generator = ExtResource("2_o8wgc")
 
@@ -61,7 +61,7 @@ drag = 0.99
 redirect_speed = 2.0
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
-zoom = Vector2(6, 6)
+zoom = Vector2(2, 2)
 position_smoothing_enabled = true
 position_smoothing_speed = 4.86
 

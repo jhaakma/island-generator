@@ -1,7 +1,15 @@
-[gd_scene load_steps=5 format=3 uid="uid://627jml6ruhca"]
+[gd_scene load_steps=6 format=3 uid="uid://627jml6ruhca"]
 
 [ext_resource type="Script" uid="uid://cf5xnltncx1sg" path="res://Player/player.gd" id="1_q3lat"]
 [ext_resource type="Texture2D" uid="uid://bllbhn5uoreil" path="res://Assets/Sprites/sailboat.png" id="2_q3lat"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_q3lat"]
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 4.0
+angle_min = -48.0
+angle_max = 63.3
+gravity = Vector3(0, 0, 0)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ddoul"]
 
@@ -14,6 +22,14 @@ floor_stop_on_slope = false
 floor_block_on_wall = false
 floor_max_angle = 0.42237
 script = ExtResource("1_q3lat")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+position = Vector2(0, 6)
+amount = 32
+lifetime = 0.11
+speed_scale = 0.5
+randomness = 0.36
+process_material = SubResource("ParticleProcessMaterial_q3lat")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_ddoul")
