@@ -19,13 +19,13 @@
 [sub_resource type="Resource" id="Resource_5ci8a"]
 script = ExtResource("4_gwcm1")
 river_color = Color(0.0830601, 0.414628, 1, 1)
-min_length = 10
+min_length = 2
 max_length = 1000
 start_search_attempts = 100
 river_count = 10
 min_starting_height = 0.5
 meander_chance = 0.7
-max_temperature = 0.5
+max_temperature = 0.9
 metadata/_custom_type_script = "uid://bav73ikqeuefi"
 
 [resource]

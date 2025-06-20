@@ -19,7 +19,8 @@ func _ready():
 func set_debug_sprite_texture(world_map: WorldMap) -> void:
     var debug_sprite: Sprite2D = get_node("CanvasLayer/DebugSprite")
     if debug_sprite:
-        var image: Image = world_map.get_temperature_map()
+        var image: Image = world_map.get_height_map()
+
         var h: Texture2D = ImageTexture.create_from_image(image)
         debug_sprite.texture = h
 

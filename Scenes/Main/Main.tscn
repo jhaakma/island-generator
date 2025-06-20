@@ -1,27 +1,45 @@
-[gd_scene load_steps=9 format=3 uid="uid://csjlsvgm6cf7k"]
+[gd_scene load_steps=12 format=3 uid="uid://csjlsvgm6cf7k"]
 
 [ext_resource type="Script" uid="uid://cunwi2033q3mc" path="res://Scenes/Main/main.gd" id="1_qtv3y"]
 [ext_resource type="PackedScene" uid="uid://ohoiqeiuqx0l" path="res://IslandGeneration/Render/PixelIslandRenderer.tscn" id="2_cmk6n"]
 [ext_resource type="Resource" uid="uid://dtgx0rqlgp2iu" path="res://IslandGeneration/Generators/SimpleIsland.tres" id="2_o8wgc"]
 [ext_resource type="PackedScene" uid="uid://b0d506g17u768" path="res://IslandGeneration/Render/GPUIslandRenderer.tscn" id="4_5s61s"]
+[ext_resource type="Shader" uid="uid://cwf3ab7e6ijmx" path="res://IslandGeneration/Render/Shaders/gpu_island.gdshader" id="5_7npjy"]
 [ext_resource type="TileSet" uid="uid://c6viwathcphwh" path="res://TileMap/OutlineTiles.tres" id="6_aw1lf"]
 [ext_resource type="PackedScene" uid="uid://627jml6ruhca" path="res://Player/Player.tscn" id="6_w20t6"]
 [ext_resource type="PackedScene" uid="uid://cmb20sttpyjm1" path="res://IslandGeneration/Render/TileMapIslandRenderer.tscn" id="19_qdkat"]
 [ext_resource type="TileSet" uid="uid://by06tpvcswh3g" path="res://TileMap/TileSet01.tres" id="20_udh0u"]
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4vhfm"]
+shader = ExtResource("5_7npjy")
+shader_parameter/height_scale = 20.0
+shader_parameter/biome_count = 0
+shader_parameter/pixel_size = Vector2(0.4, 0.4)
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_7npjy"]
+viewport_path = NodePath("GpuIslandRenderer/SubViewport")
+
 [node name="Main" type="Node2D" node_paths=PackedStringArray("island_renderer")]
 script = ExtResource("1_qtv3y")
-island_size = Vector2i(256, 156)
-island_renderer = NodePath("GpuIslandRenderer")
+island_renderer = NodePath("TileMapIslandRenderer")
 island_generator = ExtResource("2_o8wgc")
 
 [node name="PixelIslandRenderer" parent="." instance=ExtResource("2_cmk6n")]
-position = Vector2(516, 342)
 
-[node name="GpuIslandRenderer" parent="." instance=ExtResource("4_5s61s")]
+[node name="GpuIslandRenderer" parent="." node_paths=PackedStringArray("island_sprite") instance=ExtResource("4_5s61s")]
+visible = false
+position = Vector2(-1, -4)
+island_sprite = NodePath("Sprite2D")
+
+[node name="Sprite2D" type="Sprite2D" parent="GpuIslandRenderer"]
+material = SubResource("ShaderMaterial_4vhfm")
+position = Vector2(1, 4)
+texture = SubResource("ViewportTexture_7npjy")
+
+[node name="SubViewport" type="SubViewport" parent="GpuIslandRenderer"]
 
 [node name="TileMapIslandRenderer" parent="." node_paths=PackedStringArray("ocean_layer", "land_layer") instance=ExtResource("19_qdkat")]
-position = Vector2(1, -1)
+position = Vector2(0, -5)
 ocean_layer = NodePath("OceanLayer")
 land_layer = NodePath("LandLayer")
 
@@ -34,19 +52,19 @@ position = Vector2(-9.09495e-13, 9.09495e-13)
 tile_set = ExtResource("6_aw1lf")
 
 [node name="Player" parent="." instance=ExtResource("6_w20t6")]
-visible = false
-position = Vector2(524, 346)
-thrust_force = 100.0
+position = Vector2(196, 171)
+thrust_force = 124.37
 reverse_force = 20.0
 rotation_speed = 1.0
 drag = 0.99
 redirect_speed = 2.0
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
-position = Vector2(1, 1)
-zoom = Vector2(1.275, 1.275)
+position_smoothing_enabled = true
+position_smoothing_speed = 4.86
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="DebugSprite" type="Sprite2D" parent="CanvasLayer"]
+visible = false
 centered = false
