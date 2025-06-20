@@ -31,6 +31,9 @@ island_generator = ExtResource("2_o8wgc")
 position = Vector2(-1, -4)
 island_sprite = NodePath("Sprite2D")
 map_scale = 1.0
+player_path = NodePath("../Player")
+chunk_size = Vector2i(256, 256)
+render_radius = 1
 
 [node name="Sprite2D" type="Sprite2D" parent="GpuIslandRenderer"]
 material = SubResource("ShaderMaterial_4vhfm")
