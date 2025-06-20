@@ -30,7 +30,8 @@ func generate_island(world_map: WorldMap, generator: IslandGenerator) -> void:
     _generator = generator
     if world_map:
         chunk_size = world_map.get_size()
-        _create_chunk(Vector2i.ZERO, world_map)
+
+    _clear_chunks()
 
     var colors := PackedColorArray()
     var thresholds := PackedColorArray()
@@ -49,10 +50,28 @@ func generate_island(world_map: WorldMap, generator: IslandGenerator) -> void:
     _biome_threshold_tex = ImageTexture.create_from_image(threshold_img)
     _biome_color_tex = ImageTexture.create_from_image(color_img)
 
+    _refresh_all_chunks(world_map)
     _update_chunks()
 
 func _process(_delta: float) -> void:
     _update_chunks()
+
+func _clear_chunks() -> void:
+    for sprite in _chunks.values():
+        if sprite != island_sprite:
+            remove_child(sprite)
+            sprite.queue_free()
+    _chunks.clear()
+
+func _refresh_all_chunks(world_map: WorldMap = null) -> void:
+    if _chunks.is_empty():
+        if world_map:
+            _create_chunk(Vector2i.ZERO, world_map)
+        return
+    for coord in _chunks.keys():
+        var spr: Sprite2D = _chunks[coord]
+        var wm = _generator.generate_map(chunk_size, coord * chunk_size)
+        _apply_map(spr, wm)
 
 func _get_player() -> Node2D:
     if player_path == NodePath():
