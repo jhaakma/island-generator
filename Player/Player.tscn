@@ -1,7 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://627jml6ruhca"]
+[gd_scene load_steps=5 format=3 uid="uid://627jml6ruhca"]
 
 [ext_resource type="Script" uid="uid://cf5xnltncx1sg" path="res://Player/player.gd" id="1_q3lat"]
 [ext_resource type="Texture2D" uid="uid://bllbhn5uoreil" path="res://Assets/Sprites/sailboat.png" id="2_q3lat"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ddoul"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_q3lat"]
 radius = 3.0
@@ -14,6 +16,7 @@ floor_max_angle = 0.42237
 script = ExtResource("1_q3lat")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_ddoul")
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("2_q3lat")
 
