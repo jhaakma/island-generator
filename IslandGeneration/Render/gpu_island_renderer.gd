@@ -16,14 +16,12 @@ func generate_island(world_map: WorldMap, generator: IslandGenerator) -> void:
         push_error("GPUIslandRenderer requires valid WorldMap and IslandGenerator")
         return
 
+    island_sprite.texture = ImageTexture.create_from_image(world_map.get_height_map())
+
     var size: Vector2i = world_map.get_size()
 
     var hm_tex := ImageTexture.create_from_image(world_map.get_height_map())
     var temp_tex := ImageTexture.create_from_image(world_map.get_temperature_map())
-
-    #island_sprite.texture = temp_tex
-    island_sprite.scale = Vector2(map_scale, map_scale)
-    # prevent frustrum culling
 
     var shader_material := island_sprite.material as ShaderMaterial
     if shader_material == null:

@@ -116,7 +116,6 @@ func _generate_river(_generator: IslandGenerator, world_map: WorldMap, heights: 
         print("RiverModifier: River too short, not setting freshwater.")
 
 
-
 func apply(generator: IslandGenerator, world_map: WorldMap) -> void:
     var size := world_map.get_size()
     var heights = _cache_heightmap(world_map, size)

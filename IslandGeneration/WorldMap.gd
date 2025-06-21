@@ -48,11 +48,11 @@ func set_freshwater(x: int, y: int, value: bool) -> void:
     _height_image.set_pixel(x, y, color)
 
 func is_ocean(x: int, y: int) -> bool:
-    return _height_image.get_pixel(x, y).a > 0.5
+    return _height_image.get_pixel(x, y).a < 0.5
 
 func set_ocean(x: int, y: int, value: bool) -> void:
     var color = _height_image.get_pixel(x, y)
-    color.a = 1.0 if value else 0.0
+    color.a = 0.0 if value else 1.0
     _height_image.set_pixel(x, y, color)
 
 func get_temperature(x: int, y: int) -> float:

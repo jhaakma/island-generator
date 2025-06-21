@@ -10,10 +10,12 @@ class_name IslandGenerator
 var _initialised := false
 
 func init():
+    print("IslandGenerator: Initialising...")
     for biome in biomes:
         if not biome:
             push_error("IslandGenerator: Biome is null, skipping registration.")
             continue
+
         biome.register()
     _initialised = true
 
@@ -38,5 +40,6 @@ func generate_map(island_size) -> WorldMap:
 
     for modifier in modifiers:
         modifier.apply(self, world_map)
+
 
     return world_map
