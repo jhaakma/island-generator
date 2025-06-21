@@ -10,7 +10,7 @@ uniform sampler2D biome_colors : hint_default_white;
 uniform float outline_color_multi = 0.6;
 uniform float outline_thickness = 0.3;
 uniform int biome_count = 0;
-uniform vec2 pixel_size = vec2(1.0, 1.0);
+uniform float pixel_size = 1.0;
 const int MAX_BIOMES = 16;
 
 vec3 get_biome_color(float height, float temp) {
@@ -30,9 +30,11 @@ vec3 get_biome_color(float height, float temp) {
 }
 
 vec2 pixelate(vec2 screen_res, vec2 screen_uv) {
-    // Snap UV to pixel grid
-    vec2 pix_size = max(pixel_size, vec2(0.0001, 0.0001));
-    return floor(screen_uv * screen_res / pix_size) * pix_size / screen_res;
+    // Snap UV to pixel grid with half-pixel offset
+    vec2 pix_size = max(vec2(pixel_size, pixel_size), vec2(0.0001, 0.0001));
+    vec2 grid = screen_uv * screen_res / pix_size;
+    grid = floor(grid) + 0.5;
+    return grid * pix_size / screen_res;
 }
 
 /* Outline effect
@@ -41,21 +43,27 @@ vec2 pixelate(vec2 screen_res, vec2 screen_uv) {
 */
 float outline_shoreline(vec2 uv) {
     vec2 tex_size = vec2(textureSize(height_map, 0));
-    vec2 texel = 1.0 / tex_size * outline_thickness;
-
     float h = texture(height_map, uv).r * 2.0 - 1.0;
-    if (h < 0.0)
-        return 0.0;
 
-    // Scan all 8 neighbors
-    for (int x = -1; x <= 1; x++) {
-        for (int y = -1; y <= 1; y++) {
-            if (x == 0 && y == 0) continue;
-            float neighbor_h = texture(height_map, uv + vec2(float(x) * texel.x, float(y) * texel.y)).r * 2.0 - 1.0;
-            if (neighbor_h < 0.0) return 1.0;
+    // Offsets for 8-connected neighbors (one texel in each direction)dww
+    vec2 offsets[8] = vec2[](
+        vec2(-1, -1), vec2(0, -1), vec2(1, -1),
+        vec2(-1,  0),              vec2(1,  0),
+        vec2(-1,  1), vec2(0,  1), vec2(1,  1)
+    );
+
+    bool has_land = false;
+    bool has_water = false;
+    for (int i = 0; i < 8; i++) {
+        vec2 neighbor_uv = uv + offsets[i] / tex_size * outline_thickness;
+        float neighbor_h = texture(height_map, neighbor_uv).r * 2.0 - 1.0;
+        if (neighbor_h < 0.0) {
+            has_water = true;
+        } else if (neighbor_h > 0.0) {
+            has_land = true;
         }
     }
-    return 0.0;
+    return float(has_land && has_water);
 }
 
 void fragment() {

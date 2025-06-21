@@ -19,7 +19,7 @@
 
 [sub_resource type="Resource" id="Resource_3ptso"]
 script = ExtResource("12_3ptso")
-scale = 32
+scale = 16
 weight = 1.0
 noise_type = 3
 metadata/_custom_type_script = "uid://dqq55tsdtdqnk"

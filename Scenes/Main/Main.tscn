@@ -14,15 +14,15 @@
 
 [sub_resource type="Resource" id="Resource_4vhfm"]
 script = ExtResource("3_4vhfm")
-accuracy = 1.056
+accuracy = 7.615
 metadata/_custom_type_script = "uid://cw7q27li57ob2"
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_4vhfm"]
 shader = ExtResource("5_7npjy")
 shader_parameter/outline_color_multi = 0.2
-shader_parameter/outline_thickness = 0.23
+shader_parameter/outline_thickness = 0.1
 shader_parameter/biome_count = 0
-shader_parameter/pixel_size = Vector2(0, 0)
+shader_parameter/pixel_size = 1.0
 
 [node name="Node2D" type="Node2D"]
 
