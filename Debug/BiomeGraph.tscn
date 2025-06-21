@@ -1,0 +1,26 @@
+[gd_scene load_steps=14 format=3 uid="uid://l0hkeka8rgj4"]
+
+[ext_resource type="Script" uid="uid://c5xmoya45xs8d" path="res://Debug/biome_graph.gd" id="1"]
+[ext_resource type="Script" uid="uid://d2ubhr7dafolu" path="res://IslandGeneration/Biomes/Biome.gd" id="2_vnk00"]
+[ext_resource type="Resource" uid="uid://8dwytago3qxw" path="res://IslandGeneration/Biomes/Beach.tres" id="3_4alno"]
+[ext_resource type="Resource" uid="uid://nku6nbo0ciyq" path="res://IslandGeneration/Biomes/DeepOcean.tres" id="4_qvu8b"]
+[ext_resource type="Resource" uid="uid://c1rt40fnrebe8" path="res://IslandGeneration/Biomes/Desert.tres" id="5_14nsj"]
+[ext_resource type="Resource" uid="uid://ba7rwny00d5wn" path="res://IslandGeneration/Biomes/Forest.tres" id="6_3fbs3"]
+[ext_resource type="Resource" uid="uid://da6hen83kaoyg" path="res://IslandGeneration/Biomes/Grass.tres" id="7_pyun0"]
+[ext_resource type="Resource" uid="uid://b3e32vbtdful2" path="res://IslandGeneration/Biomes/Jungle.tres" id="8_2qokw"]
+[ext_resource type="Resource" uid="uid://ckud58t81tgw6" path="res://IslandGeneration/Biomes/Mountains.tres" id="9_fqgij"]
+[ext_resource type="Resource" uid="uid://dcy0deb03fpni" path="res://IslandGeneration/Biomes/Ocean.tres" id="10_cgy0j"]
+[ext_resource type="Resource" uid="uid://brrc8aio052ah" path="res://IslandGeneration/Biomes/DesertCliffs.tres" id="11_4alno"]
+[ext_resource type="Resource" uid="uid://bhxt3clrg3ljb" path="res://IslandGeneration/Biomes/Snow.tres" id="11_wgpx6"]
+[ext_resource type="Resource" uid="uid://dbsn260a0rdce" path="res://IslandGeneration/Biomes/Tundra.tres" id="12_m2jtq"]
+
+[node name="BiomeGraph" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 240.0
+offset_bottom = 240.0
+script = ExtResource("1")
+biomes = Array[ExtResource("2_vnk00")]([ExtResource("4_qvu8b"), ExtResource("10_cgy0j"), ExtResource("3_4alno"), ExtResource("7_pyun0"), ExtResource("12_m2jtq"), ExtResource("5_14nsj"), ExtResource("6_3fbs3"), ExtResource("8_2qokw"), ExtResource("11_4alno"), ExtResource("9_fqgij"), ExtResource("11_wgpx6")])
+margin = 26.17
+metadata/_custom_type_script = "uid://c5xmoya45xs8d"
+metadata/_edit_horizontal_guides_ = [133.0]

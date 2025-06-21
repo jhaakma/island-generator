@@ -20,9 +20,9 @@ metadata/_custom_type_script = "uid://cw7q27li57ob2"
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_4vhfm"]
 shader = ExtResource("5_7npjy")
 shader_parameter/outline_color_multi = 0.2
-shader_parameter/outline_thickness = 0.1
+shader_parameter/outline_thickness = 0.085
 shader_parameter/biome_count = 0
-shader_parameter/pixel_size = 1.0
+shader_parameter/pixel_size = 0.435
 
 [node name="Node2D" type="Node2D"]
 

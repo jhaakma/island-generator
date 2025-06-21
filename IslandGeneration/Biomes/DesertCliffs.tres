@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="Biome" load_steps=2 format=3 uid="uid://brrc8aio052ah"]
+
+[ext_resource type="Script" uid="uid://d2ubhr7dafolu" path="res://IslandGeneration/Biomes/Biome.gd" id="1_b34br"]
+
+[resource]
+script = ExtResource("1_b34br")
+biome_id = "desert_cliffs"
+name = "Desert Cliffs"
+min_height = 0.3
+color = Color(0.64, 0.57344, 0.4736, 1)
+is_land = true
+layer_index = 0
+terrain_id = 0
+min_temperature = 0.5
+max_temperature = 1.0
+metadata/_custom_type_script = "uid://d2ubhr7dafolu"
