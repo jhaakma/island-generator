@@ -1,0 +1,14 @@
+[remap]
+
+importer="aseprite_wizard.plugin.noop"
+type="PackedDataContainer"
+uid="uid://budpucgnxelbi"
+path="res://.godot/imported/land_outline.aseprite-b0dfd79911d75f6992797e036f77e119.res"
+
+[deps]
+
+source_file="res://Assets/Sprites/land_outline.aseprite"
+dest_files=["res://.godot/imported/land_outline.aseprite-b0dfd79911d75f6992797e036f77e119.res"]
+
+[params]
+

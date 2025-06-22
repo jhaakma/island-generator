@@ -1,0 +1,14 @@
+[remap]
+
+importer="aseprite_wizard.plugin.noop"
+type="PackedDataContainer"
+uid="uid://bfwquy774mqq5"
+path="res://.godot/imported/ship_body_01.aseprite-3975d7ba4a339f4d47a85472a2f9816b.res"
+
+[deps]
+
+source_file="res://Assets/Sprites/ship/ship_body_01.aseprite"
+dest_files=["res://.godot/imported/ship_body_01.aseprite-3975d7ba4a339f4d47a85472a2f9816b.res"]
+
+[params]
+

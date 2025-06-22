@@ -40,10 +40,12 @@ window/size/initial_position_type=3
 window/size/initial_screen=1
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
+window/snap/snap_2d_vertices_to_pixel=true
+window/snap/snap_2d_transforms_to_pixel=true
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/resources_spreadsheet_view/plugin.cfg", "res://addons/tile_bit_tools/plugin.cfg", "res://addons/tileset_collision_generator_free_version/plugin.cfg")
+enabled=PackedStringArray("res://addons/AsepriteWizard/plugin.cfg", "res://addons/resources_spreadsheet_view/plugin.cfg", "res://addons/tile_bit_tools/plugin.cfg", "res://addons/tileset_collision_generator_free_version/plugin.cfg")
 
 [input]
 
@@ -89,4 +91,3 @@ scroll_down={
 textures/canvas_textures/default_texture_filter=0
 anti_aliasing/screen_space_roughness_limiter/enabled=false
 textures/decals/filter=2
-environment/defaults/default_clear_color=Color(0, 0.219608, 0.729412, 0.968627)

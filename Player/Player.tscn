@@ -1,18 +1,52 @@
-[gd_scene load_steps=5 format=3 uid="uid://627jml6ruhca"]
+[gd_scene load_steps=12 format=3 uid="uid://627jml6ruhca"]
 
 [ext_resource type="Script" uid="uid://cf5xnltncx1sg" path="res://Player/player.gd" id="1_q3lat"]
-[ext_resource type="Texture2D" uid="uid://bllbhn5uoreil" path="res://Assets/Sprites/sailboat.png" id="2_q3lat"]
+[ext_resource type="Script" uid="uid://biptjkmhp03lw" path="res://Components/WaterTrail/water_trail.gd" id="2_8g4oa"]
+[ext_resource type="Shader" uid="uid://d7nevm3uaouk" path="res://Shaders/Outline.gdshader" id="2_tok1r"]
+[ext_resource type="Texture2D" uid="uid://bfs00yq7khvqv" path="res://Assets/Sprites/ship/ship_body_01.png" id="3_ddoul"]
+[ext_resource type="Texture2D" uid="uid://cdnpvftelcdle" path="res://Assets/Sprites/ship/ship_sails_01.png" id="4_ddoul"]
+
+[sub_resource type="Gradient" id="Gradient_ddoul"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(1, 1, 1, 0.164706)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_8g4oa"]
+gradient = SubResource("Gradient_ddoul")
+width = 1
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_q3lat"]
 particle_flag_disable_z = true
-emission_shape = 1
-emission_sphere_radius = 3.0
-angle_min = -48.0
-angle_max = 63.3
+emission_shape = 3
+emission_box_extents = Vector3(2.07, 5.49, 0)
+angle_min = -272.8
+angle_max = 87.2
+direction = Vector3(0, 0, 0)
+spread = 180.0
+initial_velocity_max = 5.0
+angular_velocity_min = -443.34
+angular_velocity_max = 360.86
 gravity = Vector3(0, 0, 0)
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ddoul"]
+shader = ExtResource("2_tok1r")
+shader_parameter/color = Color(0, 0, 0, 1)
+shader_parameter/width = 2.0
+shader_parameter/pattern = 1
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8g4oa"]
+shader = ExtResource("2_tok1r")
+shader_parameter/color = Color(0, 0, 0, 1)
+shader_parameter/width = 2.0
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = false
+shader_parameter/number_of_images = Vector2(1, 1)
+
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_q3lat"]
-radius = 3.0
+radius = 2.0
 height = 12.0
 
 [node name="Player" type="CharacterBody2D"]
@@ -25,20 +59,32 @@ reverse_force = 59.0
 drag = 0.957
 max_speed = 994.315
 
-[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
-position = Vector2(0, 5)
-amount = 32
-lifetime = 0.11
+[node name="WaterTrail" type="GPUParticles2D" parent="." node_paths=PackedStringArray("character_body")]
+position = Vector2(0, 1)
+amount = 100
+texture = SubResource("GradientTexture1D_8g4oa")
+lifetime = 0.39
 speed_scale = 0.7
-randomness = 0.2
+randomness = 0.59
 process_material = SubResource("ParticleProcessMaterial_q3lat")
+script = ExtResource("2_8g4oa")
+character_body = NodePath("..")
+metadata/_custom_type_script = "uid://biptjkmhp03lw"
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(0.04, 0.04)
-texture = ExtResource("2_q3lat")
+[node name="Body" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_ddoul")
+position = Vector2(0, -1)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("3_ddoul")
+
+[node name="Sails" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_8g4oa")
+position = Vector2(65, 2)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("4_ddoul")
+offset = Vector2(-260, -12)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 visible = false
-position = Vector2(0, 2)
 shape = SubResource("CapsuleShape2D_q3lat")
 one_way_collision_margin = 0.0

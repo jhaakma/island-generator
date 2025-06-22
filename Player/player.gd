@@ -40,17 +40,11 @@ func handle_camera_zoom() -> void:
 func handle_rotation(delta: float) -> void:
     # Can't turn if not moving
     var velocity_ratio = clamp(velocity.length() / thrust_force, stationary_rotation_ratio, 1.0)
-    var forward = Vector2.UP.rotated(rotation)
-    var moving_forward = velocity.dot(forward) >= 0
-
-    var turn_direction = 1.0
-    if not moving_forward:
-        turn_direction = -1.0
 
     if Input.is_action_pressed("turn_left"):
-        rotation -= rotation_speed * delta * velocity_ratio * turn_direction
+        rotation -= rotation_speed * delta * velocity_ratio
     if Input.is_action_pressed("turn_right"):
-        rotation += rotation_speed * delta * velocity_ratio * turn_direction
+        rotation += rotation_speed * delta * velocity_ratio
 
 func handle_thrust(delta: float) -> void:
     if Input.is_action_pressed("move_forward"):

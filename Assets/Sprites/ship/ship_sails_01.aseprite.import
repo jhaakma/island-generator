@@ -1,0 +1,14 @@
+[remap]
+
+importer="aseprite_wizard.plugin.noop"
+type="PackedDataContainer"
+uid="uid://cs7oslotgpybc"
+path="res://.godot/imported/ship_sails_01.aseprite-d42e146a87c2aaaa4521b7f40d6b04ed.res"
+
+[deps]
+
+source_file="res://Assets/Sprites/ship/ship_sails_01.aseprite"
+dest_files=["res://.godot/imported/ship_sails_01.aseprite-d42e146a87c2aaaa4521b7f40d6b04ed.res"]
+
+[params]
+

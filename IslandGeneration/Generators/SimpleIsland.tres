@@ -20,16 +20,16 @@
 
 [sub_resource type="Resource" id="Resource_3ptso"]
 script = ExtResource("12_3ptso")
-scale = 16
+scale = 64
 weight = 1.0
-noise_type = 3
+noise_type = 1
 metadata/_custom_type_script = "uid://dqq55tsdtdqnk"
 
 [sub_resource type="Resource" id="Resource_axvre"]
 script = ExtResource("12_3ptso")
-scale = 16
+scale = 32
 weight = 0.893
-noise_type = 3
+noise_type = 1
 metadata/_custom_type_script = "uid://dqq55tsdtdqnk"
 
 [sub_resource type="Resource" id="Resource_1ljbg"]
