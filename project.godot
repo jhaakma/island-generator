@@ -34,9 +34,12 @@ BiomeRegistry="*res://IslandGeneration/Biomes/BiomeRegistry.gd"
 
 [display]
 
+window/size/viewport_width=1920
+window/size/viewport_height=1080
 window/size/initial_position_type=3
 window/size/initial_screen=1
 window/stretch/mode="canvas_items"
+window/stretch/aspect="expand"
 
 [editor_plugins]
 
@@ -84,5 +87,6 @@ scroll_down={
 [rendering]
 
 textures/canvas_textures/default_texture_filter=0
+anti_aliasing/screen_space_roughness_limiter/enabled=false
 textures/decals/filter=2
 environment/defaults/default_clear_color=Color(0, 0.219608, 0.729412, 0.968627)

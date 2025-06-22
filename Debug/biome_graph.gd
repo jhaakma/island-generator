@@ -45,8 +45,8 @@ func _draw() -> void:
         # Map biome height and temperature ranges to graph coordinates
         var y0: float = remap(min_height, -1.0, 1.0, 0.0, graph_size.x)
         var y1: float = remap(max_height, -1.0, 1.0, 0.0, graph_size.x)
-        var x0: float = remap(biome.min_temperature, 0.0, 1.0, graph_size.y, 0.0)
-        var x1: float = remap(biome.max_temperature, 0.0, 1.0, graph_size.y, 0.0)
+        var x0: float = remap(biome.max_temperature, 1.0, 0.0, graph_size.y, 0.0)
+        var x1: float = remap(biome.min_temperature, 1.0, 0.0, graph_size.y, 0.0)
         var rect_pos: Vector2 = origin + Vector2(x0, -y1)
         var rect_size: Vector2 = Vector2(x1 - x0, y1 - y0)
         draw_rect(Rect2(rect_pos, rect_size), biome.color, true)

@@ -21,6 +21,6 @@ offset_right = 240.0
 offset_bottom = 240.0
 script = ExtResource("1")
 biomes = Array[ExtResource("2_vnk00")]([ExtResource("4_qvu8b"), ExtResource("10_cgy0j"), ExtResource("3_4alno"), ExtResource("7_pyun0"), ExtResource("12_m2jtq"), ExtResource("5_14nsj"), ExtResource("6_3fbs3"), ExtResource("8_2qokw"), ExtResource("11_4alno"), ExtResource("9_fqgij"), ExtResource("11_wgpx6")])
-margin = 26.17
+margin = 20.182
 metadata/_custom_type_script = "uid://c5xmoya45xs8d"
 metadata/_edit_horizontal_guides_ = [133.0]
