@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://csjlsvgm6cf7k"]
+[gd_scene load_steps=21 format=3 uid="uid://csjlsvgm6cf7k"]
 
 [ext_resource type="Script" uid="uid://bcx870gbsxl8e" path="res://Components/Background/background.gd" id="1_hkvnm"]
 [ext_resource type="Script" uid="uid://cunwi2033q3mc" path="res://Scenes/Main/main.gd" id="1_qtv3y"]
@@ -12,6 +12,7 @@
 [ext_resource type="Shader" uid="uid://cwf3ab7e6ijmx" path="res://IslandGeneration/Render/Shaders/gpu_island.gdshader" id="5_7npjy"]
 [ext_resource type="TileSet" uid="uid://c6viwathcphwh" path="res://TileMap/OutlineTiles.tres" id="6_aw1lf"]
 [ext_resource type="PackedScene" uid="uid://627jml6ruhca" path="res://Player/Player.tscn" id="6_w20t6"]
+[ext_resource type="PackedScene" uid="uid://br0bdiafokh6e" path="res://Components/Wind/Wind.tscn" id="15_5ci8a"]
 [ext_resource type="PackedScene" uid="uid://cmb20sttpyjm1" path="res://IslandGeneration/Render/TileMapIslandRenderer.tscn" id="19_qdkat"]
 [ext_resource type="TileSet" uid="uid://by06tpvcswh3g" path="res://TileMap/TileSet01.tres" id="20_udh0u"]
 
@@ -34,6 +35,10 @@ shader_parameter/outline_thickness = 0.085
 shader_parameter/biome_count = 0
 shader_parameter/pixel_size = 0.3
 
+[sub_resource type="Curve" id="Curve_5ci8a"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.0531178, 0.50724), 2.32141, 2.32141, 0, 0, Vector2(0.251732, 0.942882), 0.916, 0.916, 0, 0, Vector2(0.512702, 1), 0.0, 0.0, 0, 0, Vector2(0.745958, 0.920035), -0.989278, -0.989278, 0, 0, Vector2(0.889145, 0.514499), -1.8549, -1.8549, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 7
+
 [node name="Node2D" type="Node2D"]
 
 [node name="Background" type="ColorRect" parent="."]
@@ -51,6 +56,7 @@ rotation = -0.0036586
 texture = SubResource("ViewportTexture_dvlhv")
 
 [node name="CanvasLayer2" type="CanvasLayer" parent="."]
+visible = false
 
 [node name="Main" type="Node2D" parent="." node_paths=PackedStringArray("island_renderer", "map_node", "player")]
 script = ExtResource("1_qtv3y")
@@ -101,7 +107,17 @@ tile_set = ExtResource("20_udh0u")
 position = Vector2(-9.09495e-13, 9.09495e-13)
 tile_set = ExtResource("6_aw1lf")
 
-[node name="Player" parent="Main/SubViewport" instance=ExtResource("6_w20t6")]
+[node name="Wind" parent="Main/SubViewport" node_paths=PackedStringArray("player") instance=ExtResource("15_5ci8a")]
+player = NodePath("../Player")
+min_wind_speed = 70.0
+min_rotation_degrees_per_second = 1.0
+max_rotation_degrees_per_second = 2.0
+
+[node name="Player" parent="Main/SubViewport" node_paths=PackedStringArray("wind") instance=ExtResource("6_w20t6")]
+thrust_force = 150.0
+reverse_force = 30.0
+wind = NodePath("../Wind")
+efficiency_curve = SubResource("Curve_5ci8a")
 
 [node name="Camera2D" type="Camera2D" parent="Main/SubViewport/Player"]
 zoom = Vector2(10, 10)

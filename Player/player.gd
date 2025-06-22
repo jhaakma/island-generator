@@ -11,6 +11,12 @@ extends CharacterBody2D
 
 @onready var camera: Camera2D = $Camera2D
 
+@export_category("Wind")
+@export var wind: Wind
+@export var efficiency_curve: Curve
+
+
+
 func _ready() -> void:
     velocity = Vector2.ZERO
 
@@ -22,6 +28,7 @@ func _physics_process(delta: float) -> void:
     move_and_slide()
     handle_collisions()
     handle_camera_zoom()
+
 
 func apply_drag() -> void:
     velocity *= drag
@@ -47,9 +54,25 @@ func handle_rotation(delta: float) -> void:
         rotation += rotation_speed * delta * velocity_ratio
 
 func handle_thrust(delta: float) -> void:
+    var wind_direction = wind.get_wind_direction().normalized()
+    var wind_speed = wind.current_wind_speed
+    var max_wind_speed = wind.max_wind_speed
+
+    var angle_to_wind = wind_direction.angle_to(Vector2.LEFT.rotated(rotation))
+
+    # Normalize angle to [0, 1]: 0 = upwind, 0.5 = beam reach, 1 = downwind
+    var normalized_angle =  (angle_to_wind + PI) / (2 * PI)
+    print("Normalized angle to wind: ", normalized_angle)
+    # Calculate efficiency based on the angle to the wind
+    var efficiency = efficiency_curve.sample(normalized_angle)
+    print("Efficiency: ", efficiency)
+
+    var adjusted_thrust_force = thrust_force * efficiency * (wind_speed / max_wind_speed)
+    adjusted_thrust_force = max(adjusted_thrust_force, reverse_force)
+
     if Input.is_action_pressed("move_forward"):
         var direction := Vector2.UP.rotated(rotation)
-        velocity += direction * thrust_force * delta
+        velocity += direction * adjusted_thrust_force * delta
         velocity = velocity.limit_length(max_speed)
 
     if Input.is_action_pressed("move_backward"):
