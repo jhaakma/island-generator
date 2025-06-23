@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://627jml6ruhca"]
+[gd_scene load_steps=15 format=3 uid="uid://627jml6ruhca"]
 
 [ext_resource type="Script" uid="uid://cf5xnltncx1sg" path="res://Player/player.gd" id="1_q3lat"]
 [ext_resource type="Script" uid="uid://biptjkmhp03lw" path="res://Components/WaterTrail/water_trail.gd" id="2_8g4oa"]
@@ -51,6 +51,10 @@ shader_parameter/number_of_images = Vector2(1, 1)
 radius = 2.0
 height = 12.0
 
+[sub_resource type="Curve" id="Curve_vlldt"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.114607, 0.867121), 1.54867, 1.54867, 0, 0, Vector2(0.501124, 1), 0.0, 0.0, 0, 0, Vector2(0.880899, 0.856048), -1.43722, -1.43722, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 5
+
 [node name="Player" type="CharacterBody2D"]
 floor_stop_on_slope = false
 floor_block_on_wall = false
@@ -93,6 +97,7 @@ script = ExtResource("6_input")
 [node name="Movement" type="Node" parent="." node_paths=PackedStringArray("ship", "input_provider")]
 script = ExtResource("5_ship")
 ship = NodePath("..")
+efficiency_curve = SubResource("Curve_vlldt")
 input_provider = NodePath("../PlayerInput")
 thrust_force = 150.0
 reverse_force = 50.0

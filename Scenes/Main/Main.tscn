@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://csjlsvgm6cf7k"]
+[gd_scene load_steps=20 format=3 uid="uid://csjlsvgm6cf7k"]
 
 [ext_resource type="Script" uid="uid://bcx870gbsxl8e" path="res://Components/Background/background.gd" id="1_hkvnm"]
 [ext_resource type="Script" uid="uid://cunwi2033q3mc" path="res://Scenes/Main/main.gd" id="1_qtv3y"]
@@ -31,13 +31,9 @@ metadata/_custom_type_script = "uid://cw7q27li57ob2"
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_4vhfm"]
 shader = ExtResource("5_7npjy")
 shader_parameter/outline_color_multi = -0.525
-shader_parameter/outline_thickness = 0.085
+shader_parameter/outline_thickness = 0.045
 shader_parameter/biome_count = 0
 shader_parameter/pixel_size = 0.3
-
-[sub_resource type="Curve" id="Curve_5ci8a"]
-_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.251685, 1), 0.0, 0.0, 0, 0, Vector2(0.750562, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
-point_count = 4
 
 [node name="Node2D" type="Node2D"]
 
@@ -54,9 +50,6 @@ offset_right = 1920.0
 offset_bottom = 1080.0
 rotation = -0.0036586
 texture = SubResource("ViewportTexture_dvlhv")
-
-[node name="CanvasLayer2" type="CanvasLayer" parent="."]
-visible = false
 
 [node name="Main" type="Node2D" parent="." node_paths=PackedStringArray("island_renderer", "map_node", "player")]
 script = ExtResource("1_qtv3y")
@@ -76,7 +69,7 @@ render_target_update_mode = 4
 [node name="Island 1" type="Node2D" parent="Main/WorldRenderViewport"]
 
 [node name="Map" type="Node2D" parent="Main/WorldRenderViewport/Island 1"]
-scale = Vector2(4, 4)
+scale = Vector2(8, 8)
 script = ExtResource("4_dvlhv")
 
 [node name="MapSprite" type="Sprite2D" parent="Main/WorldRenderViewport/Island 1/Map"]
@@ -107,26 +100,24 @@ tile_set = ExtResource("20_udh0u")
 position = Vector2(-9.09495e-13, 9.09495e-13)
 tile_set = ExtResource("6_aw1lf")
 
+[node name="Player" parent="Main/WorldRenderViewport" instance=ExtResource("6_w20t6")]
+
+[node name="Movement" parent="Main/WorldRenderViewport/Player" index="5" node_paths=PackedStringArray("wind")]
+wind = NodePath("../../Wind")
+
+[node name="Camera2D" type="Camera2D" parent="Main/WorldRenderViewport/Player"]
+zoom = Vector2(6, 6)
+
 [node name="Wind" parent="Main/WorldRenderViewport" node_paths=PackedStringArray("player") instance=ExtResource("15_5ci8a")]
 player = NodePath("../Player")
 min_wind_speed = 70.0
 min_rotation_degrees_per_second = 1.0
 max_rotation_degrees_per_second = 2.0
 
-[node name="Player" parent="Main/WorldRenderViewport" instance=ExtResource("6_w20t6")]
-
-[node name="Movement" parent="Main/WorldRenderViewport/Player" index="5" node_paths=PackedStringArray("wind")]
-wind = NodePath("../../Wind")
-efficiency_curve = SubResource("Curve_5ci8a")
-
-[node name="Camera2D" type="Camera2D" parent="Main/WorldRenderViewport/Player"]
-zoom = Vector2(10, 10)
-
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="DebugLayer" type="CanvasLayer" parent="."]
 visible = false
 
-[node name="DebugSprite" type="Sprite2D" parent="CanvasLayer" groups=["debug_sprite"]]
-visible = false
+[node name="DebugSprite" type="Sprite2D" parent="DebugLayer" groups=["debug_sprite"]]
 centered = false
 
 [editable path="Main/WorldRenderViewport/Player"]

@@ -34,7 +34,9 @@ func _ready() -> void:
     timer.start()
     timer.timeout.connect(update_wind_targets)
 
-    update_wind_targets()  # Initialize the first wind rotation
+    update_wind_targets()
+    target_rotation = randf_range(-PI, PI)  # Random initial rotation
+    rotation = randf_range(-PI, PI)  # Random initial rotation
 
     set_wind_speed(target_wind_speed)
     particles.emitting = true
