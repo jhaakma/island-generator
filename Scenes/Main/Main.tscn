@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://csjlsvgm6cf7k"]
+[gd_scene load_steps=21 format=3 uid="uid://csjlsvgm6cf7k"]
 
 [ext_resource type="Script" uid="uid://bcx870gbsxl8e" path="res://Components/Background/background.gd" id="1_hkvnm"]
 [ext_resource type="Script" uid="uid://cunwi2033q3mc" path="res://Scenes/Main/main.gd" id="1_qtv3y"]
@@ -39,9 +39,6 @@ shader_parameter/pixel_size = 0.3
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.251685, 1), 0.0, 0.0, 0, 0, Vector2(0.750562, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 4
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_5ci8a"]
-viewport_path = NodePath("Main/WorldRenderViewport/SubViewport")
-
 [node name="Node2D" type="Node2D"]
 
 [node name="Background" type="ColorRect" parent="."]
@@ -67,7 +64,7 @@ island_renderer = NodePath("WorldRenderViewport/Island 1/GpuIslandRenderer")
 island_generator = ExtResource("2_o8wgc")
 map_node = NodePath("WorldRenderViewport/Island 1/Map")
 collision_generator = SubResource("Resource_4vhfm")
-player = NodePath("WorldRenderViewport/SubViewport/Player")
+player = NodePath("WorldRenderViewport/Player")
 
 [node name="WorldRenderViewport" type="SubViewport" parent="Main"]
 transparent_bg = true
@@ -111,46 +108,19 @@ position = Vector2(-9.09495e-13, 9.09495e-13)
 tile_set = ExtResource("6_aw1lf")
 
 [node name="Wind" parent="Main/WorldRenderViewport" node_paths=PackedStringArray("player") instance=ExtResource("15_5ci8a")]
-player = NodePath("../SubViewport/Player")
+player = NodePath("../Player")
 min_wind_speed = 70.0
 min_rotation_degrees_per_second = 1.0
 max_rotation_degrees_per_second = 2.0
 
-[node name="SubViewport" type="SubViewport" parent="Main/WorldRenderViewport"]
-transparent_bg = true
-canvas_item_default_texture_filter = 0
+[node name="Player" parent="Main/WorldRenderViewport" instance=ExtResource("6_w20t6")]
 
-[node name="Player" parent="Main/WorldRenderViewport/SubViewport" instance=ExtResource("6_w20t6")]
-
-[node name="Movement" parent="Main/WorldRenderViewport/SubViewport/Player" index="5" node_paths=PackedStringArray("wind")]
-wind = NodePath("../../../Wind")
+[node name="Movement" parent="Main/WorldRenderViewport/Player" index="5" node_paths=PackedStringArray("wind")]
+wind = NodePath("../../Wind")
 efficiency_curve = SubResource("Curve_5ci8a")
 
-[node name="Camera2D" type="Camera2D" parent="Main/WorldRenderViewport/SubViewport/Player"]
+[node name="Camera2D" type="Camera2D" parent="Main/WorldRenderViewport/Player"]
 zoom = Vector2(10, 10)
-
-[node name="TextureRect" type="TextureRect" parent="."]
-texture_filter = 1
-offset_right = 512.0
-offset_bottom = 512.0
-texture = SubResource("ViewportTexture_5ci8a")
-metadata/_aseprite_wizard_interface_config_ = {
-"layer_section": true,
-"pending_changes": {
-"embed_tex": true,
-"i_mode": 0,
-"keep_anim_length": false,
-"layers": [],
-"o_ex_p": "",
-"o_folder": "",
-"o_name": "",
-"only_visible": false,
-"player": "",
-"slice": "",
-"source": "",
-"source_uid": -1
-}
-}
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 visible = false
@@ -159,4 +129,4 @@ visible = false
 visible = false
 centered = false
 
-[editable path="Main/WorldRenderViewport/SubViewport/Player"]
+[editable path="Main/WorldRenderViewport/Player"]
