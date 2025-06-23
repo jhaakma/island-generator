@@ -113,7 +113,9 @@ min_wind_speed = 70.0
 min_rotation_degrees_per_second = 1.0
 max_rotation_degrees_per_second = 2.0
 
-[node name="Player" parent="Main/SubViewport" node_paths=PackedStringArray("wind") instance=ExtResource("6_w20t6")]
+[node name="Player" parent="Main/SubViewport" instance=ExtResource("6_w20t6")]
+
+[node name="ShipMovement" parent="Main/SubViewport/Player" type="Node"]
 thrust_force = 150.0
 reverse_force = 30.0
 wind = NodePath("../Wind")
