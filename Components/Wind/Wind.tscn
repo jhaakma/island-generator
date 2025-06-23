@@ -1,49 +1,58 @@
-[gd_scene load_steps=7 format=3 uid="uid://br0bdiafokh6e"]
+[gd_scene load_steps=8 format=3 uid="uid://br0bdiafokh6e"]
 
 [ext_resource type="Script" uid="uid://dmm2iha3xy8mb" path="res://Components/Wind/wind.gd" id="1_xpemg"]
+[ext_resource type="Texture2D" uid="uid://7bo65wgc6114" path="res://Assets/GiantLightStudios - SimpleShapes/triangle_64.png" id="2_n6rfu"]
 
 [sub_resource type="Curve" id="Curve_n6rfu"]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.505774, 0.491652), -0.581929, -0.581929, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
 point_count = 3
 
 [sub_resource type="Curve" id="Curve_xpemg"]
-_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.25866, 0.939097), 0.891509, 0.891509, 0, 0, Vector2(0.491917, 1), 0.0, 0.0, 0, 0, Vector2(0.741339, 0.965729), -0.566775, -0.566775, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.25866, 0.778535), 0.891509, 0.891509, 0, 0, Vector2(0.491917, 1), 0.0, 0.0, 0, 0, Vector2(0.743649, 0.739779), -0.566775, -0.566775, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 5
 
-[sub_resource type="Gradient" id="Gradient_n6rfu"]
-offsets = PackedFloat32Array(0)
-colors = PackedColorArray(1, 1, 1, 0.25098)
+[sub_resource type="Curve" id="Curve_0is36"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.354331, 0.887475), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
 
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_0is36"]
-gradient = SubResource("Gradient_n6rfu")
-width = 1
+[sub_resource type="CurveTexture" id="CurveTexture_egpio"]
+curve = SubResource("Curve_0is36")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_egpio"]
 particle_flag_disable_z = true
-emission_shape_scale = Vector3(176.765, 0, 1)
 emission_shape = 3
-emission_box_extents = Vector3(1, 1, 1)
+emission_box_extents = Vector3(400, 400, 1)
+angle_min = 1.07288e-05
+angle_max = 563.6
 direction = Vector3(0, 1, 0)
 spread = 7.678
-initial_velocity_min = 50.12
-initial_velocity_max = 116.26
+initial_velocity_min = 326.42
+initial_velocity_max = 326.42
+angular_velocity_min = -443.34
+angular_velocity_max = 429.6
 gravity = Vector3(0, 0, 0)
-scale_min = 0.2
+scale_min = 0.01
+scale_max = 0.02
+alpha_curve = SubResource("CurveTexture_egpio")
+turbulence_noise_strength = 0.0
+turbulence_noise_scale = 1.275
 
 [node name="Wind" type="Node2D"]
 script = ExtResource("1_xpemg")
 min_wind_speed = 40.0
 wind_speed_curve = SubResource("Curve_n6rfu")
-min_rotation_wait_seconds = 5.0
+max_rotation_degrees_per_second = 50.0
+max_rotation_wait_seconds = 5.0
 rotation_change_curve = SubResource("Curve_xpemg")
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="."]
-position = Vector2(1, -138)
-amount = 200
-texture = SubResource("GradientTexture1D_0is36")
-lifetime = 6.8
+texture_filter = 1
+position = Vector2(0, 2)
+amount = 1200
+texture = ExtResource("2_n6rfu")
+lifetime = 3.0
 preprocess = 5.45
-local_coords = true
+trail_lifetime = 0.1
 process_material = SubResource("ParticleProcessMaterial_egpio")
 
 [node name="Timer" type="Timer" parent="."]

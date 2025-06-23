@@ -90,7 +90,9 @@ one_way_collision_margin = 0.0
 [node name="PlayerInput" type="Node" parent="."]
 script = ExtResource("6_input")
 
-[node name="ShipMovement" parent="." type="Node" node_paths=PackedStringArray("ship", "wind", "input_provider")]
+[node name="Movement" type="Node" parent="." node_paths=PackedStringArray("ship", "input_provider")]
 script = ExtResource("5_ship")
 ship = NodePath("..")
-input_provider = NodePath("PlayerInput")
+input_provider = NodePath("../PlayerInput")
+thrust_force = 150.0
+reverse_force = 50.0

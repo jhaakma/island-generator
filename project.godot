@@ -23,7 +23,7 @@ resources_spreadsheet_view/freeze_first_column=true
 
 [application]
 
-config/name="ProcGen"
+config/name="Island Generator"
 run/main_scene="uid://csjlsvgm6cf7k"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://icon.svg"

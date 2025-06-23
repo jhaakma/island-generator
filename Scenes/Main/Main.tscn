@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://csjlsvgm6cf7k"]
+[gd_scene load_steps=22 format=3 uid="uid://csjlsvgm6cf7k"]
 
 [ext_resource type="Script" uid="uid://bcx870gbsxl8e" path="res://Components/Background/background.gd" id="1_hkvnm"]
 [ext_resource type="Script" uid="uid://cunwi2033q3mc" path="res://Scenes/Main/main.gd" id="1_qtv3y"]
@@ -21,7 +21,7 @@ shader = ExtResource("1_wgovn")
 shader_parameter/pixel_size = 0.0
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_dvlhv"]
-viewport_path = NodePath("Main/SubViewport")
+viewport_path = NodePath("Main/WorldRenderViewport")
 
 [sub_resource type="Resource" id="Resource_4vhfm"]
 script = ExtResource("3_4vhfm")
@@ -36,8 +36,11 @@ shader_parameter/biome_count = 0
 shader_parameter/pixel_size = 0.3
 
 [sub_resource type="Curve" id="Curve_5ci8a"]
-_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.0531178, 0.50724), 2.32141, 2.32141, 0, 0, Vector2(0.251732, 0.942882), 0.916, 0.916, 0, 0, Vector2(0.512702, 1), 0.0, 0.0, 0, 0, Vector2(0.745958, 0.920035), -0.989278, -0.989278, 0, 0, Vector2(0.889145, 0.514499), -1.8549, -1.8549, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
-point_count = 7
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.251685, 1), 0.0, 0.0, 0, 0, Vector2(0.750562, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_5ci8a"]
+viewport_path = NodePath("Main/WorldRenderViewport/SubViewport")
 
 [node name="Node2D" type="Node2D"]
 
@@ -60,69 +63,94 @@ visible = false
 
 [node name="Main" type="Node2D" parent="." node_paths=PackedStringArray("island_renderer", "map_node", "player")]
 script = ExtResource("1_qtv3y")
-island_renderer = NodePath("SubViewport/Island 1/GpuIslandRenderer")
+island_renderer = NodePath("WorldRenderViewport/Island 1/GpuIslandRenderer")
 island_generator = ExtResource("2_o8wgc")
-map_node = NodePath("SubViewport/Island 1/Map")
+map_node = NodePath("WorldRenderViewport/Island 1/Map")
 collision_generator = SubResource("Resource_4vhfm")
-player = NodePath("SubViewport/Player")
+player = NodePath("WorldRenderViewport/SubViewport/Player")
 
-[node name="SubViewport" type="SubViewport" parent="Main"]
+[node name="WorldRenderViewport" type="SubViewport" parent="Main"]
 transparent_bg = true
 handle_input_locally = false
 canvas_item_default_texture_filter = 0
 size = Vector2i(1920, 1080)
 render_target_update_mode = 4
 
-[node name="Island 1" type="Node2D" parent="Main/SubViewport"]
+[node name="Island 1" type="Node2D" parent="Main/WorldRenderViewport"]
 
-[node name="Map" type="Node2D" parent="Main/SubViewport/Island 1"]
+[node name="Map" type="Node2D" parent="Main/WorldRenderViewport/Island 1"]
 scale = Vector2(4, 4)
 script = ExtResource("4_dvlhv")
 
-[node name="MapSprite" type="Sprite2D" parent="Main/SubViewport/Island 1/Map"]
+[node name="MapSprite" type="Sprite2D" parent="Main/WorldRenderViewport/Island 1/Map"]
 material = SubResource("ShaderMaterial_4vhfm")
 centered = false
 
-[node name="Collision" type="StaticBody2D" parent="Main/SubViewport/Island 1/Map"]
+[node name="Collision" type="StaticBody2D" parent="Main/WorldRenderViewport/Island 1/Map"]
 visible = false
 
-[node name="PixelIslandRenderer" parent="Main/SubViewport/Island 1" node_paths=PackedStringArray("sprite") instance=ExtResource("2_cmk6n")]
+[node name="PixelIslandRenderer" parent="Main/WorldRenderViewport/Island 1" node_paths=PackedStringArray("sprite") instance=ExtResource("2_cmk6n")]
 sprite = NodePath("../Map/MapSprite")
 
-[node name="GpuIslandRenderer" parent="Main/SubViewport/Island 1" node_paths=PackedStringArray("island_sprite") instance=ExtResource("4_5s61s")]
+[node name="GpuIslandRenderer" parent="Main/WorldRenderViewport/Island 1" node_paths=PackedStringArray("island_sprite") instance=ExtResource("4_5s61s")]
 position = Vector2(-1, -4)
 island_sprite = NodePath("../Map/MapSprite")
 map_scale = 1.0
 
-[node name="TileMapIslandRenderer" parent="Main/SubViewport/Island 1" node_paths=PackedStringArray("ocean_layer", "land_layer") instance=ExtResource("19_qdkat")]
+[node name="TileMapIslandRenderer" parent="Main/WorldRenderViewport/Island 1" node_paths=PackedStringArray("ocean_layer", "land_layer") instance=ExtResource("19_qdkat")]
 position = Vector2(0, -5)
 ocean_layer = NodePath("OceanLayer")
 land_layer = NodePath("LandLayer")
 
-[node name="OceanLayer" type="TileMapLayer" parent="Main/SubViewport/Island 1/TileMapIslandRenderer"]
+[node name="OceanLayer" type="TileMapLayer" parent="Main/WorldRenderViewport/Island 1/TileMapIslandRenderer"]
 position = Vector2(-4.76837e-07, -4.76837e-07)
 tile_set = ExtResource("20_udh0u")
 
-[node name="LandLayer" type="TileMapLayer" parent="Main/SubViewport/Island 1/TileMapIslandRenderer"]
+[node name="LandLayer" type="TileMapLayer" parent="Main/WorldRenderViewport/Island 1/TileMapIslandRenderer"]
 position = Vector2(-9.09495e-13, 9.09495e-13)
 tile_set = ExtResource("6_aw1lf")
 
-[node name="Wind" parent="Main/SubViewport" node_paths=PackedStringArray("player") instance=ExtResource("15_5ci8a")]
-player = NodePath("../Player")
+[node name="Wind" parent="Main/WorldRenderViewport" node_paths=PackedStringArray("player") instance=ExtResource("15_5ci8a")]
+player = NodePath("../SubViewport/Player")
 min_wind_speed = 70.0
 min_rotation_degrees_per_second = 1.0
 max_rotation_degrees_per_second = 2.0
 
-[node name="Player" parent="Main/SubViewport" instance=ExtResource("6_w20t6")]
+[node name="SubViewport" type="SubViewport" parent="Main/WorldRenderViewport"]
+transparent_bg = true
+canvas_item_default_texture_filter = 0
 
-[node name="ShipMovement" parent="Main/SubViewport/Player" type="Node"]
-thrust_force = 150.0
-reverse_force = 30.0
-wind = NodePath("../Wind")
+[node name="Player" parent="Main/WorldRenderViewport/SubViewport" instance=ExtResource("6_w20t6")]
+
+[node name="Movement" parent="Main/WorldRenderViewport/SubViewport/Player" index="5" node_paths=PackedStringArray("wind")]
+wind = NodePath("../../../Wind")
 efficiency_curve = SubResource("Curve_5ci8a")
 
-[node name="Camera2D" type="Camera2D" parent="Main/SubViewport/Player"]
+[node name="Camera2D" type="Camera2D" parent="Main/WorldRenderViewport/SubViewport/Player"]
 zoom = Vector2(10, 10)
+
+[node name="TextureRect" type="TextureRect" parent="."]
+texture_filter = 1
+offset_right = 512.0
+offset_bottom = 512.0
+texture = SubResource("ViewportTexture_5ci8a")
+metadata/_aseprite_wizard_interface_config_ = {
+"layer_section": true,
+"pending_changes": {
+"embed_tex": true,
+"i_mode": 0,
+"keep_anim_length": false,
+"layers": [],
+"o_ex_p": "",
+"o_folder": "",
+"o_name": "",
+"only_visible": false,
+"player": "",
+"slice": "",
+"source": "",
+"source_uid": -1
+}
+}
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 visible = false
@@ -130,3 +158,5 @@ visible = false
 [node name="DebugSprite" type="Sprite2D" parent="CanvasLayer" groups=["debug_sprite"]]
 visible = false
 centered = false
+
+[editable path="Main/WorldRenderViewport/SubViewport/Player"]

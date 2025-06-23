@@ -36,19 +36,27 @@ func _ready() -> void:
 
     update_wind_targets()  # Initialize the first wind rotation
 
+    set_wind_speed(target_wind_speed)
+    particles.emitting = true
+
+
 func _physics_process(delta: float) -> void:
     position = player.position
 
     # Lerp towards the target rotation, framerate independent
     rotation = lerp_angle(rotation, target_rotation, 1.0 - exp(-delta * deg_to_rad(rotation_speed)))
+    process_wind_speed(delta)
 
-    update_wind_speed(delta)
 
-
-func update_wind_speed(delta: float):
+func process_wind_speed(delta: float):
     # Lerp towards the target wind speed
-    current_wind_speed = lerp(current_wind_speed, target_wind_speed, 1.0 - exp(-delta * wind_speed_change_per_second))
+    var speed = lerp(current_wind_speed, target_wind_speed, 1.0 - exp(-delta * wind_speed_change_per_second))
+    set_wind_speed(speed)
 
+
+
+func set_wind_speed(speed: float) -> void:
+    current_wind_speed = speed
     var mat: ParticleProcessMaterial = particles.process_material
     mat.initial_velocity_min = current_wind_speed * 0.9
     mat.initial_velocity_max = current_wind_speed
