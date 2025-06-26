@@ -1,0 +1,41 @@
+[gd_scene load_steps=4 format=3 uid="uid://ccqqmdtk727ci"]
+
+[ext_resource type="Shader" uid="uid://de5wb2hqq4qtd" path="res://Shaders/Sketch.gdshader" id="1_b7asl"]
+[ext_resource type="Script" uid="uid://cfdago28uyopw" path="res://Debug/debug_layer.gd" id="1_rashp"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_epx8f"]
+shader = ExtResource("1_b7asl")
+shader_parameter/color = Color(0, 0, 0, 1)
+shader_parameter/width = 1.0
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(1, 1)
+
+[node name="DebugLayer" type="CanvasLayer" node_paths=PackedStringArray("minimap_sprite", "wind_speed_label")]
+script = ExtResource("1_rashp")
+minimap_sprite = NodePath("MarginContainer/VBoxContainer/DebugSprite")
+wind_speed_label = NodePath("MarginContainer/VBoxContainer/WindSpeedLabel")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+custom_minimum_size = Vector2(0, 394.195)
+offset_right = 112.0
+offset_bottom = 394.195
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="DebugSprite" type="Sprite2D" parent="MarginContainer/VBoxContainer" groups=["debug_sprite"]]
+material = SubResource("ShaderMaterial_epx8f")
+scale = Vector2(1.5, 1.5)
+centered = false
+
+[node name="WindSpeedLabel" type="RichTextLabel" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Wind Speed:"
+fit_content = true
+autowrap_mode = 0

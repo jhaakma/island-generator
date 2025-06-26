@@ -3,7 +3,6 @@ extends Node2D
 
 @onready var particles: GPUParticles2D = $GPUParticles2D
 @onready var timer : Timer = $Timer
-@export var player: Player
 #Use to determine the
 
 @export_category("Wind Speed")
@@ -43,6 +42,10 @@ func _ready() -> void:
 
 
 func _physics_process(delta: float) -> void:
+    var player = Globals.get_player()
+    if not player:
+        push_error("Wind requires a Player node in the scene tree")
+
     position = player.position
 
     # Lerp towards the target rotation, framerate independent
@@ -62,6 +65,9 @@ func set_wind_speed(speed: float) -> void:
     var mat: ParticleProcessMaterial = particles.process_material
     mat.initial_velocity_min = current_wind_speed * 0.9
     mat.initial_velocity_max = current_wind_speed
+
+    #Set amount_ratio so more particles spawn at higher wind speeds
+    particles.amount_ratio = clamp(current_wind_speed / max_wind_speed, 0.0, 1.0)
 
 func update_wind_targets() -> void:
     _update_target_rotation()

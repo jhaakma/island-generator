@@ -2,7 +2,7 @@ extends Resource
 class_name WorldMapGenerator
 
 @export var starting_seed: int = -1
-@export_range(0.0, 5.0) var center_bias: float = 3.0
+@export_range(-1.0, 5.0) var center_bias: float = 1.0
 @export var height_adjustment: float = 0.0
 @export var height_multiplier: float = 1.0
 @export var temperature_adjustment: float = 0.0

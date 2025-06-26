@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://cmb20sttpyjm1"]
 
-[ext_resource type="Script" uid="uid://cr6ksnbufick" path="res://IslandGeneration/Render/tile_map_island_renderer.gd" id="1_glygk"]
+[ext_resource type="Script" uid="uid://cr6ksnbufick" path="res://Render/tile_map_island_renderer.gd" id="1_glygk"]
 [ext_resource type="TileSet" uid="uid://by06tpvcswh3g" path="res://TileMap/TileSet01.tres" id="2_lumqn"]
 
 [node name="TileMapIslandRenderer" type="Node2D"]

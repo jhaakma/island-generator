@@ -1,19 +1,20 @@
-[gd_scene load_steps=20 format=3 uid="uid://csjlsvgm6cf7k"]
+[gd_scene load_steps=21 format=3 uid="uid://csjlsvgm6cf7k"]
 
 [ext_resource type="Script" uid="uid://bcx870gbsxl8e" path="res://Components/Background/background.gd" id="1_hkvnm"]
 [ext_resource type="Script" uid="uid://cunwi2033q3mc" path="res://Scenes/Main/main.gd" id="1_qtv3y"]
-[ext_resource type="Shader" uid="uid://b477g63iggl6p" path="res://IslandGeneration/Render/Shaders/pixelate.gdshader" id="1_wgovn"]
-[ext_resource type="PackedScene" uid="uid://ohoiqeiuqx0l" path="res://IslandGeneration/Render/PixelIslandRenderer.tscn" id="2_cmk6n"]
+[ext_resource type="Shader" uid="uid://b477g63iggl6p" path="res://Shaders/pixelate.gdshader" id="1_wgovn"]
+[ext_resource type="PackedScene" uid="uid://ohoiqeiuqx0l" path="res://Render/PixelIslandRenderer.tscn" id="2_cmk6n"]
 [ext_resource type="Resource" uid="uid://nku6nbo0ciyq" path="res://IslandGeneration/Biomes/DeepOcean.tres" id="2_hkvnm"]
 [ext_resource type="Resource" uid="uid://dtgx0rqlgp2iu" path="res://IslandGeneration/Generators/SimpleIsland.tres" id="2_o8wgc"]
 [ext_resource type="Script" uid="uid://cw7q27li57ob2" path="res://IslandGeneration/Collision/collision_generator.gd" id="3_4vhfm"]
-[ext_resource type="PackedScene" uid="uid://b0d506g17u768" path="res://IslandGeneration/Render/GPUIslandRenderer.tscn" id="4_5s61s"]
+[ext_resource type="PackedScene" uid="uid://b0d506g17u768" path="res://Render/GPUIslandRenderer.tscn" id="4_5s61s"]
 [ext_resource type="Script" uid="uid://bwe5m5syebgmk" path="res://Scenes/Main/map_node.gd" id="4_dvlhv"]
-[ext_resource type="Shader" uid="uid://cwf3ab7e6ijmx" path="res://IslandGeneration/Render/Shaders/gpu_island.gdshader" id="5_7npjy"]
+[ext_resource type="Shader" uid="uid://cwf3ab7e6ijmx" path="res://Shaders/gpu_island.gdshader" id="5_7npjy"]
 [ext_resource type="TileSet" uid="uid://c6viwathcphwh" path="res://TileMap/OutlineTiles.tres" id="6_aw1lf"]
 [ext_resource type="PackedScene" uid="uid://627jml6ruhca" path="res://Player/Player.tscn" id="6_w20t6"]
 [ext_resource type="PackedScene" uid="uid://br0bdiafokh6e" path="res://Components/Wind/Wind.tscn" id="15_5ci8a"]
-[ext_resource type="PackedScene" uid="uid://cmb20sttpyjm1" path="res://IslandGeneration/Render/TileMapIslandRenderer.tscn" id="19_qdkat"]
+[ext_resource type="PackedScene" uid="uid://ccqqmdtk727ci" path="res://Debug/debug_layer.tscn" id="16_epx8f"]
+[ext_resource type="PackedScene" uid="uid://cmb20sttpyjm1" path="res://Render/TileMapIslandRenderer.tscn" id="19_qdkat"]
 [ext_resource type="TileSet" uid="uid://by06tpvcswh3g" path="res://TileMap/TileSet01.tres" id="20_udh0u"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_cv8e0"]
@@ -25,15 +26,15 @@ viewport_path = NodePath("Main/WorldRenderViewport")
 
 [sub_resource type="Resource" id="Resource_4vhfm"]
 script = ExtResource("3_4vhfm")
-accuracy = 7.615
+accuracy = 1.0
 metadata/_custom_type_script = "uid://cw7q27li57ob2"
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_4vhfm"]
 shader = ExtResource("5_7npjy")
-shader_parameter/outline_color_multi = -0.525
-shader_parameter/outline_thickness = 0.045
+shader_parameter/outline_color_multi = 0.535
+shader_parameter/outline_thickness = -0.03
 shader_parameter/biome_count = 0
-shader_parameter/pixel_size = 0.3
+shader_parameter/pixel_size = 0.15
 
 [node name="Node2D" type="Node2D"]
 
@@ -51,13 +52,13 @@ offset_bottom = 1080.0
 rotation = -0.0036586
 texture = SubResource("ViewportTexture_dvlhv")
 
-[node name="Main" type="Node2D" parent="." node_paths=PackedStringArray("island_renderer", "map_node", "player")]
+[node name="Main" type="Node2D" parent="." node_paths=PackedStringArray("island_renderer", "map_node", "debug_layer")]
 script = ExtResource("1_qtv3y")
 island_renderer = NodePath("WorldRenderViewport/Island 1/GpuIslandRenderer")
 island_generator = ExtResource("2_o8wgc")
 map_node = NodePath("WorldRenderViewport/Island 1/Map")
 collision_generator = SubResource("Resource_4vhfm")
-player = NodePath("WorldRenderViewport/Player")
+debug_layer = NodePath("../DebugLayer")
 
 [node name="WorldRenderViewport" type="SubViewport" parent="Main"]
 transparent_bg = true
@@ -68,9 +69,10 @@ render_target_update_mode = 4
 
 [node name="Island 1" type="Node2D" parent="Main/WorldRenderViewport"]
 
-[node name="Map" type="Node2D" parent="Main/WorldRenderViewport/Island 1"]
-scale = Vector2(8, 8)
+[node name="Map" type="Node2D" parent="Main/WorldRenderViewport/Island 1" node_paths=PackedStringArray("sprite")]
+scale = Vector2(64, 64)
 script = ExtResource("4_dvlhv")
+sprite = NodePath("MapSprite")
 
 [node name="MapSprite" type="Sprite2D" parent="Main/WorldRenderViewport/Island 1/Map"]
 material = SubResource("ShaderMaterial_4vhfm")
@@ -102,22 +104,10 @@ tile_set = ExtResource("6_aw1lf")
 
 [node name="Player" parent="Main/WorldRenderViewport" instance=ExtResource("6_w20t6")]
 
-[node name="Movement" parent="Main/WorldRenderViewport/Player" index="5" node_paths=PackedStringArray("wind")]
-wind = NodePath("../../Wind")
-
 [node name="Camera2D" type="Camera2D" parent="Main/WorldRenderViewport/Player"]
-zoom = Vector2(6, 6)
 
-[node name="Wind" parent="Main/WorldRenderViewport" node_paths=PackedStringArray("player") instance=ExtResource("15_5ci8a")]
-player = NodePath("../Player")
-min_wind_speed = 70.0
+[node name="Wind" parent="Main/WorldRenderViewport" instance=ExtResource("15_5ci8a")]
 min_rotation_degrees_per_second = 1.0
 max_rotation_degrees_per_second = 2.0
 
-[node name="DebugLayer" type="CanvasLayer" parent="."]
-visible = false
-
-[node name="DebugSprite" type="Sprite2D" parent="DebugLayer" groups=["debug_sprite"]]
-centered = false
-
-[editable path="Main/WorldRenderViewport/Player"]
+[node name="DebugLayer" parent="." instance=ExtResource("16_epx8f")]

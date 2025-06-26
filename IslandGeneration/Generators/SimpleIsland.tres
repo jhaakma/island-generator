@@ -42,9 +42,9 @@ metadata/_custom_type_script = "uid://dqq55tsdtdqnk"
 [sub_resource type="Resource" id="Resource_uw2in"]
 script = ExtResource("13_uw2in")
 starting_seed = -1
-center_bias = 0.4
-height_adjustment = -0.575
-height_multiplier = 3.0
+center_bias = 0.239
+height_adjustment = -1.31
+height_multiplier = 2.855
 temperature_adjustment = 0.0
 height_noise_passes = Array[ExtResource("12_3ptso")]([SubResource("Resource_3ptso"), SubResource("Resource_axvre")])
 temperature_noise_passes = Array[ExtResource("12_3ptso")]([SubResource("Resource_1ljbg")])

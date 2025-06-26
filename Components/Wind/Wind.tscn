@@ -1,10 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://br0bdiafokh6e"]
+[gd_scene load_steps=10 format=3 uid="uid://br0bdiafokh6e"]
 
 [ext_resource type="Script" uid="uid://dmm2iha3xy8mb" path="res://Components/Wind/wind.gd" id="1_xpemg"]
-[ext_resource type="Texture2D" uid="uid://7bo65wgc6114" path="res://Assets/GiantLightStudios - SimpleShapes/triangle_64.png" id="2_n6rfu"]
+[ext_resource type="Texture2D" uid="uid://cyw7xpc0rk1uf" path="res://Assets/GiantLightStudios - SimpleShapes/circle_64.png" id="2_n6rfu"]
 
 [sub_resource type="Curve" id="Curve_n6rfu"]
-_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.505774, 0.491652), -0.581929, -0.581929, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.399538, 0.794376), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
 point_count = 3
 
 [sub_resource type="Curve" id="Curve_xpemg"]
@@ -18,35 +18,39 @@ point_count = 4
 [sub_resource type="CurveTexture" id="CurveTexture_egpio"]
 curve = SubResource("Curve_0is36")
 
+[sub_resource type="Curve" id="Curve_egpio"]
+_limits = [-200.0, 200.0, 0.0, 1.0]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
 [sub_resource type="CurveTexture" id="CurveTexture_i06dc"]
+curve = SubResource("Curve_egpio")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_egpio"]
 particle_flag_disable_z = true
 emission_shape = 3
-emission_box_extents = Vector3(400, 400, 1)
-angle_min = -720.0
-angle_max = 720.0
+emission_box_extents = Vector3(1600, 1600, 1)
 direction = Vector3(0, 1, 0)
-spread = 7.678
+spread = 5.0
 initial_velocity_min = 326.42
 initial_velocity_max = 326.42
-angular_velocity_min = -443.34
-angular_velocity_max = 429.6
+angular_velocity_min = -720.0
+angular_velocity_max = 720.0
 radial_velocity_min = -10.0
 radial_velocity_max = 9.99998
 gravity = Vector3(0, 0, 0)
-radial_accel_min = -5.0
-radial_accel_max = 5.0
 radial_accel_curve = SubResource("CurveTexture_i06dc")
-scale_min = 0.01
-scale_max = 0.03
+scale_min = 0.05
+scale_max = 0.1
 alpha_curve = SubResource("CurveTexture_egpio")
 turbulence_noise_strength = 0.0
 turbulence_noise_scale = 1.275
 
-[node name="Wind" type="Node2D"]
+[node name="Wind" type="Node2D" groups=["Wind"]]
 script = ExtResource("1_xpemg")
-min_wind_speed = 40.0
+min_wind_speed = 200.0
+max_wind_speed = 300.0
+wind_speed_change_per_second = 0.5
 wind_speed_curve = SubResource("Curve_n6rfu")
 min_rotation_degrees_per_second = 40.0
 max_rotation_degrees_per_second = 40.0
@@ -57,12 +61,15 @@ rotation_change_curve = SubResource("Curve_xpemg")
 [node name="GPUParticles2D" type="GPUParticles2D" parent="."]
 texture_filter = 1
 position = Vector2(0, 2)
-amount = 1200
+amount = 200
 texture = ExtResource("2_n6rfu")
 lifetime = 3.0
-preprocess = 5.45
+preprocess = 3.38
+explosiveness = 0.13
+randomness = 0.75
+visibility_rect = Rect2(-1600, -1600, 3200, 3200)
 trail_enabled = true
-trail_lifetime = 0.5
+trail_lifetime = 1.0
 process_material = SubResource("ParticleProcessMaterial_egpio")
 
 [node name="Timer" type="Timer" parent="."]

@@ -4,11 +4,14 @@ extends Node2D
 @export var island_renderer: IslandRenderer
 @export var island_generator: IslandGenerator
 @export var map_node: MapNode
+@export var map_viewport: SubViewport
 @export var collision_generator: CollisionGenerator
-@export var player: Player
+@export var debug_layer: DebugLayer
 
+signal regenerated(world_map: WorldMap)
 
 func _ready():
+    regenerated.connect(debug_layer.on_map_regenerated)
     regenerate()
 
 func find_valid_player_position():
@@ -56,29 +59,32 @@ func find_valid_player_position():
     print("Failed to find a valid position for the player after 100 attempts.")
     return Vector2.ZERO
 
-func set_debug_sprite_texture(world_map: WorldMap) -> void:
-    var debug_sprite: Sprite2D = get_tree().get_first_node_in_group("debug_sprite")
-    if debug_sprite:
-        var image: Image = world_map.get_height_map()
 
-        var h: Texture2D = ImageTexture.create_from_image(image)
-        debug_sprite.texture = h
 
 func regenerate():
     print("Regenerating island...")
+
+
+    var player: Player = Globals.get_player()
+    if player == null:
+        push_error("Player node not found in the scene tree.")
+        return
+
     var world_map = island_generator.generate_map(island_size)
     island_renderer.generate_island(world_map, island_generator)
-    set_debug_sprite_texture(world_map)
-
 
     for child in map_node.collision.get_children():
         map_node.collision.remove_child(child)
         child.queue_free()
 
-    var collision_polygons = collision_generator.generate_collision_polygons(map_node.sprite.texture.get_image())
+    var image_for_collisions: Image = world_map.get_height_map()
+
+    var collision_polygons = collision_generator.generate_collision_polygons(image_for_collisions)
     for polygon in collision_polygons:
         map_node.collision.add_child(polygon)
     player.position = find_valid_player_position()
+
+    regenerated.emit(world_map)
 
 func _input(event):
     if event.is_action_pressed("ui_accept"):

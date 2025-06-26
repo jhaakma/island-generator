@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://627jml6ruhca"]
+[gd_scene load_steps=17 format=3 uid="uid://627jml6ruhca"]
 
 [ext_resource type="Script" uid="uid://cf5xnltncx1sg" path="res://Player/player.gd" id="1_q3lat"]
 [ext_resource type="Script" uid="uid://biptjkmhp03lw" path="res://Components/WaterTrail/water_trail.gd" id="2_8g4oa"]
@@ -8,18 +8,26 @@
 [ext_resource type="Script" uid="uid://du1toiab4mxge" path="res://Components/Ship/ship_movement.gd" id="5_ship"]
 [ext_resource type="Script" uid="uid://cc22j3t60ccjf" path="res://Components/Ship/player_input.gd" id="6_input"]
 
-[sub_resource type="Gradient" id="Gradient_ddoul"]
-offsets = PackedFloat32Array(0)
-colors = PackedColorArray(1, 1, 1, 0.164706)
+[sub_resource type="Gradient" id="Gradient_vlldt"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1)
 
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_8g4oa"]
-gradient = SubResource("Gradient_ddoul")
-width = 1
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_s1rgi"]
+gradient = SubResource("Gradient_vlldt")
+width = 2
+height = 2
+
+[sub_resource type="Curve" id="Curve_j23h2"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.181102, 0.397658), 0.0, 0.0, 0, 0, Vector2(1, 0.000509143), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_0j2ni"]
+curve = SubResource("Curve_j23h2")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_q3lat"]
 particle_flag_disable_z = true
+emission_shape_offset = Vector3(0, 23.22, 0)
 emission_shape = 3
-emission_box_extents = Vector3(2.07, 5.49, 0)
+emission_box_extents = Vector3(12.29, 13.05, 0)
 angle_min = -272.8
 angle_max = 87.2
 direction = Vector3(0, 0, 0)
@@ -28,6 +36,7 @@ initial_velocity_max = 5.0
 angular_velocity_min = -443.34
 angular_velocity_max = 360.86
 gravity = Vector3(0, 0, 0)
+alpha_curve = SubResource("CurveTexture_0j2ni")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ddoul"]
 shader = ExtResource("2_tok1r")
@@ -48,14 +57,15 @@ shader_parameter/add_margins = false
 shader_parameter/number_of_images = Vector2(1, 1)
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_q3lat"]
-radius = 2.0
-height = 12.0
+height = 50.0
 
 [sub_resource type="Curve" id="Curve_vlldt"]
-_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.114607, 0.867121), 1.54867, 1.54867, 0, 0, Vector2(0.501124, 1), 0.0, 0.0, 0, 0, Vector2(0.880899, 0.856048), -1.43722, -1.43722, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
-point_count = 5
+_limits = [0.0, 1.0, 0.0, 180.0]
+bake_resolution = 180
+_data = [Vector2(0, 1), 0.0, 0.000726097, 0, 0, Vector2(126.607, 0.48594), -0.0102254, -0.0102254, 0, 0, Vector2(180, 0), 0.0, 0.0, 0, 0]
+point_count = 3
 
-[node name="Player" type="CharacterBody2D"]
+[node name="Player" type="CharacterBody2D" groups=["Player"]]
 floor_stop_on_slope = false
 floor_block_on_wall = false
 floor_max_angle = 0.42237
@@ -64,8 +74,8 @@ script = ExtResource("1_q3lat")
 [node name="WaterTrail" type="GPUParticles2D" parent="." node_paths=PackedStringArray("character_body")]
 position = Vector2(0, 1)
 amount = 100
-texture = SubResource("GradientTexture1D_8g4oa")
-lifetime = 0.39
+texture = SubResource("GradientTexture2D_s1rgi")
+lifetime = 0.51
 speed_scale = 0.7
 randomness = 0.59
 process_material = SubResource("ParticleProcessMaterial_q3lat")
@@ -75,19 +85,15 @@ metadata/_custom_type_script = "uid://biptjkmhp03lw"
 
 [node name="Body" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_ddoul")
-position = Vector2(0, -1)
-scale = Vector2(0.25, 0.25)
 texture = ExtResource("3_ddoul")
 
 [node name="Sails" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_8g4oa")
-position = Vector2(65, 2)
-scale = Vector2(0.25, 0.25)
 texture = ExtResource("4_ddoul")
-offset = Vector2(-260, -12)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 visible = false
+position = Vector2(0, 7)
 shape = SubResource("CapsuleShape2D_q3lat")
 one_way_collision_margin = 0.0
 
@@ -99,5 +105,5 @@ script = ExtResource("5_ship")
 ship = NodePath("..")
 efficiency_curve = SubResource("Curve_vlldt")
 input_provider = NodePath("../PlayerInput")
-thrust_force = 150.0
-reverse_force = 50.0
+thrust_force = 600.0
+reverse_force = 150.0

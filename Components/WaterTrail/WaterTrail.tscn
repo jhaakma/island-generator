@@ -23,7 +23,7 @@ angular_velocity_min = -443.34
 angular_velocity_max = 360.86
 gravity = Vector3(0, 0, 0)
 
-[node name="WaterTrail" type="GPUParticles2D" node_paths=PackedStringArray("character_body")]
+[node name="WaterTrail" type="GPUParticles2D"]
 amount = 100
 texture = SubResource("GradientTexture1D_8g4oa")
 lifetime = 0.39
@@ -31,5 +31,4 @@ speed_scale = 0.7
 randomness = 0.59
 process_material = SubResource("ParticleProcessMaterial_q3lat")
 script = ExtResource("1_qpohs")
-character_body = NodePath("")
 metadata/_custom_type_script = "uid://biptjkmhp03lw"
